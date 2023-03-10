@@ -1,3 +1,4 @@
+
 # Cómo configurar el servicios de contabilidad y nómina
 
 Los componentes que contiene el repositorio [svr-se-contabilidad-nomina](https://github.com/Induxsoft/svr-se-contabilidad-nomina)
@@ -15,11 +16,42 @@ también las respuestas que hay entre la aplicación y el proveedor de servicios
 # Requisitos previos para Windows .Net framework
 * Tener instalado iis (Internet Information Services)
 	
-##Instalación del proveedor de servicios en iis
+## Instalación del proveedor de servicios en iis
 * Abrir iis
 * Crear un sitio
 	- Agregar Grupo de aplicación
-* Copiar los componentes de la carpeta /iis_handler/bin del repositorio [svr-se-contabilidad-nomina] a la carpeta física del grupo de aplicación
-* configurar el archivo paths.cfg (la configuración de este archivo es muy importante para el proveedor de servicios ya de ahí toma las rutas de configuración para su funcionamiento)
+* Copiar los componentes de la carpeta /iis_handler/bin del repositorio [svr-se-contabilidad-nomina],en una carpeta bin dentro de la carpeta física del grupo de aplicación
+* Copiar el archivo Services.ashx se encuentra en /iis_handler/bin del repositorio, en la carpeta física del grupo de aplicación
+* configurar el archivo paths.cfg (la configuración de este archivo es muy importante para el proveedor de servicios ya que de ahí toma las rutas de configuración para su funcionamiento)
+* Copiar los archivos de schemas que se encuentra en el repositorio a la carpeta física configurado en el archivo paths.cfg
+* Configurar el archivo server.devkron (en este archivo se le define la ubicación de los componentes del servicio de cada aplicación)
+
+# Ejemplo de invocación del servicio
+- http(s)://sitio/name_grupo_aplicacion/Services.ashx?app=myapp&db=mydb
 
 
+## Requisitos previos para Windows/Linux .Net5
+* Tener instalado un servidor web(nginx)
+* Tener Descargado devkron para .net5
+
+```Link de descarga para windows:```https://devkron.org/descargas/devkron-win-x64.zip 
+
+```Link de descarga para linux:```https://devkron.org/descargas/devkron-linux-x64.zip
+
+```Cómo configurar devkron con nginx```https://docs.induxsoft.net/es/devkron/Guias-paso-a-paso/nginx-fastcgi.md
+
+## Instalación del proveedor de servicios en Windows/Linux con devkron
+* Copiar los componentes de la carpeta /devkron_handler/bin del repositorio [svr-se-contabilidad-nomina] a la carpeta física donde se encuentra devkron
+* Colocar en la carpeta web del devkron el archivo svc-rpc-stp.dkl que se enceuntra en /devkron_handler/web del repositorio antes mencionado
+* Configurar el archivo paths.cfg (la configuración de este archivo es muy importante para el proveedor de servicios ya que de ahí toma las rutas de configuración para su funcionamiento)
+* Copiar los archivos de schemas que se encuentra en el repositorio a la carpeta física configurado en el archivo paths.cfg
+* Configurar el archivo server.devkron (en este archivo se le define la ubicación de los componentes del servicio de cada aplicación)
+
+# Ejemplo de invocación del servicio
+- http(s)://sitio/svc-rpc-stp.dk?app=myapp&db=mydb
+
+## Nota general
+```
+Debe tener presente que el archivo paths.cfg es sumamente importante para el proveedor de servicios ya que ahí se definen la ruta de los archivos de servicios que se va utilizar.
+También los diccionario de consultas que es fundamental.
+```
