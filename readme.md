@@ -22,9 +22,11 @@ también las respuestas que hay entre la aplicación y el proveedor de servicios
 	- Agregar Grupo de aplicación
 * Copiar los componentes de la carpeta /iis_handler/bin del repositorio [svr-se-contabilidad-nomina],en una carpeta bin dentro de la carpeta física del grupo de aplicación
 * Copiar el archivo Services.ashx se encuentra en /iis_handler/bin del repositorio, en la carpeta física del grupo de aplicación
+* Copiar todo de la carpeta configs y colocarlo junto a los componentes del proveedor de servicios
 * configurar el archivo paths.cfg (la configuración de este archivo es muy importante para el proveedor de servicios ya que de ahí toma las rutas de configuración para su funcionamiento)
 * Copiar los archivos de schemas que se encuentra en el repositorio a la carpeta física configurado en el archivo paths.cfg
 * Configurar el archivo server.devkron (en este archivo se le define la ubicación de los componentes del servicio de cada aplicación)
+* Configurar el archivo connections.xml para el proveedor de servicio puede acceder a la base de datos
 
 # Ejemplo de invocación del servicio
 - http(s)://sitio/name_grupo_aplicacion/Services.ashx?app=myapp&db=mydb
@@ -43,9 +45,11 @@ también las respuestas que hay entre la aplicación y el proveedor de servicios
 ## Instalación del proveedor de servicios en Windows/Linux con devkron
 * Copiar los componentes de la carpeta /devkron_handler/bin del repositorio [svr-se-contabilidad-nomina] a la carpeta física donde se encuentra devkron
 * Colocar en la carpeta web del devkron el archivo svc-rpc-stp.dkl que se enceuntra en /devkron_handler/web del repositorio antes mencionado
+* Copiar todo de la carpeta configs y colocarlo junto a los componentes del proveedor de servicios
 * Configurar el archivo paths.cfg (la configuración de este archivo es muy importante para el proveedor de servicios ya que de ahí toma las rutas de configuración para su funcionamiento)
 * Copiar los archivos de schemas que se encuentra en el repositorio a la carpeta física configurado en el archivo paths.cfg
 * Configurar el archivo server.devkron (en este archivo se le define la ubicación de los componentes del servicio de cada aplicación)
+* Configurar el archivo connections.xml para el proveedor de servicio puede acceder a la base de datos
 
 # Ejemplo de invocación del servicio
 - http(s)://sitio/svc-rpc-stp.dk?app=myapp&db=mydb
