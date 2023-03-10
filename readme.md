@@ -44,7 +44,7 @@ también las respuestas que hay entre la aplicación y el proveedor de servicios
 
 ## Instalación del proveedor de servicios en Windows/Linux con devkron
 * Copiar los componentes de la carpeta /devkron_handler/bin del repositorio [svr-se-contabilidad-nomina] a la carpeta física donde se encuentra devkron
-* Colocar en la carpeta web del devkron el archivo svc-rpc-stp.dkl que se enceuntra en /devkron_handler/web del repositorio antes mencionado
+* Colocar en la carpeta web del devkron el archivo svc-rpc-stp.dkl que se encuentra en /devkron_handler/web del repositorio antes mencionado
 * Copiar todo de la carpeta configs y colocarlo junto a los componentes del proveedor de servicios
 * Configurar el archivo paths.cfg (la configuración de este archivo es muy importante para el proveedor de servicios ya que de ahí toma las rutas de configuración para su funcionamiento)
 * Copiar los archivos de schemas que se encuentra en el repositorio a la carpeta física configurado en el archivo paths.cfg
