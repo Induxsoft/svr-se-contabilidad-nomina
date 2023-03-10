@@ -1,0 +1,7 @@
+﻿<?xml version="1.0"?>
+<servicePack xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="comprobante_complemento_Services" xmlns="http://dev.induxsoft.net/xsd/servicepack.xsd">
+  <service type="entityRequest" visibility="public" permission="" alias="requestcomprobante_complemento" />
+  <service type="insertRequest" visibility="public" permission="" alias="insertcomprobante_complemento" />
+  <service type="updateRequest" visibility="public" permission="" alias="updatecomprobante_complemento" />
+  <service type="deleteRequest" visibility="public" permission="" alias="deletecomprobante_complemento" />
+</servicePack>

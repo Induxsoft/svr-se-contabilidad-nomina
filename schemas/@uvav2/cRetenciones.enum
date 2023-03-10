@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<enum xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="cRetenciones" xmlns="http://dev.induxsoft.net/xsd/enum.xsd">
+  <Item value="1" text="Servicios profesionales" />
+  <Item value="2" text="Regalías por derechos de autor" />
+  <Item value="3" text="Autotransporte terrestre de carga" />
+  <Item value="4" text="Servicios prestados por comisionistas" />
+  <Item value="5" text="Arrendamiento" />
+  <Item value="6" text="Enajenación de acciones" />
+  <Item value="7" text="Enajenación de bienes objeto de la LIEPS, a través de mediadores, agentes, representantes" />
+  <Item value="8" text=" Enajenación de bienes inmuebles consignada en escritura pública" />
+  <Item value="9" text="Enajenación de otros bienes, no consignada en escritura pública" />
+  <Item value="10" text="Adquisición de desperdicios industriales" />
+  <Item value="11" text="Adquisición de bienes consignada en escritura pública" />
+  <Item value="12" text="Adquisición de otros bienes, no consignada en escritura pública" />
+  <Item value="13" text="Otros retiros de AFORE" />
+  <Item value="14" text="Dividendos o utilidades distribuidas" />
+  <Item value="15" text="Remanente distribuible." />
+  <Item value="16" text="Intereses." />
+  <Item value="17" text="Arrendamiento en fideicomiso." />
+  <Item value="18" text="Pagos realizados a favor de residentes en el extranjero" />
+  <Item value="19" text=" Enajenación de acciones u operaciones en bolsa de valores" />
+  <Item value="20" text="Obtención de premios." />
+  <Item value="21" text="Fideicomisos que no realizan actividades empresariales." />
+  <Item value="22" text="Planes personales de retiro." />
+  <Item value="23" text="Intereses reales deducibles por créditos hipotecarios" />
+  <Item value="24" text="Operaciones Financieras Derivadas de Capital" />
+  <Item value="25" text="Otro tipo de retenciones" />
+</enum>

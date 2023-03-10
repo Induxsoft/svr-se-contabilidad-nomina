@@ -1,0 +1,21 @@
+﻿<?xml version="1.0"?>
+<lxmd xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://dev.induxsoft.net/xsd/xde.xsd">
+  <entity name="ImpuestoRequerido" readonly="false">
+    <entity_description />
+    <field name="FK_ComprobanteRetenciones" required="false" unique="false" type="ComprobanteRetenciones" precision="0" scale="0" implementation="entityField" size="0" tablefield="FK_ComprobanteRetenciones">
+      <field_description />
+    </field>
+    <field name="MontoRetenido" required="false" unique="false" type="Decimal" precision="24" scale="6" size="0" tablefield="MontoRetenido">
+      <field_description />
+    </field>
+    <field name="iImpuestoRetenido" required="false" unique="false" type="@cImpuestoRetenido" precision="0" scale="0" size="0" tablefield="iImpuestoRetenido">
+      <field_description />
+    </field>
+    <field name="iTipoPagoRetenido" required="false" unique="false" type="@TipoPago" precision="0" scale="0" size="0" tablefield="iTipoPagoRetenido">
+      <field_description />
+    </field>
+    <field name="BaseImpuestoRetenido" required="false" unique="false" type="Decimal" precision="14" scale="4" size="0" tablefield="BaseImpuestoRetenido">
+      <field_description />
+    </field>
+  </entity>
+</lxmd>

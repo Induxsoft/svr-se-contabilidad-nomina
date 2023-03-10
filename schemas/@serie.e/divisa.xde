@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+<lxmd xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://dev.induxsoft.net/xsd/xde.xsd">
+  <entity name="divisa" readonly="false">
+    <entity_description>Contiene la informacion del tipo de moneda que se esta manejando</entity_description>
+    <field name="TCambio" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0" tablefield="TCambio">
+      <field_description>Tasa de cambio dependiendo la moneda seleccionada</field_description>
+    </field>
+    <field name="Descripcion" required="false" unique="false" type="String" precision="0" scale="0" size="30" tablefield="Descripcion">
+      <field_description>Muestra el tipo de moneda</field_description>
+    </field>
+    <field name="Codigo" required="false" unique="false" type="String" precision="0" scale="0" size="15" tablefield="Codigo">
+      <field_description>Contiene el codigo del  tipo de divisa</field_description>
+    </field>
+  </entity>
+</lxmd>

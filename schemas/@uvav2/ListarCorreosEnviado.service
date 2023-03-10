@@ -1,0 +1,5 @@
+﻿<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ListarCorreosEnviado" rem="" columns="sys_pk:Int,idperfil:String,idcorreo:String,sys_dtcreated:String,para_nombre:String,para_correo:String,mensaje:String,asunto:String,correo_abierto:Long,fechahora_apertura:String,usuario:String" parameters="p_uuid:String,p_Inicial:Date,p_Final:Date" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">call sp_ListarCorreosEnviado(@p_uuid,@p_Inicial,@p_Final);
+</sql>
+</queryDef>

@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ListaPolizaTodo" rem="" columns="Sys_PK:Int,fet:Int,Tipo:String,Fecha:DateTime,Concepto:String,Debe:Decimal,Haber:Decimal,Aplicada:Bool,Referencia:String,Auditada:Bool,Notas:String,fe:Int,fp:Int,fpt:Int,Periodo:Int" parameters="" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">SELECT qryPoliza.*, CPoliza.Periodo FROM qryPoliza INNER JOIN CPoliza ON qryPoliza.Sys_PK=CPoliza.Sys_PK;
+
+</sql>
+</queryDef>

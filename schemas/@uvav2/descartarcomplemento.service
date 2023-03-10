@@ -1,0 +1,2 @@
+﻿<?xml version="1.0"?>
+<netService xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="descartarcomplemento" rem="" permission="" assembly="5817D77C831C44E0883B48848EA3548C" namespace="induxsoftuva" class="cMain" method="descartarComplementoComprobante" parameters="id_complemento:String,pk_comprobante:Int" return="Bool" description="" xmlns="http://dev.induxsoft.net/xsd/netservice.xsd" />

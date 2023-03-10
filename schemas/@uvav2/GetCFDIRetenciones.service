@@ -1,0 +1,5 @@
+﻿<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="GetCFDIRetenciones" rem="Obtiene los CFDI de retenciones mediante el filtrado por fechas" columns="sys_pk:Int,uuid:String,rfc_emisor:String,nombre_emisor:String,Receptor:String,referencia:String,monto_operacion:Decimal,monto_gravado:Decimal,monto_retenido:Decimal,monto_excento:Decimal,Fecha:DateTime,Fecha_Cancelacion:DateTime,status_admin:Int" parameters="p_FechaInicial:DateTime,p_FechaFinal:DateTime,p_estatus:Int" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">call sp_GetCFDIRetenciones(@p_FechaInicial,@p_FechaFinal,@p_estatus)
+</sql>
+</queryDef>

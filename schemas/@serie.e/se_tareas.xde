@@ -1,0 +1,24 @@
+﻿<?xml version="1.0"?>
+<lxmd xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://dev.induxsoft.net/xsd/xde.xsd">
+  <entity name="se_tareas" readonly="false">
+    <entity_description />
+    <field name="usuario" required="true" unique="false" type="String" precision="0" scale="0" size="32">
+      <field_description />
+    </field>
+    <field name="descripcion" required="false" unique="false" type="String" precision="0" scale="0" size="1024">
+      <field_description />
+    </field>
+    <field name="prog_porcentual" required="false" unique="false" type="Decimal" precision="7" scale="2" size="50">
+      <field_description />
+    </field>
+    <field name="prog_contador" required="false" unique="false" type="Int" precision="0" scale="0" size="0">
+      <field_description />
+    </field>
+    <field name="status" required="true" unique="false" type="@se_status_tareas" precision="0" scale="0" size="0">
+      <field_description />
+    </field>
+    <field name="informacion" required="false" unique="false" type="String" precision="0" scale="0" size="4086">
+      <field_description />
+    </field>
+  </entity>
+</lxmd>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="GetRelacionadosComPagov01" rem="" columns="UUID:String,RFCReceptor:String,NombreReceptor:String,Emision:datetime" parameters="rfc_receptor:String" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">
+SELECT DISTINCT
+    uuid AS UUID, Nombre_Receptor AS NombreReceptor, RFC_Receptor AS RFCReceptor, Emision AS Emision
+FROM
+    ts_cfdi ts
+WHERE
+    ts.cancelacion IS NOT NULL
+        AND rfc_receptor = @rfc_receptor ORDER BY sys_dtcreated desc;
+  </sql>
+</queryDef>

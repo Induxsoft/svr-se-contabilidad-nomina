@@ -1,0 +1,69 @@
+#include "dkli.dkh"
+#!
+module "gernerar archivo "
+{
+	#include "functions.dkh"
+	#include "dbr.dkh"
+	#include "serialize.dkh"
+	#include "website.dkl"
+
+
+	new response
+	{
+		@"success":@false
+	}
+	
+	ref getData=@@(@http_context,"&request/get")
+	
+	ref db=openDB(getData,@true)
+
+	sql="SELECT CONCAT(e.nombre,' ',e.apellido1,' ',e.apellido2)nombrefiscal,e.rfc,coalesce(e.sat_cp,'')codpos FROM rh_empleado_org e;"
+
+ 	ref data_client=dbr.list(db,sql,@null)
+ 	
+ 	clientes=""
+ 	cont=0
+ 	for i=0;i<list.count(data_client)
+ 	{
+ 		ref data=list.obj(data_client,i)
+
+ 		d_rfc=@@(data,"rfc")
+ 		namef=@@(data,"nombrefiscal")
+ 		cp=@@(data,"codpos")
+
+ 		if d_rfc!="" && namef !="" && cp !=""
+ 		{
+ 			cont=cont+1
+ 			clientes=clientes+str(cont)+"|"+d_rfc+"|"+namef+"|"+cp+"\r\n"
+ 		}
+ 	}
+ 	path=path.concat(@temp_path,@@(getData,"$db")+"_RFC'S para validar.txt")
+ 	do file.wtext(path,clientes)
+ 	if dbr.is_open(db){do dbr.close(db)}
+ 	using response
+	{
+		@"success":@true
+		@"data":path
+	}
+
+ 	exception
+ 	{
+ 		using response
+		{
+			@"success":@false
+			@"message":last_error()
+		}
+
+		@http_context<"response/output">:"text"
+	    @http_context<"response/headers/Content-Type">:"text/plain;charset=utf-8"
+	    @http_context<"response/text">: to.json(response)
+	    return
+ 	}
+ 	
+
+    @http_context<"response/headers/content-type">:"text/plain;charset=utf-8"
+    @http_context<"response/headers/content-disposition">: "attachment; filename="+file.name(path)+""
+    @http_context<"response/output">:"binary"
+    @http_context<"response/binary*">: file.rbytes(path) 
+     if file.exists(path){do file.delete(path)}
+}

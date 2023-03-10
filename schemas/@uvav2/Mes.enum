@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<enum xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="Mes" xmlns="http://dev.induxsoft.net/xsd/enum.xsd">
+  <Item value="1" text="Enero" />
+  <Item value="2" text="Febrero" />
+  <Item value="3" text="Marzo" />
+  <Item value="4" text="Abril" />
+  <Item value="5" text="Mayo" />
+  <Item value="6" text="Junio" />
+  <Item value="7" text="Julio" />
+  <Item value="8" text="Agosto" />
+  <Item value="9" text="Septiembre" />
+  <Item value="10" text="Octubre" />
+  <Item value="12" text="Diciembre" />
+  <Item value="11" text="Noviembre" />
+</enum>

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ListImpLocales" rem="Lista los impuestos locales definidos en un comprobante." columns="sys_pk:Int,sys_guid:String,nombre:String,Tasa:Decimal,Importe:Decimal,Traslado:Bool" parameters="pkComprobante:Int" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">select sys_pk, sys_guid, nombre, Tasa, Importe,Traslado FROM ImpLocales where FKComprobante = @pkComprobante;
+
+
+
+</sql>
+</queryDef>

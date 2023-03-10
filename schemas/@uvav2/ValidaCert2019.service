@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<netService xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ValidaCert2019" rem="" permission="" assembly="5817D77C831C44E0883B48848EA35482" namespace="induxsoft.pre_create.fdsk" class="Class1" method="ValidaCert" parameters="p_cer:String,p_key:String,p_contrasena:String" return="Bool" description="" xmlns="http://dev.induxsoft.net/xsd/netservice.xsd" />

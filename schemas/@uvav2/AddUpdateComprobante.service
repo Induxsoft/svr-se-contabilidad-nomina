@@ -1,0 +1,32 @@
+﻿<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="AddUpdateComprobante" rem="Insertar y actualizar tabla ComprobantePago" columns="PK:Long,Message:String" parameters="pkcomprobante:Int,p_fechaPago:DateTime,p_formaDePago:String,p_IDivisa:Int,p_TipoCambio:Decimal,p_NumOperacion:String,p_RFCEmisorCtaOrd:String,p_NomBancoOrdExt:String,p_CtaOrdenante:String,p_RFCEmisorCtaBen:String,p_CtaBeneficiario:String,p_TipoCadPago:String,p_CertPago:String,p_CadPago:String,p_SelloPago:String,p_fkCliente:Int,p_fkBlockDocumentos:Int,p_Folio:Int,p_domicilio:Int" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">CALL sp_AddUpdateComprobante(@pkcomprobante,@p_fechaPago, @p_formaDePago, @p_IDivisa, @p_TipoCambio,@p_NumOperacion, @p_RFCEmisorCtaOrd, @p_NomBancoOrdExt, @p_CtaOrdenante, @p_RFCEmisorCtaBen,@p_CtaBeneficiario, @p_TipoCadPago,@p_CertPago, @p_CadPago, @p_SelloPago, @p_fkCliente, @p_fkBlockDocumentos, @p_Folio, @p_domicilio);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</sql>
+</queryDef>

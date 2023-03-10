@@ -1,0 +1,196 @@
+﻿<?xml version="1.0"?>
+<lxmd xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://dev.induxsoft.net/xsd/xde.xsd">
+  <entity name="ccontable" readonly="false">
+    <entity_description />
+    <field name="APAC" required="false" unique="false" type="Bool" precision="0" scale="0" size="0" tablefield="APAC">
+      <field_description />
+    </field>
+    <field name="Codigo" required="true" unique="true" type="String" precision="0" scale="0" size="35" tablefield="Codigo">
+      <field_description />
+    </field>
+    <field name="Descripcion" required="true" unique="false" type="String" precision="0" scale="0" size="350" tablefield="Descripcion">
+      <field_description />
+    </field>
+    <field name="P_Anual" required="false" unique="false" type="Decimal" precision="26" scale="8" size="0" tablefield="P_Anual">
+      <field_description />
+    </field>
+    <field name="P01" required="false" unique="false" type="Decimal" precision="26" scale="8" size="50" tablefield="P01">
+      <field_description />
+    </field>
+    <field name="P02" required="false" unique="false" type="Decimal" precision="26" scale="8" size="0" tablefield="P02">
+      <field_description />
+    </field>
+    <field name="P03" required="false" unique="false" type="Decimal" precision="26" scale="8" size="0" tablefield="P03">
+      <field_description />
+    </field>
+    <field name="P04" required="false" unique="false" type="Decimal" precision="26" scale="8" size="0" tablefield="P04">
+      <field_description />
+    </field>
+    <field name="P05" required="false" unique="false" type="Decimal" precision="26" scale="8" size="0" tablefield="P05">
+      <field_description />
+    </field>
+    <field name="P06" required="false" unique="false" type="Decimal" precision="26" scale="8" size="0" tablefield="P06">
+      <field_description />
+    </field>
+    <field name="P07" required="false" unique="false" type="Decimal" precision="26" scale="8" size="0" tablefield="P07">
+      <field_description />
+    </field>
+    <field name="P08" required="false" unique="false" type="Decimal" precision="26" scale="8" size="0" tablefield="P08">
+      <field_description />
+    </field>
+    <field name="P09" required="false" unique="false" type="Decimal" precision="26" scale="8" size="0" tablefield="P09">
+      <field_description />
+    </field>
+    <field name="P10" required="false" unique="false" type="Decimal" precision="26" scale="8" size="0" tablefield="P10">
+      <field_description />
+    </field>
+    <field name="P11" required="false" unique="false" type="Decimal" precision="26" scale="8" size="0" tablefield="P11">
+      <field_description />
+    </field>
+    <field name="P12" required="false" unique="false" type="Decimal" precision="26" scale="8" size="0" tablefield="P12">
+      <field_description />
+    </field>
+    <field name="SInicial" required="false" unique="false" type="Decimal" precision="26" scale="8" size="0" tablefield="SInicial">
+      <field_description />
+    </field>
+    <field name="IDivisa" required="false" unique="false" type="divisa" precision="0" scale="0" implementation="entityField" size="0" tablefield="IDivisa">
+      <field_description />
+    </field>
+    <field name="Detalle" required="false" unique="false" type="Bool" precision="0" scale="0" size="0" tablefield="Detalle">
+      <field_description />
+    </field>
+    <field name="Departamental" required="false" unique="false" type="Bool" precision="0" scale="0" size="0" tablefield="Departamental">
+      <field_description />
+    </field>
+    <field name="Contrapartida" required="false" unique="false" type="ccontable" precision="0" scale="0" implementation="entityField" size="0" tablefield="Contrapartida">
+      <field_description />
+    </field>
+    <field name="ICuenta" required="false" unique="false" type="ccontable" precision="0" scale="0" implementation="entityField" size="0" tablefield="ICuenta">
+      <field_description />
+    </field>
+    <field name="Tipo" required="false" unique="false" type="Int" precision="0" scale="0" size="0" tablefield="Tipo">
+      <field_description />
+    </field>
+    <field name="SFinal" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="SFinal">
+      <field_description />
+    </field>
+    <field name="S12" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="S12">
+      <field_description />
+    </field>
+    <field name="S11" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="S11">
+      <field_description />
+    </field>
+    <field name="S10" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="S10">
+      <field_description />
+    </field>
+    <field name="S09" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="S09">
+      <field_description />
+    </field>
+    <field name="S08" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="S08">
+      <field_description />
+    </field>
+    <field name="S07" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="S07">
+      <field_description />
+    </field>
+    <field name="S06" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="S06">
+      <field_description />
+    </field>
+    <field name="S05" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="S05">
+      <field_description />
+    </field>
+    <field name="S04" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="S04">
+      <field_description />
+    </field>
+    <field name="S03" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="S03">
+      <field_description />
+    </field>
+    <field name="S02" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="S02">
+      <field_description />
+    </field>
+    <field name="S01" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="S01">
+      <field_description />
+    </field>
+    <field name="HFinal" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="HFinal">
+      <field_description />
+    </field>
+    <field name="H12" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="H12">
+      <field_description />
+    </field>
+    <field name="H11" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="H11">
+      <field_description />
+    </field>
+    <field name="H10" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="H10">
+      <field_description />
+    </field>
+    <field name="H09" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="H09">
+      <field_description />
+    </field>
+    <field name="H08" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="H08">
+      <field_description />
+    </field>
+    <field name="H07" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="H07">
+      <field_description />
+    </field>
+    <field name="H06" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="H06">
+      <field_description />
+    </field>
+    <field name="H05" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="H05">
+      <field_description />
+    </field>
+    <field name="H04" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="H04">
+      <field_description />
+    </field>
+    <field name="H03" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="H03">
+      <field_description />
+    </field>
+    <field name="H02" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="H02">
+      <field_description />
+    </field>
+    <field name="H01" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="H01">
+      <field_description />
+    </field>
+    <field name="DFinal" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="DFinal">
+      <field_description />
+    </field>
+    <field name="D12" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="D12">
+      <field_description />
+    </field>
+    <field name="D11" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="D11">
+      <field_description />
+    </field>
+    <field name="D10" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="D10">
+      <field_description />
+    </field>
+    <field name="D09" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="D09">
+      <field_description />
+    </field>
+    <field name="D08" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="D08">
+      <field_description />
+    </field>
+    <field name="D07" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="D07">
+      <field_description />
+    </field>
+    <field name="D06" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="D06">
+      <field_description />
+    </field>
+    <field name="D05" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="D05">
+      <field_description />
+    </field>
+    <field name="D04" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="D04">
+      <field_description />
+    </field>
+    <field name="D03" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="D03">
+      <field_description />
+    </field>
+    <field name="D02" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="D02">
+      <field_description />
+    </field>
+    <field name="D01" required="false" unique="false" readonly="true" type="Decimal" precision="26" scale="8" size="0" tablefield="D01">
+      <field_description />
+    </field>
+    <field name="uf_sat_codigo" required="false" unique="false" type="Int" precision="0" scale="0" size="0" tablefield="uf_sat_codigo">
+      <field_description />
+    </field>
+    <index name="idx_486DE0A68FCD43D49ABD7E5F7AFA1863" fields="Codigo" unique="true" />
+  </entity>
+</lxmd>

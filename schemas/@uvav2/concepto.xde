@@ -1,0 +1,52 @@
+﻿<?xml version="1.0"?>
+<lxmd xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://dev.induxsoft.net/xsd/xde.xsd">
+  <entity name="concepto" readonly="false">
+    <entity_description>Almacena los conceptos disponibles para un comprobante fiscal digital.</entity_description>
+    <field name="codigo" required="false" unique="true" type="String" precision="0" scale="0" size="15" tablefield="codigo">
+      <field_description>El código de identificación del concepto.</field_description>
+    </field>
+    <field name="descripcion" required="true" unique="false" type="String" precision="0" scale="0" size="35000">
+      <field_description>Almacena la descripción del concepto</field_description>
+    </field>
+    <field name="porcentaje_iva" required="true" unique="false" type="Decimal" precision="19" scale="8" size="0">
+      <field_description>Almacena el porcentaje de iva que se aplicacará al concepto.</field_description>
+    </field>
+    <field name="porcentaje_ieps" required="false" unique="false" type="Decimal" precision="19" scale="8" size="0" tablefield="porcentaje_ieps">
+      <field_description>Almacena el porcentaje de IEPS que se aplicará al concepto.</field_description>
+    </field>
+    <field name="notas" required="false" unique="false" type="String" precision="0" scale="0" size="32000">
+      <field_description>Almacena las notas de un concepto para un comprobante.</field_description>
+    </field>
+    <field name="precio" required="false" unique="false" type="Decimal" precision="19" scale="8" size="0">
+      <field_description>Almacena el precio del concepto.</field_description>
+    </field>
+    <field name="unidad" required="false" unique="false" type="String" precision="0" scale="0" size="15">
+      <field_description>Almacena la unidad del concepto</field_description>
+    </field>
+    <field name="ieps_despues_iva" required="false" unique="false" type="Bool" precision="0" scale="0" size="0">
+      <field_description />
+    </field>
+    <field name="claveproductosat" required="false" unique="false" type="String" precision="0" scale="0" size="9" tablefield="claveproductosat">
+      <field_description>Clave del catalogo del SAT del producto o servicio</field_description>
+    </field>
+    <field name="claveunidadsat" required="false" unique="false" type="String" precision="0" scale="0" size="9">
+      <field_description>Clave proveniente del catálogo de unidades del SAT</field_description>
+    </field>
+    <field name="aplicaretencion" required="false" unique="false" type="Bool" precision="0" scale="0" size="0">
+      <field_description>Campo de tipo booleano que nos indicara si este concepto presentara retenciones de IVA</field_description>
+    </field>
+    <field name="porcentaje_ivaretencion" required="false" unique="false" type="Decimal" precision="8" scale="6" size="0">
+      <field_description>porcentaje del impuesto IVA a retener</field_description>
+    </field>
+    <field name="porcentaje_iepsretencion" required="false" unique="false" type="Decimal" precision="8" scale="6" size="50">
+      <field_description>Porcentaje del impuesto IEPS que se retendrá</field_description>
+    </field>
+    <field name="exentoiva" required="false" unique="false" type="Bool" precision="0" scale="0" size="0">
+      <field_description>Campo de tipo booleano qque indica que el concepto será o no excento de impuestos</field_description>
+    </field>
+    <field name="ieps_cuota" required="false" unique="false" type="Bool" precision="0" scale="0" size="0">
+      <field_description>Campo de tipo booleano que indica si el ieps es calculado en base a una tasa o a una cuota.</field_description>
+    </field>
+    <index name="idx_3B9CB85474B348C8BD06E369EB8249F2" fields="codigo" unique="true" />
+  </entity>
+</lxmd>

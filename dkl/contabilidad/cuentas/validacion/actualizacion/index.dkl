@@ -1,0 +1,55 @@
+﻿#include "dkli.dkh"
+#!
+module "actualizacion"
+{
+	#include "functions.dkh"
+	#include "dbr.dkh"
+	#include "serialize.dkh"
+	#include "website.dkl"
+
+	go api_base_service(responseJSONdata:response)
+	{
+		ref getData=@@(@http_context,"&request/get")
+		ref postData=from.json(@@(@http_context,"request/post_string"))
+		
+		 ref db=openDB(getData,@true)
+
+		  ref datos=@@(postData,"&datos")
+		  new params{@"cuenta":@@(postData,"cuenta")}
+
+		 if dbr.num(db,"SELECT ifnull(cc.Detalle,0) FROM ccontable cc WHERE cc.sys_pk=@padre",datos)
+		 {
+		 	do rise_error(99,"No es una cuenta acumulativa.")
+		 }
+
+		 if dbr.num(db,"SELECT COUNT(*) FROM ccontable cc WHERE cc.ICuenta=@cuenta",params)>0 && @@(datos,"#detalle")
+		 {
+		 	do rise_error(99,"No puede cambiarse una cuenta de acumulativa a detalle con subcuentas.")
+		 }
+
+		 sql="SELECT COUNT(*) FROM cdpoliza c INNER JOIN cpoliza p ON c.FK_Cpoliza_Detalle=p.sys_pk WHERE icuenta=@cuenta AND ifnull(p.Aplicada,0) ;"
+	 	 
+		 if dbr.num(db,sql,params)>0 && not(@@(datos,"#detalle"))
+		 {
+		 	do rise_error(99,"No puede cambiarse una cuenta de detalle a acumulativa si hay pólizas aplicadas que la afectan")
+		 }
+	 	 if dbr.is_open(db){do dbr.close(db)}
+
+	 	using response
+		{
+			@"success":@true
+			@"data":@null
+		}
+
+	 	exception
+	 	{
+	 		using response
+			{
+				@"success":@false
+				@"message":last_error()
+			}
+			if dbr.is_open(db){do dbr.close(db)}
+	 	}
+	}
+ 	
+}

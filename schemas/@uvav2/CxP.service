@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="CxP" rem="" columns="RFC:String, Nombre:String,MetodoPago:String,Ventas:Decimal,NCredito:Decimal,Pagos:Decimal,Saldo:Decimal" parameters="rfc_emisor:String" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">select * from (Select rfc_emisor as RFC, nombre_emisor as Nombre , MetodoPago,
+sum(if (tipo=0,total,0)) as Ventas,
+(select sum(ifnull(total,0)) from ts_cfdi where (UsoCFDI='G02' and tipo=1) and not rfc_emisor = @rfc_emisor)  as NCredito ,
+IFNULL(sum(ImpPagado),0) as Pagos, sum(total) - ifnull(SUM(ImpPagado),0)-(select sum(ifnull(total,0)) from ts_cfdi where (UsoCFDI='G02' and tipo=1) and not rfc_emisor = @rfc_emisor) as Saldo from ts_cfdi
+left join ts_rel_pago on ts_cfdi.uuid=ts_rel_pago.IdDocumento where ((MetodoPago='PPD' and Tipo=0) or (UsoCFDI='G02' and tipo=1)) and not rfc_emisor = @rfc_emisor
+ and not MetodoPago='PUE' and cancelacion is null group by rfc_emisor, MetodoPago) as consulta where Saldo > 0 order by Saldo desc;</sql>
+</queryDef>

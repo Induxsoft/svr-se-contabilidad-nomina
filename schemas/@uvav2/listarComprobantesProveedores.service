@@ -1,0 +1,6 @@
+﻿<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="listarComprobantesProveedores" rem="" columns="sys_pk:Int,uuid:String,emisor:String,receptor:String,emision:String,certificacion:String,cancelado:Int,cancelacion:String,subtotal:String,descuentos:String,retenciones:String,traslados:String,total:String,divisa:String,cuenta:Int,referencia:String,fecha_eliminacion:DateTime,tipo:String,color:String,referencia1:String,statusAdmon:String,rfc_emisor:String" parameters="p_rfc:String,p_RFCProveedor:String,p_Inicial:Date,p_Final:Date,p_status:Int" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">call sp_listarComprobantesProveedores(@p_rfc,@p_RFCProveedor,@p_Inicial,@p_Final,@p_status);
+
+</sql>
+</queryDef>

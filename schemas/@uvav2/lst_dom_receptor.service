@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="lst_dom_receptor" rem="Lista los domicilios de expedición del emisor actual." columns="sys_pk:Int,direccion:String,colonia:String,codpos:String,localidad:String,municipio:String,estado:String,pais:String" parameters="p_rfc:String" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">  
+SELECT df.sys_pk, CONCAT(df.calle,' ',df.numext,' ',df.numint) direccion, df.colonia,df.codpos, df.localidad, m.nombre municipio, e.nombre estado, p.nombre pais FROM domicilio_fiscal df INNER JOIN municipio m ON df.municipio = m.sys_pk INNER JOIN estado e ON m.estado = e.sys_pk inner join pais p  on e.ipais=p.sys_pk inner join cliente cl on df.icliente=cl.sys_pk WHERE IFNULL(df.sys_deleted,0) = 0 and IFNULL(cl.sys_deleted,0) = 0 and cl.rfc=@p_rfc;
+  </sql>
+</queryDef>

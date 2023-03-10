@@ -1,0 +1,4 @@
+﻿<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="TotalMotosClientes" rem="" columns="subtotal:String,descuentos:String,retenciones:String,traslados:String,total:String" parameters="p_rfc:String,p_rfcCliente:String,p_Inicial:Date,p_Final:Date" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">call sp_TotalMotosClientes(@p_rfc,@p_rfcCliente,@p_Inicial,@p_Final)</sql>
+</queryDef>

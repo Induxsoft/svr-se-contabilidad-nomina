@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="CXC_EdoPago" rem="" columns="uuid:String,Serie:String,Folio:String,Parcialidad:String,Saldo:decimal,Divisa:String,TipoCambio:decimal" parameters="rfc_receptor:String" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">
+ SELECT 
+    ts_cfdi.rfc_receptor,
+    ts_cfdi.uuid AS UUID,
+    ifnull(c.folio,substring(ts_cfdi.referencia,2)) AS Folio,
+    ifnull(BlockDocumentos.serie,left(ts_cfdi.referencia,1)) AS Serie,
+    IFNULL((SELECT 
+                    count(ImpPagado)
+                FROM
+                    ts_rel_pago
+                        LEFT JOIN
+                    ts_cfdi tPago ON ts_rel_pago.IdPago = tPago.uuid
+                WHERE
+                    IdDocumento = ts_cfdi.uuid
+                        AND tPago.cancelacion IS NULL),
+            0) + 1 AS Parcialidad,
+    Round((ts_cfdi.total) - (IFNULL((SELECT 
+                    SUM(ImpPagado)
+                FROM
+                    ts_rel_pago
+                        LEFT JOIN
+                    ts_cfdi tPago ON ts_rel_pago.IdPago = tPago.uuid
+                WHERE
+                    IdDocumento = ts_cfdi.uuid
+                        AND tPago.cancelacion IS NULL),
+            0) + ifnull(notasnc.ImpAplicado,0)),6) AS Saldo,
+    ts_cfdi.divisa AS Divisa,
+    ts_cfdi.TipoCambio
+FROM
+    ts_cfdi
+        LEFT JOIN
+    ts_rel_pago ON ts_cfdi.uuid = ts_rel_pago.IdDocumento
+        LEFT JOIN
+    comprobante c ON ts_cfdi.uuid = c.uuid
+        LEFT JOIN
+    BlockDocumentos ON c.BlockDocumento = BlockDocumentos.sys_pk
+        LEFT JOIN
+    ts_cfdi tPago ON ts_rel_pago.IdPago = tPago.uuid
+		LEFT JOIN ( SELECT IdDocumento,sum(ImpAplicado) as ImpAplicado  
+					FROM ts_rel_fac
+						LEFT JOIN ts_cfdi ON ts_rel_fac.idDocumentoNc = ts_cfdi.uuid
+					WHERE ImpAplicado > 0 AND ts_cfdi.cancelacion IS NULL group by IdDocumento) 
+	notasnc on notasnc.idDocumento = ts_cfdi.uuid
+WHERE
+    ((ts_cfdi.MetodoPago = 'PPD'
+        AND ts_cfdi.Tipo = 0)
+        OR (ts_cfdi.UsoCFDI = 'G02'
+        AND (ts_cfdi.TipoRelacionCFDIPrevios = '01'
+        OR ts_cfdi.TipoRelacionCFDIPrevios = '02')
+        AND ts_cfdi.tipo = 1))
+        AND ts_cfdi.rfc_receptor = @rfc_receptor
+        AND NOT ts_cfdi.MetodoPago = 'PUE'
+        AND ts_cfdi.cancelacion IS NULL
+GROUP BY ts_cfdi.uuid
+HAVING Saldo > 0
+ORDER BY ts_cfdi.sys_pk DESC;
+  </sql>
+</queryDef>

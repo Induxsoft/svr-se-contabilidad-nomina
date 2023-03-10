@@ -1,0 +1,37 @@
+﻿<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ConceptoCuentaContable" rem="" columns="importe:Decimal,codigo:String,concepto_descripcion:String,sat_clave:String,cuenta_contable:String,descripcion:String,tipo:Int,naturaleza:String,tipo_cambio:Decimal,uuid:String,ftimbrado:DateTime" parameters="nominapk:Int,empleadopk:Int" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">SELECT 
+	dnc.importe,
+	c.codigo,
+	concat(c.descripcion, " [", e.nombre, " ", e.apellido1, " ", e.apellido2,"]") concepto_descripcion,
+    c.sat_clave,
+    c.cuenta_contable,
+    cc.Descripcion descripcion,
+    cc.tipo,
+    if(cc.tipo = 0, 'Deudora', if(cc.tipo = 1, 'Acreedora', null)) naturaleza,
+    di.TCambio tipo_cambio,
+	cfd.uuid,
+    cfd.ftimbrado
+FROM
+    rh_nomina n
+        INNER JOIN
+    rh_detalle_nomina dn ON n.sys_pk = dn.ref_nomina
+    INNER JOIN
+	rh_detalle_nomina_concepto dnc ON dn.sys_pk = dnc.ref_detalle_nomina
+    INNER JOIN
+	rh_concepto_nomina c ON dnc.ref_concepto = c.sys_pk
+    LEFT JOIN
+	ccontable cc ON c.cuenta_contable = cc.Codigo
+    LEFT JOIN
+    divisa di ON cc.IDivisa = di.sys_pk
+    INNER JOIN
+    rh_contrato_empleado ce ON dn.ref_contrato = ce.sys_pk
+    INNER JOIN
+    rh_empleado_org e ON ce.ref_empleado = e.sys_pk
+	INNER JOIN
+    rh_cfdi cfd ON dn.sys_pk = cfd.ref_detalle_nomina
+WHERE
+    n.sys_pk = @nominapk and cuenta_contable is not null and cuenta_contable &lt;&gt; '' and dnc.importe &lt;&gt; 0 and cfd.uuid is not null and cfd.cancelado is null;
+
+</sql>
+</queryDef>

@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="BalanceGeneral" rem="" columns="Codigo:String,Descripcion:String,Rubro:String,SFinal:Decimal" parameters="" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">Select cc.Codigo, cc.Descripcion, r.Descripcion Rubro, cc.SFinal from ccontable cc inner join ccontable_crubro_  cr on cr.cuentas = cc.sys_pk inner join crubro r on cr.rubros = r.sys_pk group by cc.Descripcion ORDER BY cc.codigo;
+</sql>
+</queryDef>

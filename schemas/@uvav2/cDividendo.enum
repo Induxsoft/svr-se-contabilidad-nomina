@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<enum xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="cDividendo" xmlns="http://dev.induxsoft.net/xsd/enum.xsd">
+  <Item value="1" text="Proviene de CUFIN" />
+  <Item value="2" text="No proviene de CUFIN" />
+  <Item value="3" text="Reembolso o reducción de capital" />
+  <Item value="4" text="Liquidación de la persona moral" />
+  <Item value="5" text="CUFINRE" />
+  <Item value="6" text="Proviene de CUFIN al 31 de diciembre 2013." />
+</enum>

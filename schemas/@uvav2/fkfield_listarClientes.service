@@ -1,0 +1,4 @@
+﻿<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="fkfield_listarClientes" rem="Lista los clientes, realizado para utilizarse en un FK_Field." columns="sys_pk:Int,codigo:String,contacto:String,curp:String,email:String,fax:String,nombrecomercial:String,nombrefiscal:String,rfc:String,telefono:String" parameters="param:String" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">CALL fkfield_listarClientes(@param);</sql>
+</queryDef>

@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="CxC_EdoCuenta_Movs" rem="" columns="sys_pk:Int,IdDocumentoNc:String,saldo:decimal,aplicar:double" parameters="IdDocumentoNc:String" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">
+      select fact.sys_pk as sys_pk, fact.IdDocumento as IdDocumento, nc.saldo as saldo, 0.0 as aplicar from ts_rel_fac fact inner join ts_rel_nc nc on nc.IdDocumentoNc = fact.IdDocumentoNc where fact.IdDocumentoNc = @IdDocumentoNc;
+        </sql>
+</queryDef>

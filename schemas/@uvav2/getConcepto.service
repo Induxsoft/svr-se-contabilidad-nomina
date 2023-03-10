@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="getConcepto" rem="" 
+columns="sys_pk:Int,codigo:String,descripcion:String,precio:Decimal,unidad:String,sat_producto:String,sat_unidad:String,t_iva:Decimal, t_ieps:Decimal,iepsnoiva:Bool,r_iva:Decimal,r_isr:Decimal,exentoiva:Bool,ieps_cuota:Bool" parameters="pCodigo:String" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">SELECT sys_pk, codigo, descripcion, precio, unidad, claveproductosat sat_producto, claveunidadsat sat_unidad, porcentaje_iva t_iva,porcentaje_ieps t_ieps,ieps_despues_iva iepsnoiva, porcentaje_ivaretencion r_iva, porcentaje_iepsretencion r_isr, exentoiva,ieps_cuota FROM concepto 
+    WHERE codigo=@pCodigo AND IFNULL(sys_deleted,0) = 0 order by descripcion;</sql>
+</queryDef>

@@ -1,0 +1,57 @@
+#include "dkli.dkh"
+#!
+module "test"
+{
+	#include "functions.dkh"
+	#include "serialize.dkh"
+	#include "dbr.dkh"
+
+	name_dll="induxsoft.ReXBack.ServicesProvider.dll"
+	ref @lib_service=_import_library(name_dll)
+
+	do _map_function(@lib_service,"induxsoft.ReXBack.ServicesProvider.dkl_bridge","invoke","service","System.String,*System.Object","$")
+
+	#!
+	current_url::
+	{
+		host=@@(@http_context,"request/headers/HTTP_HOST")
+		protocol=ifstr(parse.bool(@@(@http_context,"request/headers/HTTPS")),"https","http")
+		path=replace(field.dstr(@http_context,"request/headers/request_uri","/"),"\\","/")
+		
+		path=list.str(split(path,"?"),0)
+
+		return protocol+"://"+path.concat(host,path)
+	}
+
+	#!
+	copyRecord::&from, &to
+	{
+		if isnull(from){return}
+
+		ref fields=list.create_from_fields(from)
+		for i=0;i<@count(fields)
+		{
+			lg=list.str(fields,i)
+			to<lg>:@@(from,lg)
+		}
+	}
+
+	
+
+	url=current_url()
+	
+	new p {}
+	do copyRecord(@@(@http_context,"&request/get"),p)
+	do copyRecord(@@(@http_context,"&request/post"),p)
+	
+	res=service(url,p)
+
+	exception
+	{
+		res=last_error()
+	}
+
+	@http_context<"response/headers/Content-Type">:"application/json;charset=utf-8"
+    @http_context<"response/output">:"text"
+    @http_context<"response/text">:res
+}

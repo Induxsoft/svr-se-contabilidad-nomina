@@ -1,0 +1,13 @@
+﻿<?xml version="1.0"?>
+<lxmd xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://dev.induxsoft.net/xsd/xde.xsd">
+  <entity name="relationshipCFDI" readonly="false">
+    <entity_description>Entidad que contiene la relacion entre CFDI y un nuevo comprobante</entity_description>
+    <field name="ICFDI" required="true" unique="false" type="Int" precision="0" scale="0" size="0" tablefield="ICFDI">
+      <field_description>Clave foranea del comprobante CFDI que se esta relacionando a un nuevo comprobante fiscal</field_description>
+    </field>
+    <field name="IComprobante" required="true" unique="false" type="comprobante" precision="0" scale="0" implementation="entityField" size="0" tablefield="IComprobante">
+      <field_description>Representa el comprobante que se esta generando</field_description>
+    </field>
+    <index name="idx_2B56C028CA4A486BAB6D47FD043549B7" fields="ICFDI,IComprobante" unique="true" />
+  </entity>
+</lxmd>

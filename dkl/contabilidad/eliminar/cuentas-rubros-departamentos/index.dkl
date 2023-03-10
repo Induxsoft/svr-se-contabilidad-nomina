@@ -1,0 +1,31 @@
+#include "dkli.dkh"
+#!
+program "Eliminar Cuentas, Rubros, Departamentos y Polizas"
+{
+    #include "functions.dkh"
+	#include "dbr.dkh"
+	#include "serialize.dkh"
+    #include "website.dkl"
+    #include "linux-fixes.dkh"
+
+    go api_base_service (responseJSONdata:response)
+    {
+        ref params=@@(@http_context, "&request/get")
+		if isnull(params){do rise_error(99,"Párametros incompletos.")}
+
+        ref db = openDB(params,@true)
+        
+        do reset_tables(db, params)
+        
+        response<"data*">:@null
+
+        exception
+		{
+			using response
+			{
+				@"success":@false
+				@"message":last_error()
+			}
+		}
+    }
+}

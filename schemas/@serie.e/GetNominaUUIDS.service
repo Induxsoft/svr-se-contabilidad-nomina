@@ -1,0 +1,4 @@
+﻿<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="GetNominaUUIDS" rem="" columns="uuid:String" parameters="pkNomina:Int" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">select cf.uuid from rh_cfdi cf inner join rh_detalle_nomina dn on cf.ref_detalle_nomina = dn.sys_pk inner join rh_nomina n on dn.ref_nomina = n.sys_pk where n.sys_pk=@pkNomina; </sql>
+</queryDef>

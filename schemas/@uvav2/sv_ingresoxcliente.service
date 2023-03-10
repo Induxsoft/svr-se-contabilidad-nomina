@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="sv_ingresoxcliente" rem="" columns="divisa:String,a_o:Int,mes:Int,total:Decimal" parameters="receptor:String,finicio:String,ffinal:String" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">select divisa, year(certificacion) a_o, month(certificacion) mes, round(sum(total),2) total
+from ts_cfdi
+where rfc_receptor=@receptor and isnull(cancelacion) and tipo=0 and
+certificacion between @finicio and @ffinal
+group by divisa, year(certificacion), month(certificacion) order by certificacion asc;</sql>
+</queryDef>

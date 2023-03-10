@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+<lxmd xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://dev.induxsoft.net/xsd/xde.xsd">
+  <entity name="sys_catalog" readonly="false">
+    <entity_description>Almacena información referente a los objetos contenidos en la base de datos actual.</entity_description>
+    <field name="objectname" required="true" unique="false" type="String" precision="0" scale="0" size="64">
+      <field_description>Nombre del Objeto correspondiente a la base de datos</field_description>
+    </field>
+    <field name="objectdescription" required="false" unique="false" type="String" precision="0" scale="0" size="4096">
+      <field_description>Actualmente sin Uso</field_description>
+    </field>
+    <field name="objecttype" required="true" unique="false" type="String" precision="0" scale="0" size="64">
+      <field_description>Define el tipo de objeto pudiendo ser: TABLE, VIEW</field_description>
+    </field>
+  </entity>
+</lxmd>

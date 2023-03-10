@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="sp_gettypeEmisor33" rem="obtiene el tipo del emisor actual, con el fin de distingir si el emisor es fisico o moral, en caso de que sea físico el valor devuelto es true, caso contrario es moral" parameters="" cardinality="one" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">  CALL z_peja7010123b1.sp_gettypeEmisor33();
+</sql>
+</queryDef>

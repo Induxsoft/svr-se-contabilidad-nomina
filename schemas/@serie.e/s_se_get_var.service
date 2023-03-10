@@ -1,0 +1,5 @@
+﻿<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="s_se_get_var" rem="" columns="sys_pk:Int,sys_timestamp:DateTime,sys_guid:String,sys_dtcreated:DateTime,sys_user:String,sys_lastuser:String,sys_exported:Bool,sys_dtexported:DateTime,sys_info:String,sys_recver:Int,sys_deleted:Bool,sys_lock:Int,id:String,value:String,type:String,caption:String,rem:String,ui_dkl:String" parameters="id:String" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">select * from se_var where id=@id;
+</sql>
+</queryDef>

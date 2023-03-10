@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+<lxmd xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://dev.induxsoft.net/xsd/xde.xsd">
+  <entity name="rh_detalle_nomina" readonly="false">
+    <entity_description />
+    <field name="ref_nomina" required="true" unique="false" type="rh_nomina" precision="0" scale="0" implementation="entityField" size="0">
+      <field_description />
+    </field>
+    <field name="ref_contrato" required="true" unique="false" type="rh_contrato_empleado" precision="0" scale="0" implementation="entityField" size="0" tablefield="ref_contrato">
+      <field_description />
+    </field>
+    <field name="notas" required="false" unique="false" type="String" precision="0" scale="0" size="4096">
+      <field_description />
+    </field>
+  </entity>
+</lxmd>

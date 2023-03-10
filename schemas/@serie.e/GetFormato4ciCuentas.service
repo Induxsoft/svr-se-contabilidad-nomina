@@ -1,0 +1,7 @@
+﻿<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="GetFormato4ciCuentas" rem="Regresa una tabla conteniendo los datos de las ccontables requeridos para el formato 4ci.(Subcuenta, Nivel, Tipo, Naturaleza, etc)" columns="Codigo:String,SubCuenta:String,Tipo:String,Naturaleza:String" parameters="" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">Select cc.Codigo, x.Codigo SubCuenta, if(x.Codigo is null, 'Detalle','Acumulativa' ) as Tipo, if(cc.Tipo = 0, 'Acreedora', 'Deudora')  as Naturaleza from ccontable cc left join ccontable x on x.iCuenta = cc.Sys_PK;
+
+
+</sql>
+</queryDef>

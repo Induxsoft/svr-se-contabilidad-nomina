@@ -1,0 +1,6 @@
+﻿<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="s_rh_conceptos_tipocontrato" rem="" columns="sys_pk:Int,sys_timestamp:DateTime,sys_guid:String,sys_dtcreated:DateTime,sys_user:String,sys_lastuser:String,sys_exported:Bool,sys_dtexported:DateTime,sys_info:String,sys_recver:Int,sys_deleted:Bool,sys_lock:Int,ref_tipocontrato:Int,ref_concepto:Int,descripcionconcepto:String" parameters="pk_tipocontrato:Int,p_tipo:Int" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">SELECT t.*,c.descripcion descripcionconcepto FROM rh_concepto_tipocontrato t inner join rh_concepto_nomina c on t.ref_concepto=c.sys_pk where (t.ref_tipocontrato=@pk_tipocontrato) and  if (isnull(@p_tipo),true,c.tipo=@p_tipo) ;
+
+</sql>
+</queryDef>

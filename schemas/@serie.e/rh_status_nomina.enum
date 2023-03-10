@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<enum xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="rh_status_nomina" xmlns="http://dev.induxsoft.net/xsd/enum.xsd">
+  <Item value="0" text="Borrador" />
+  <Item value="1" text="En proceso" />
+  <Item value="2" text="Procesada" />
+  <Item value="3" text="Cancelada" />
+  <Item value="99" text="Error" />
+</enum>

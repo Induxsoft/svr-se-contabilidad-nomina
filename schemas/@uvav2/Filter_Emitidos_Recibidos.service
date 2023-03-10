@@ -1,0 +1,7 @@
+﻿<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Filter_Emitidos_Recibidos" rem="" columns="sys_pk:Int,uuid:String,emisor:String,receptor:String,emision:String,certificacion:String,cancelado:Int,cancelacion:String,subtotal:Decimal,descuentos:Decimal,retenciones:Decimal,traslados:Decimal,total:Decimal,divisa:String,cuenta:Int,referencia:String,fecha_eliminacion:DateTime,tipo:String,color:String,referencia1:String,statusAdmon:String,rfc_emisor:String" parameters="p_RFC:String,p_Param:String,p_Inicial:Date,p_Final:Date,p_Action:Int,p_Status:Int,p_color:Int,p_cancelado:Int" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">call sp_Filter_Emitidos_Recibidos(@p_RFC,@p_Param,@p_Inicial,@p_Final,@p_Action,@p_Status, @p_color, @p_cancelado);
+
+
+</sql>
+</queryDef>

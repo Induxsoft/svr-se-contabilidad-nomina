@@ -1,0 +1,7 @@
+﻿<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SearchCFDItoPay" rem="Busquedade comprobantes que se pueden realicionar para la genereacion de pago de comprobantes" columns="sys_pk:Int,folio:Int,serie:String,FolioInterno:String,sat_metodopago:String,uuid:String,nombre_receptor:String,rfc_receptor:String" parameters="p_param:String" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">CALL sp_SearchCFDItoPay(@p_param);
+
+
+</sql>
+</queryDef>

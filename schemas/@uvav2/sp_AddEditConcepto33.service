@@ -1,0 +1,5 @@
+﻿<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="sp_AddEditConcepto33" rem="actualiza o agrega un nuevo concepto con las nuevas especificaciones para el CFDI 3.3" columns="success:Long,info:String,pk:Long" parameters="PKCONCEPTO:Int,RecordVersion:Int,p_Codigo:String,p_Descripcion:String,p_Iva:Decimal,p_Precio:Decimal,p_Unidad:String,p_Notas:String,p_ieps_despues_iva:Bool,p_claveproductosat:String,p_claveunidadsat:String,p_aplicaretencion:Bool,p_porcentaje_ivaretencion:Decimal,p_porcentaje_iepsretencion:Decimal,p_exentoiva:Bool,p_iepscuota:Bool,p_porcentaje_ieps:Decimal" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">call sp_AddEditConcepto33(@PKCONCEPTO,@RecordVersion,@p_Codigo,@p_Descripcion,@p_Iva,@p_porcentaje_ieps,@p_Precio,@p_Unidad,@p_Notas,@p_ieps_despues_iva,@p_claveproductosat,@p_claveunidadsat,@p_aplicaretencion,@p_porcentaje_ivaretencion,@p_porcentaje_iepsretencion,@p_exentoiva,@p_iepscuota);
+</sql>
+</queryDef>

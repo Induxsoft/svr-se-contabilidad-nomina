@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<enum xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="rh_sat_elemento" xmlns="http://dev.induxsoft.net/xsd/enum.xsd">
+  <Item value="0" text="Percepciones" />
+  <Item value="1" text="Deducciones" />
+  <Item value="2" text="Otros pagos" />
+  <Item value="3" text="Incapacidades" />
+  <Item value="99" text="No fiscal" />
+</enum>

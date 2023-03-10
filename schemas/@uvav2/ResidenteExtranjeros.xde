@@ -1,0 +1,39 @@
+﻿<?xml version="1.0"?>
+<lxmd xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://dev.induxsoft.net/xsd/xde.xsd">
+  <entity name="ResidenteExtranjeros" readonly="false">
+    <entity_description />
+    <field name="DescripcionConcepto" required="true" unique="false" type="String" precision="0" scale="0" size="255" tablefield="DescripcionConcepto">
+      <field_description />
+    </field>
+    <field name="RFCRepresentante" required="true" unique="false" type="String" precision="0" scale="0" size="13" tablefield="RFCRepresentante">
+      <field_description />
+    </field>
+    <field name="CURPRepresentante" required="true" unique="false" type="String" precision="0" scale="0" size="20" tablefield="CURPRepresentante">
+      <field_description />
+    </field>
+    <field name="NombreRazonSocial" required="true" unique="false" type="String" precision="0" scale="0" size="300" tablefield="NombreRazonSocial">
+      <field_description />
+    </field>
+    <field name="DescripcionConceptoRepresentante" required="true" unique="false" type="String" precision="0" scale="0" size="255" tablefield="DescripcionConceptoRepresentante">
+      <field_description />
+    </field>
+    <field name="EsBenefEfectDelCobro" required="false" unique="false" type="Bool" precision="0" scale="0" size="0">
+      <field_description />
+    </field>
+    <field name="CadenaOriginal" required="false" unique="false" type="String" precision="0" scale="0" size="36000">
+      <field_description />
+    </field>
+    <field name="FK_ComprobanteRetenciones" required="false" unique="false" type="ComprobanteRetenciones" precision="0" scale="0" implementation="entityField" size="0" tablefield="FK_ComprobanteRetenciones">
+      <field_description />
+    </field>
+    <field name="iConceptoPagoRepresentante" required="true" unique="false" type="@cSujetoRetencion" precision="0" scale="0" size="0" tablefield="iConceptoPagoRepresentante">
+      <field_description />
+    </field>
+    <field name="iConceptoPago" required="true" unique="false" type="@cSujetoRetencion" precision="0" scale="0" size="0" tablefield="iConceptoPago">
+      <field_description />
+    </field>
+    <field name="FK_Pais" required="true" unique="false" type="pais" precision="0" scale="0" implementation="entityField" size="0" tablefield="FK_Pais">
+      <field_description />
+    </field>
+  </entity>
+</lxmd>

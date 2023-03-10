@@ -1,0 +1,5 @@
+﻿<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="listPlantillaConf" rem="Lista las configuraciones de las plantillas" columns="sys_pk:Int,nombre:String,cfg:String,valor:String" parameters="" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">call sp_listPlantillaConf();
+</sql>
+</queryDef>

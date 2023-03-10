@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="sp_getTipoReceptor" rem="Este servicio devolvera si el receptor es un contribuyente moral o fisico, true= fisico , false = moral." parameters="p_PKCliente:Long" cardinality="one" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">call sp_getTipoReceptor(@p_PKCliente);
+</sql>
+</queryDef>

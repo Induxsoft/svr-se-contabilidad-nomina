@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<lxmd xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://dev.induxsoft.net/xsd/xde.xsd">
+  <entity name="DComprobante" readonly="false">
+    <entity_description />
+    <field name="cantidad" required="true" unique="false" type="Decimal" precision="27" scale="8" size="0" tablefield="cantidad">
+      <field_description />
+    </field>
+    <field name="unidad" required="true" unique="false" type="String" precision="0" scale="0" size="15" tablefield="unidad">
+      <field_description />
+    </field>
+    <field name="codigo" required="false" unique="false" type="String" precision="0" scale="0" size="15" tablefield="codigo">
+      <field_description />
+    </field>
+    <field name="descripcion" required="true" unique="false" type="String" precision="0" scale="0" size="32000" tablefield="descripcion">
+      <field_description />
+    </field>
+    <field name="precio" required="true" unique="false" type="Decimal" precision="27" scale="8" size="0" tablefield="precio">
+      <field_description />
+    </field>
+    <field name="CuentaPredial" required="false" unique="false" type="String" precision="0" scale="0" size="20" tablefield="CuentaPredial">
+      <field_description />
+    </field>
+    <field name="importe_iva" required="true" unique="false" type="Decimal" precision="27" scale="8" size="0" tablefield="importe_iva">
+      <field_description />
+    </field>
+    <field name="importe_ieps" required="false" unique="false" type="Decimal" precision="27" scale="8" size="0" tablefield="importe_ieps">
+      <field_description />
+    </field>
+    <field name="notas" required="false" unique="false" type="String" precision="0" scale="0" size="1024" tablefield="notas">
+      <field_description />
+    </field>
+    <field name="monto_descuento" required="false" unique="false" type="Decimal" precision="27" scale="8" size="0" tablefield="monto_descuento">
+      <field_description />
+    </field>
+    <field name="FKComprobante" required="true" unique="false" type="comprobante" precision="0" scale="0" implementation="entityField" size="0" tablefield="FKComprobante">
+      <field_description />
+    </field>
+    <field name="RetencionISR" required="true" unique="false" type="Decimal" precision="27" scale="8" size="0" tablefield="RetencionISR">
+      <field_description />
+    </field>
+    <field name="RetencionIVA" required="true" unique="false" type="Decimal" precision="27" scale="8" size="0" tablefield="RetencionIVA">
+      <field_description />
+    </field>
+    <field name="tasaIva" required="false" unique="false" type="Decimal" precision="5" scale="2" size="0" tablefield="tasaIva">
+      <field_description />
+    </field>
+    <field name="tasaIeps" required="false" unique="false" type="Decimal" precision="5" scale="2" size="0" tablefield="tasaIeps">
+      <field_description />
+    </field>
+    <field name="RetencionIEPS" required="false" unique="false" type="Decimal" precision="27" scale="8" size="0" tablefield="RetencionIEPS">
+      <field_description>Retencion aplicable del impuesto IEPS a cada uno de los productos </field_description>
+    </field>
+    <field name="claveunidadsat" required="false" unique="false" type="String" precision="0" scale="0" size="15" tablefield="claveunidadsat">
+      <field_description>clave unidad SAT</field_description>
+    </field>
+    <field name="claveproductosat" required="false" unique="false" type="String" precision="0" scale="0" size="15" tablefield="claveproductosat">
+      <field_description>clave del producto SAT</field_description>
+    </field>
+    <field name="iConcepto" required="false" unique="false" type="String" precision="0" scale="0" size="15" tablefield="iConcepto">
+      <field_description>claveproductosat</field_description>
+    </field>
+  </entity>
+</lxmd>

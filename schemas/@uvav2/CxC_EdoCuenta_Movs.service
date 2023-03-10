@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="CxC_EdoCuenta_Movs" rem="" columns="UUID:String,Fecha:Datetime,Cargo:Decimal,Abono:Decimal,Divisa:String,TipoCambio:Decimal,Importe:Decimal,TipoDoc:String" parameters="rfc_emisor:String,rfc_receptor:String,divisa:String" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">
+ SELECT 
+    *
+FROM
+    (SELECT 
+        c.emision AS Fecha,
+            c.uuid AS UUID,
+            IF(c.tipo = 0, c.total, 0) Cargo,
+            IF(tipo = 1, c.total, 0) Abono,
+            c.divisa AS Divisa,
+            c.TipoCambio,
+            c.tipo AS TipoDoc
+    FROM
+        ts_cfdi c
+    WHERE
+        ((c.MetodoPago = 'PPD' AND c.tipo = 0)
+            OR (tipo = 1 AND UsoCFDI = 'G02'))
+            AND rfc_receptor = @rfc_receptor
+            AND cancelacion IS NULL UNION ALL SELECT 
+        c.emision,
+            p.idpago uuid,
+            0 cargos,
+            SUM(p.ImpPagado) abonos,
+            p.MonedaDR,
+            IFNULL(p.TipoCambioDR, 1),
+            c.tipo AS TipoDoc
+    FROM
+        ts_rel_pago p
+    INNER JOIN ts_cfdi c ON p.idpago = c.uuid
+    WHERE
+        c.rfc_receptor = @rfc_receptor
+            AND cancelacion IS NULL
+    GROUP BY c.emision , p.idpago , p.MonedaDR , p.TipoCambioDR , TipoDoc) x
+	WHERE divisa = @divisa
+ORDER BY Fecha;
+        </sql>
+</queryDef>

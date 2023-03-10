@@ -1,0 +1,39 @@
+﻿<?xml version="1.0"?>
+<lxmd xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://dev.induxsoft.net/xsd/xde.xsd">
+  <entity name="DCFDIComprobantePago" readonly="false">
+    <entity_description>Entidad que almacenará el detalle correspondiente a la operacion de los pagos de los comprobantes parciales, </entity_description>
+    <field name="UUID" required="true" unique="false" type="String" precision="0" scale="0" size="36" tablefield="UUID">
+      <field_description>Identificador unico del comprobante CFDI que se esta pagando </field_description>
+    </field>
+    <field name="Serie" required="true" unique="false" type="String" precision="0" scale="0" size="25" tablefield="Serie">
+      <field_description>indica la serie del documento CFDI que se esta pagando</field_description>
+    </field>
+    <field name="Folio" required="false" unique="false" type="String" precision="0" scale="0" size="40" tablefield="Folio">
+      <field_description>precisa el folioconsecutivo del documento y es usado para un control interno </field_description>
+    </field>
+    <field name="TipoCambio" required="true" unique="false" type="Decimal" precision="18" scale="6" size="0" tablefield="TipoCambio">
+      <field_description>Tipo de cambio que aplica a la divisa correspondiente al comprobante</field_description>
+    </field>
+    <field name="MetodoPago" required="true" unique="false" type="String" precision="0" scale="0" size="50" tablefield="MetodoPago">
+      <field_description>El metodo de pago utilizado en el comprobante que se va a paga. catalogo del SAT c_Metodo_pago</field_description>
+    </field>
+    <field name="NumParcialidad" required="true" unique="false" type="Int" precision="0" scale="0" size="0" tablefield="NumParcialidad">
+      <field_description>Indica el numero de parcialidad al cual corresponde el pago realizado</field_description>
+    </field>
+    <field name="ImpSaldoAnt" required="false" unique="false" type="Decimal" precision="25" scale="6" size="0" tablefield="ImpSaldoAnt">
+      <field_description>Indica el saldo del documento antes de procesar el pago</field_description>
+    </field>
+    <field name="ImpPagado" required="false" unique="false" type="Decimal" precision="25" scale="6" size="0" tablefield="ImpPagado">
+      <field_description>Indica el importe que se esta pagando del comprobante relacionado</field_description>
+    </field>
+    <field name="ImpSaldoInsoluto" required="false" unique="false" type="Decimal" precision="25" scale="6" size="0" tablefield="ImpSaldoInsoluto">
+      <field_description>Indica el saldo actual del comprobante despues de haber realizado el pago</field_description>
+    </field>
+    <field name="IDivisa" required="true" unique="false" type="Int" precision="0" scale="0" size="0" tablefield="IDivisa">
+      <field_description>clave foranea que indica la divisa del comprobante que sera pagado</field_description>
+    </field>
+    <field name="FKComprobantePago" required="true" unique="false" type="Int" precision="0" scale="0" size="0" tablefield="FKComprobantePago">
+      <field_description>clave foranea que hace referencia a la entidad Comprobante pago</field_description>
+    </field>
+  </entity>
+</lxmd>

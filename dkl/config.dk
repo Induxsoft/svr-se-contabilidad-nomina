@@ -1,0 +1,11 @@
+#include "dkli.dkh"
+#!
+program
+{
+    @connections="Connections@Induxsoft"//qn de conexiones
+	@application="serie.e"              //app de las BD
+    
+    @base_path_a="/usr/dkl_induxsoft/web/serie-e.api.induxsoft.net"
+    @base_path_r="web/serie-e.api.induxsoft.net"
+    @temp_path=path.concat(@base_path_a, "tmpf")
+}

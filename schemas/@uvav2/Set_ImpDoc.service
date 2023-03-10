@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="CxC_EdoCuenta_Movs" rem="" columns="" parameters="IdDocumentoNc:String,IdDocumento:String,saldo:decimal" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">
+        update ts_rel_fac set ImpAplicado = (ImpAplicado+@saldo) where IdDocumento = @IdDocumento and IdDocumentoNc = @IdDocumentoNc;
+        </sql>
+</queryDef>

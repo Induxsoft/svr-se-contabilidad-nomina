@@ -1,0 +1,8 @@
+﻿<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="listarDetalleComprobante" rem="Lista los detalles de un comprobante." columns="sys_pk:Int,cantidad:Decimal,unidad:String,codigo:String,descripcion:String,precio:String,CuentaPredial:String,importe_iva:String,importe_ieps:String,notas:String,monto_descuento:String,RetencionISR:String,RetencionIVA:String,total:String" parameters="p_comprobante:Int" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">CALL sp_listarDetalleComprobante(@p_comprobante);
+
+
+
+</sql>
+</queryDef>

@@ -1,0 +1,5 @@
+﻿<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="listarSeriesDocumento" rem="Lista las series disponibles para un determinado tipo de documento." columns="sys_pk:Int,serie:String" parameters="p_documento:Int" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">CALL sp_listarSeriesDocumento(@p_documento);
+</sql>
+</queryDef>

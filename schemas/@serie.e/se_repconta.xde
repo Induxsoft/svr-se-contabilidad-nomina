@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<lxmd xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://dev.induxsoft.net/xsd/xde.xsd">
+  <entity name="se_repconta" readonly="false">
+    <entity_description>Tabla con la información de los reportes y sus parámetros</entity_description>
+    <field name="nombre" required="false" unique="false" type="String" precision="0" scale="0" size="100" tablefield="nombre">
+      <field_description>nombre del reporte</field_description>
+    </field>
+    <field name="contenido" required="true" unique="false" type="String" precision="0" scale="0" size="16000" tablefield="contenido">
+      <field_description>contenido de los parámetros para el servicio</field_description>
+    </field>
+    <field name="anual" required="true" unique="false" type="Bool" precision="0" scale="0" size="0" tablefield="anual">
+      <field_description>indica si el reporte será anual o por periodo</field_description>
+    </field>
+    <field name="permiso" required="false" unique="false" type="String" precision="0" scale="0" size="50" tablefield="permiso">
+      <field_description />
+    </field>
+    <field name="debe" required="true" unique="false" type="Bool" precision="0" scale="0" size="0" tablefield="debe">
+      <field_description>indica si se insertará la columna debe </field_description>
+    </field>
+    <field name="haber" required="true" unique="false" type="Bool" precision="0" scale="0" size="0" tablefield="haber">
+      <field_description>indica si se insertará la columna haber</field_description>
+    </field>
+    <field name="saldoinicial" required="true" unique="false" type="Bool" precision="0" scale="0" size="0" tablefield="saldoinicial">
+      <field_description>indica si se insertará la columna saldo inicial</field_description>
+    </field>
+    <field name="saldo" required="false" unique="false" type="Bool" precision="0" scale="0" size="0" tablefield="saldo">
+      <field_description>indica si se insertará la columna saldo</field_description>
+    </field>
+    <field name="filtrodepto" required="false" unique="false" type="Bool" precision="0" scale="0" size="0" tablefield="filtrodepto">
+      <field_description />
+    </field>
+    <field name="saldosalineados" required="false" unique="false" type="Bool" precision="0" scale="0" size="0" tablefield="saldosalineados">
+      <field_description>indica si se alinearán los saldos</field_description>
+    </field>
+    <field name="quitarsigno" required="false" unique="false" type="Bool" precision="14" scale="4" size="0" tablefield="quitarsigno">
+      <field_description>indica si se quitarán los signos de las columnas</field_description>
+    </field>
+    <field name="presupuesto" required="false" unique="false" type="Bool" precision="0" scale="0" size="0" tablefield="presupuesto">
+      <field_description>indica si se insertará la columa presupuesto</field_description>
+    </field>
+  </entity>
+</lxmd>

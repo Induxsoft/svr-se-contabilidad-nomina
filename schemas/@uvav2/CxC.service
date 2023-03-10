@@ -1,0 +1,8 @@
+﻿<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="CxC" rem="" columns="rfc_receptor:String, nombre_receptor:String,MetodoPago:String,Ventas:Decimal,NCredito:Decimal,Pagos:Decimal,Saldo:Decimal" parameters="rfc_emisor:String" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">unlock tables; select * from (select d.rfc_receptor as RFC, c.nombrefiscal as Nombre, sum(if(tipo=0, d.total,0)) Ventas,sum(if(tipo=1, d.total,0)) NCredito, 
+ifnull(q.Pagos,0) Pagos,  ifnull(sum(if(tipo=0, d.total,0)),0) - ifnull(sum(if(tipo=1, d.total,0)),0) -ifnull(q.pagos,0) Saldo
+from (ts_cfdi d LEFT JOIN (select rfc,nombrefiscal, sys_deleted from cliente group by rfc) c on d.rfc_receptor=c.rfc) left join qPagosXRFC q on d.rfc_receptor=q.rfc_receptor
+where ((d.tipo=0 and d.MetodoPago='PPD') or (d.tipo=1 and d.UsoCFDI='G02') ) and isnull(d.cancelacion) and not d.rfc_receptor=@rfc_emisor and cancelacion is null and ifnull(c.sys_deleted,0)=0
+group by d.rfc_receptor) as Consulta where Saldo > 0 order by Saldo desc;</sql>
+</queryDef>

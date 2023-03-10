@@ -1,0 +1,4 @@
+﻿<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="AddNota" rem="" columns="success:Long,info:String" parameters="p_uuid:String,p_idpf:String,p_usr:String,p_Notas:String" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">call sp_InsertNota(@p_uuid,@p_idpf, @p_usr,@p_Notas);</sql>
+</queryDef>

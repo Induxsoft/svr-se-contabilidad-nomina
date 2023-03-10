@@ -1,0 +1,19 @@
+﻿<?xml version="1.0"?>
+<lxmd xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://dev.induxsoft.net/xsd/xde.xsd">
+  <entity name="configuraciones" readonly="false">
+    <entity_description>Almacena las configuraciones del emisor.</entity_description>
+    <field name="varname" required="true" unique="true" type="String" precision="0" scale="0" size="200">
+      <field_description>Almacena el nombre de la configuración.</field_description>
+    </field>
+    <field name="varvalue" required="false" unique="false" type="String" precision="0" scale="0" size="2048">
+      <field_description>Almacena el valor de la configuración.</field_description>
+    </field>
+    <field name="title" required="true" unique="false" type="String" precision="0" scale="0" size="200" tablefield="title">
+      <field_description>Almacena una descripción de la configuración correspondiente.</field_description>
+    </field>
+    <field name="pwd" required="false" unique="false" type="Bool" precision="0" scale="0" size="0">
+      <field_description>bandera usada para procesar el valor como tipo password</field_description>
+    </field>
+    <index name="idx_7815B28F78A44E34BBB6877E53A8564C" fields="varname" unique="true" />
+  </entity>
+</lxmd>

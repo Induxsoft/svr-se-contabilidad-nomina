@@ -1,0 +1,2 @@
+﻿<?xml version="1.0"?>
+<netService xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="GetProductoSAT" rem="Devuelve todos los datos del catalogo del sat mediante la busqueda por el codigo" permission="" assembly="8974BBA0A34349659FC77D3C3BC2E524" namespace="induxsoft.cfdi.v33.cat" class="cMain" method="getDataProductoServicioSAT" parameters="Code:String" return="DataTable" description="" xmlns="http://dev.induxsoft.net/xsd/netservice.xsd" />

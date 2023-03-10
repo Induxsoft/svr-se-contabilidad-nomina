@@ -1,0 +1,2 @@
+﻿<?xml version="1.0"?>
+<netService xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="TipoDeCambio" rem="Regresa el Tipo de Cambio segun la iDivisa." permission="" assembly="0b24801641f646d4870fddd078395141" namespace="induxsoft.SE.ERP.ServiciosContabilidad" class="ServicioPoliza" method="TipoDeCambio" parameters="iDivisa:String" return="String" description="" xmlns="http://dev.induxsoft.net/xsd/netservice.xsd" />

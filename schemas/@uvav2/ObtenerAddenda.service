@@ -1,0 +1,4 @@
+﻿<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ObtenerAddenda" rem="Sirve para obtener la Addenda" parameters="p_pk:Int" columns="uf_nsaddenda:Sting, uf_addenda:Sting" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">select uf_nsaddenda, uf_addenda from comprobante where sys_pk=@p_pk;</sql>
+</queryDef>

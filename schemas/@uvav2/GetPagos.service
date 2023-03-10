@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="getCFDIPAGOS" rem="Obtiene los comprobantes de pagos timbrados por filtros de fechas y estatus." columns="sys_pk:Int,uuid:String,Receptor:String,emision:DateTime,Fecha_Cancelacion:DateTime,codigo:String,status_admin:Int,const:String,referencia:String,FormaDePago:String,FechaPago:DateTime,NumOperacion:String,imp_Pagado:Decimal" parameters="param:String" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">
+SELECT 
+    t.sys_pk,
+    tpag.uuid,
+    CONCAT('[',
+            t.rfc_receptor,
+            '] ',
+            t.nombre_receptor) AS Receptor,
+    t.emision,
+    t.cancelacion AS Fecha_Cancelacion,
+    t.divisa AS codigo,
+    t.status_admin,
+    t.referencia,
+    t.formapago AS FormaDePago,
+    '' AS FechaPago,
+    t.referencia AS NumOperacion,
+    rel.imppagado AS imp_Pagado
+FROM
+    ts_cfdi t
+        INNER JOIN
+    ts_rel_pago rel ON t.uuid = rel.IdDocumento
+        INNER JOIN
+    ts_cfdi tpag ON rel.IdPago = tpag.uuid
+WHERE
+    t.uuid = @param;
+</sql>
+</queryDef>

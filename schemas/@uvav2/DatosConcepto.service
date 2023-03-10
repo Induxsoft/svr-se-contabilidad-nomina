@@ -1,0 +1,4 @@
+﻿<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="DatosConcepto" rem="" columns="sys_pk:Int,codigo:String,descripcion:String,porcentaje_iva:Decimal,porcentaje_ieps:Decimal,ieps_despues_iva:Long" parameters="p_Concepto:Int" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">SELECT c.sys_pk, c.codigo, c.descripcion, c.porcentaje_iva, c.porcentaje_ieps, IFNULL(c.ieps_despues_iva,0) AS ieps_despues_iva  FROM concepto c WHERE c.sys_pk = @p_Concepto</sql>
+</queryDef>

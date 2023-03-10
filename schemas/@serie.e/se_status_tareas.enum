@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<enum xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="se_status_tareas" xmlns="http://dev.induxsoft.net/xsd/enum.xsd">
+  <Item value="0" text="En proceso" />
+  <Item value="1" text="Completada" />
+  <Item value="90" text="Error" />
+  <Item value="99" text="Cancalada" />
+</enum>

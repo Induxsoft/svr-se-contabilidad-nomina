@@ -1,0 +1,12 @@
+﻿<?xml version="1.0"?>
+<lxmd xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://dev.induxsoft.net/xsd/xde.xsd">
+  <entity name="user_usergroup_" readonly="false">
+    <entity_description>Almacena la relacion de grupos y usuarios.</entity_description>
+    <field name="groups" required="true" unique="false" type="Int" precision="0" scale="0" size="0" tablefield="groups">
+      <field_description>Identificador de Grupo</field_description>
+    </field>
+    <field name="users" required="true" unique="false" type="Int" precision="0" scale="0" size="0">
+      <field_description>Identificador de Usuario.</field_description>
+    </field>
+  </entity>
+</lxmd>

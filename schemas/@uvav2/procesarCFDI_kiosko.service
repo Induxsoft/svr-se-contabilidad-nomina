@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<netService xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="procesarCFDI_kiosko" rem="" permission="" assembly="e091d02a50324cb4b2d5cea8e1de0198" namespace="induxsoft.WEB.Kiosko.Services" class="Services" method="enviarXMLPorCorreo" parameters="_usoCfdi:String,_rfc:String,_razonSocial:String,_correo:String,_rfc_emisor:String,_folio:String" return="String" description="" xmlns="http://dev.induxsoft.net/xsd/netservice.xsd" />
