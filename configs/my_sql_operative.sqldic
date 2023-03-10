@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--MYSQL-->
+<xml>
+	<sql id="sys_11B2CA94F3774E41B8B9F6D7698743B3">
+		<![CDATA[SELECT sys_pk,sys_guid,groupid as Id,description as Grupo,if(coalesce(sys_lock,0)=0,'Activo','Bloqueado') as Estado FROM usergroup where coalesce(sys_deleted,0)=0 order by description]]>
+	</sql>
+	
+	<sql id="sys_17365CFE6EF0412C988B090945D5F69B">
+		<![CDATA[SELECT u.sys_pk,u.sys_guid, u.userid as Id, u.username as Usuario, if(coalesce(u.sys_lock,0)=0,'Activo','Bloqueado') as Estado FROM tuser as u inner join user_usergroup_ g on u.sys_pk=g.users where coalesce(u.sys_deleted,0)=0 and g.groups=@grupo order by u.username]]>
+	</sql>
+	
+	<sql id="sys_27E6DFB7D8394374A42A9BCD07D24EE3">
+		<![CDATA[SELECT s.sys_pk,coalesce(s.itemparent,0) as parent,s.itemid,s.description,count(a.sys_pk) as N FROM sitem s left join sitem a on s.sys_pk=a.itemparent where coalesce(s.sys_deleted,0)=0 group by s.sys_pk order by s.itemparent]]>
+	</sql>
+	
+	<sql id="sys_D342B2F003FB4127A9B72ACA3C640784">
+		<![CDATA[select groups from user_usergroup_ where users=@usuario and groups=@grupo]]>
+	</sql>
+	
+	<sql id="sys_DC72CF95E7824424B8B9B34E0EB318AB">
+		<![CDATA[SELECT s.sys_pk,s.sys_guid,TIMESTAMPDIFF(SECOND,s.sys_dtcreated,now()) as Abierta,TIMESTAMPDIFF(SECOND,s.sys_timestamp,now()) as Inactiva,t.userid as Usuario,t.username as Nombre,s.clientinfo as IP FROM sys_session as s inner join tuser as t on s.iuser=t.sys_pk where coalesce(s.sys_deleted,0)=0]]>
+	</sql>
+	
+	<sql id="sys_DE7A7CAD931B4D839F8B685F40E00953">
+		<![CDATA[(select 0 as sys_pk,'CV-00-00-00 >> Ninguno' as nombre) union all (select sys_pk,concat(itemid,' >> ',description) as nombre from sitem where coalesce(sys_deleted,0)=0)]]>
+	</sql>
+	
+	<sql id="sys_FC6BDC7911644057B1C2D2F9FEAEE369">
+		<![CDATA[select item from profile where usergroup=@grupo and coalesce(sys_deleted,0)=0]]>
+	</sql>
+	
+	<sql id="sys_66DCD6E8DBCA4FB0B41E4EF145DD8478">
+		<![CDATA[select s.sys_pk from profile as p inner join sitem as s on p.item=s.sys_pk inner join user_usergroup_ as ug on p.usergroup=ug.groups inner join tuser as u on ug.users=u.sys_pk where u.userid=@user and s.itemid=@permission]]>
+	</sql>
+	
+	<sql id="sys_9F09943117E94215A88CAC9AB5926F5B">
+		<![CDATA[select pt.sys_guid from profile as p inner join sitem as s on p.item=s.sys_pk inner join user_usergroup_ as ug on p.usergroup=ug.sys_pk inner join tuser as u on ug.users=u.sys_pk inner join sys_temp_permissions as pt on pt.currUser=u.userid and pt.permission=s.itemid where u.userid=@user and s.itemid=@permission]]>
+	</sql>
+	
+	<sql id="sys_485C60C5801E46CE8E7E7A3987F3C94A">
+		<![CDATA[update sys_temp_permissions set used=true where sys_guid=@GUID]]>
+	</sql>
+
+  <sql id="sys_394176E60A944244F06D26D25C61425C">
+    <![CDATA[SELECT t.userid,t.sys_pk FROM sys_session as s inner join tuser as t on s.iuser=t.sys_pk where lower(s.sys_guid)=lower(@sesion);]]>
+  </sql>
+
+  <sql id="sys_D5269BC9DF534387A703779FB639C229">
+		<![CDATA[select ss.sys_guid as IdSession,tu.sys_pk as IdUser,tu.userid as NameUser,tu.pwd,tu.pwdmd5 from sys_session as ss inner join tuser as tu on ss.iuser=tu.sys_pk where ss.sys_deleted is null and lower(ss.sys_guid)=lower(@qdz);]]>
+	</sql>
+
+  <sql id="sys_9F4905D6968F4E4B98F3BE2A8CB6FEB3">
+    <![CDATA[select sys_pk,userid,pwd,pwdmd5 from tuser where lower(userid)=lower(@idu) and (lower(pwd)=lower(@pwd) or lower(pwdmd5)=lower(@pwdmd5));]]>
+  </sql>
+
+  <sql id="sys_AAB006EE399F430AB1B910095E6FB3D4">
+    <![CDATA[select sys_guid from sys_session where sys_deleted is null and iuser=@idu order by sys_dtcreated desc limit 1;]]>
+  </sql>
+
+  <sql id="sys_E8AFDCB5769E4E4BA1C0B44A1EC0A27E">
+    <![CDATA[insert into sys_session
+            (sys_timestamp, sys_guid, sys_dtcreated, sys_user, sys_lastuser, sys_exported, sys_dtexported, sys_info, sys_recver, sys_deleted, sys_lock, iuser, clientinfo)
+            values 
+            (@fecha, @guid, @fecha, null, null, null, null, null, 0, null, null, @idu, @info)
+    ;]]>
+  </sql>
+
+  <sql id="sys_FE031C048283498BBFC6F7A468982373">
+		<![CDATA[update sys_session set sys_deleted=1 where sys_guid=@ids;]]>
+	</sql>
+  
+  <!--sql id="">
+		<![CDATA[]]>
+	</sql-->
+</xml>

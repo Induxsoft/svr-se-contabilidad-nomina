@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<devkron xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="b80bb7740288fda1f201890375a60c8f" pwd="e10adc3949ba59abbe56e057f20f883e" db="Connections@induxsoft" xmlns="http://dev.induxsoft.net/xsd/DevKronApps.xsd">
+ 
+  <app id="serie.e" pwd="4146ef663db168df6a93d22317bb14f9" EnableSupplantId="true" AlternativeIdSource="epifania_pefiles@induxsoft">
+    <assembly id="1ad365d569b04fbebc73ea0bdd9096d7" file="induxsoft.SE.RH.BackEnd.dll" />
+    <assembly id="178b046ac38c408d8b623caf04ebee22" file="induxsoft.SE.RH.BackEnd.DeleteData.dll" />
+    <assembly id="0b24801641f646d4870fddd078395141" file="induxsoft.SE.ERP.ServiciosContabilidad.dll" />
+    <assembly id="8f227714a3394981b60aae7463ba2460" file="induxsoft.SE.ERP.Backend.Contabilidad.Utilidades.dll" />
+    <assembly id="b8e31076390145879dc7f50f15ae6303" file="PDFServices.dll" />
+    <assembly id="a00d2f5886e142f9a252cfb8d0a07a17" file="induxsoft.SE.ERP.ServiciosEjercicios.dll" />
+  </app>
+<app id="uvav2" pwd="e10adc3949ba59abbe56e057f20f883e" EnableSupplantId="true" AlternativeIdSource="epifania_pefiles@induxsoft">
+    <assembly id="5817D77C831C44E0883B48848EA3548C" file="induxsoftuva.dll" />
+    <assembly id="db0ed10bfc2311e980c2e0d55ebfaa9e" file="induxsoft.pre_create.fdsk.dll" />
+    <assembly id="8974BBA0A34349659FC77D3C3BC2E524" file="induxsoft.cfdi.v33.cat.dll" />
+    <assembly id="566adbde637f4bb3bd888ce1787268d0" file="induxsoft.FactuBot.ServicesNET.dll" />
+    <assembly id="e091d02a50324cb4b2d5cea8e1de0198" file="induxsoft.WEB.Kiosko.Services.dll" />
+  </app>
+
+</devkron>
