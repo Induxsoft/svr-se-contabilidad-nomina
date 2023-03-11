@@ -21,9 +21,8 @@ también las respuestas que hay entre la aplicación y el proveedor de servicios
 	- Agregar Grupo de aplicación
 * Copiar los componentes de la carpeta /iis_handler/bin de este repositorio,a una carpeta nombrada bin dentro de la carpeta física del grupo de aplicación
 * Copiar el archivo Services.ashx se encuentra en /iis_handler/bin de este repositorio, a la carpeta física del grupo de aplicación
-* Copiar todo de la carpeta configs y colocarlo junto a los componentes del proveedor de servicios
-* configurar el archivo paths.cfg (la configuración de este archivo es muy importante para el proveedor de servicios ya que de ahí toma las rutas de configuración para su funcionamiento)
-* Copiar los archivos de schemas que se encuentra en el repositorio a la carpeta física configurado en el archivo paths.cfg
+* Copiar todo los archivos de la carpeta configs que se encuentra en este repositorio hacia /carpeta_fisica_grupo_de_aplicaciones/bin
+* Copiar los archivos de schemas que se encuentra en este repositorio hacia /carpeta_física_grupo_de_aplicacion/bin
 * Configurar el archivo server.devkron (en este archivo se le define la ubicación de los componentes del servicio de cada aplicación)
 * Configurar el archivo connections.xml para que el proveedor de servicio pueda acceder a la base de datos
 
