@@ -12,7 +12,7 @@ una mejor experiencia con distintos sistemas operativos y entornos de desarrollo
 * Abrir iis
 * Crear un sitio
 	- Agregar Grupo de aplicación
-* Copiar los componentes de la carpeta /iis_handler/bin de este repositorio,a una carpeta nombrada bin dentro de la carpeta física del grupo de aplicación(ej. /carpeta_física_grupo_de_aplicación/bin )
+* Copiar los componentes de la carpeta /iis_handler/bin de este repositorio,a una carpeta nombrada bin(si no existe crearla) dentro de la carpeta física del grupo de aplicación(ej. /carpeta_física_grupo_de_aplicación/bin )
 * Copiar el archivo Services.ashx se encuentra en /iis_handler/bin de este repositorio, a la carpeta física del grupo de aplicación
 * Copiar los archivos de la carpeta configs que se encuentra en este repositorio hacia /carpeta_física_grupo_de_aplicación/bin
 * Copiar los archivos de la carpeta schemas que se encuentra en este repositorio hacia /carpeta_física_grupo_de_aplicación/bin
