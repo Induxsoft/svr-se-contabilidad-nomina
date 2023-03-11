@@ -21,10 +21,10 @@ también las respuestas que hay entre la aplicación y el proveedor de servicios
 	- Agregar Grupo de aplicación
 * Copiar los componentes de la carpeta /iis_handler/bin de este repositorio,a una carpeta nombrada bin dentro de la carpeta física del grupo de aplicación
 * Copiar el archivo Services.ashx se encuentra en /iis_handler/bin de este repositorio, a la carpeta física del grupo de aplicación
-* Copiar todo los archivos de la carpeta configs que se encuentra en este repositorio hacia /carpeta_fisica_grupo_de_aplicaciones/bin
-* Copiar los archivos de schemas que se encuentra en este repositorio hacia /carpeta_física_grupo_de_aplicacion/bin
-* Configurar el archivo server.devkron (en este archivo se le define la ubicación de los componentes del servicio de cada aplicación)
-* Configurar el archivo connections.xml para que el proveedor de servicio pueda acceder a la base de datos
+* Copiar todo los archivos de la carpeta configs que se encuentra en este repositorio hacia /carpeta_física_grupo_de_aplicación/bin
+* Copiar los archivos de schemas que se encuentra en este repositorio hacia /carpeta_física_grupo_de_aplicación/bin
+* (opcional) Configurar el archivo server.devkron (en este archivo se le define la ubicación de los componentes del servicio de cada aplicación por defecto viene indicandole que se encuentran en /carpeta_física_grupo_aplicación/bin)
+* Configurar el archivo connections.xml  para que el proveedor de servicio pueda acceder a la base de datos(este archivo se encuentra ubicado en /carpeta_física_grupo_aplicación/bin)
 
 # Ejemplo de invocación del servicio
 - http(s)://sitio/name_grupo_aplicacion/Services.ashx?app=myapp&db=mydb
