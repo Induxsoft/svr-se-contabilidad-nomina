@@ -6,10 +6,10 @@ una mejor experiencia con distintos sistemas operativos y entornos de desarrollo
 
 
 # Requisitos previos para Windows .Net framework
-* Tener instalado iis (Internet Information Services)
+* Tener instalado IIS (Internet Information Services)
 	
-## Instalación del proveedor de servicios en iis
-* Abrir iis
+## Instalación del proveedor de servicios en IIS
+* Abrir IIS
 * Crear un sitio
 	- Agregar Grupo de aplicación
 * Copiar los componentes de la carpeta /iis_handler/bin de este repositorio,a una carpeta nombrada bin dentro de la carpeta física del grupo de aplicación(ej. /carpeta_física_grupo_de_aplicación/bin )
