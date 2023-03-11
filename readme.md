@@ -49,5 +49,7 @@ una mejor experiencia con distintos sistemas operativos y entornos de desarrollo
 
 ## Nota general
 ```
-Debe tener presente que los archivo de la carpeta configs son sumamente importante para el proveedor de servicios 
+Debe tener presente que los archivo de la carpeta configs son sumamente importante para el proveedor de servicios. 
+
+* Vaciar la caché de los DNS en Windows: ipconfig /flushdns
 ```
