@@ -15,7 +15,7 @@ una mejor experiencia con distintos sistemas operativos y entornos de desarrollo
 * Copiar los componentes de la carpeta /iis_handler/bin de este repositorio,a una carpeta nombrada bin dentro de la carpeta física del grupo de aplicación(ej. /carpeta_física_grupo_de_aplicación/bin )
 * Copiar el archivo Services.ashx se encuentra en /iis_handler/bin de este repositorio, a la carpeta física del grupo de aplicación
 * Copiar los archivos de la carpeta configs que se encuentra en este repositorio hacia /carpeta_física_grupo_de_aplicación/bin
-* Copiar los archivos de la carpeta schemas que se encuentra en este repositorio hacia /carpeta_física_grupo_de_aplicación/bin/schemas
+* Copiar los contenidos de la carpeta schemas que se encuentra en este repositorio hacia /carpeta_física_grupo_de_aplicación/bin/schemas
 	* Puede cambiar la ubicación del schemas en el archivo paths.cfg asi también otras configuraciones
 * (opcional) Configurar el archivo server.devkron (en este archivo se define la ubicación de los componentes del servicio de cada aplicación por defecto viene indicandole que se encuentran en /carpeta_física_grupo_aplicación/bin)
 * Configurar el archivo connections.xml  para que el proveedor de servicio pueda acceder a la base de datos(este archivo se encuentra ubicado en /carpeta_física_grupo_aplicación/bin)
@@ -39,7 +39,7 @@ una mejor experiencia con distintos sistemas operativos y entornos de desarrollo
 * Crear una carpeta en /carpeta_de_devkron/web/ con el nombre del host a utilizar 
 * Colocar en la carpeta del host el archivo svc-rpc-stp.dkl que se encuentra en /devkron_handler/web 
 * Copiar los archivos de la carpeta configs que se encuentra en este repositorio hacia /carpeta_física_devkron
-* Copiar los archivos de la carpeta schemas que se encuentra en este repositorio hacia /carpeta_física_devkron/schemas
+* Copiar los contenidos de la carpeta schemas que se encuentra en este repositorio hacia /carpeta_física_devkron/schemas
 	* Puede cambiar la ubicación del schemas en el archivo paths.cfg asi también otras configuraciones
 * (opcional) Configurar el archivo server.devkron (en este archivo se define la ubicación de los componentes del servicio de cada aplicación por defecto viene indicandole que se encuentran en /carpeta_física_devkron)
 * Configurar el archivo connections.xml  para que el proveedor de servicio pueda acceder a la base de datos(este archivo se encuentra ubicado en /carpeta_física_devkron)
