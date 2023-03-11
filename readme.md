@@ -1,16 +1,9 @@
 
-# Cómo configurar el servicios de contabilidad y nómina
+# Cómo configurar los servicios de contabilidad y nómina
 
 Los componentes que contiene este repositorio son compatibles para sistemas Windows y Linux con el entorno de .net5 ,así también para .net framework exclusivo para Windows, esto con la finalidad de mantener 
 una mejor experiencia con distintos sistemas operativos y entornos de desarrollo.
 
-
-# Explicación breve de su funcionalidad y ventajas del servicio
-El servicio se encarga de recibir las peticiones y retornar las respuestas de acuerdo a la solicitud, con ayuda del proveedor de servicios es muy sencillo realizar
-un CRUDL(Create, Read, Update, Delete,List) ya que solo se basa en las entidades enviadas en la solicitud.
-
-Las aplicaciones contabilidad y nómina utilizan el mismo proveedor de servicios con la finalidad de mantener controlado los procesos de invocación del servicio, así como
-también las respuestas que hay entre la aplicación y el proveedor de servicios.
 
 # Requisitos previos para Windows .Net framework
 * Tener instalado iis (Internet Information Services)
