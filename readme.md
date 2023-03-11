@@ -45,7 +45,7 @@ una mejor experiencia con distintos sistemas operativos y entornos de desarrollo
 * Configurar el archivo connections.xml  para que el proveedor de servicio pueda acceder a la base de datos(este archivo se encuentra ubicado en /carpeta_física_devkron)
 
 # Ejemplo de invocación del servicio
-- http(s)://sitio/svc-rpc-stp.dk?app=myapp&db=mydb
+- http(s)://sitio/svc-rpc-stp.dkl?app=myapp&db=mydb
 
 ## Nota general
 ```
