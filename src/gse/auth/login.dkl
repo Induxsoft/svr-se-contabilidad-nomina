@@ -1,0 +1,57 @@
+#include "dkli.dkh"
+#!
+module ""
+{
+    #include "functions.dkh"
+    #include "serialize.dkh"
+    #include "dbr.dkh"
+    
+    #include "gse/gse.dkh"
+
+    ref data=gse.get_payload()
+
+    qname=gse.get_qname()
+    
+    ref database=dbr.login(qname,@@(data,"$uid"),@@(data,"$pwd"))
+
+    token=dbr.getSID(database)
+    new params
+    {
+        @"ids":token
+    }
+    ref uinfo=dbr.rec(database,"select u.userId, u.userName from tuser u inner join sys_session s on u.sys_pk=s.iuser where s.sys_guid=@ids;",params)
+
+    new res
+    {
+        @"ids":token
+        @"uid":field.str(uinfo,"userId")
+        @"name":field.str(uinfo,"userName")
+        @"multifactor":@false
+        @"verified_email":@false
+        @"verified_mobile":@false
+        @"email": ""
+        @"mobile": ""
+        @"legacy_epifania_svc": "https://core22.induxsoft.net/epifania/?app=induxsoft&db=epifania_pefiles&uhu=False"
+        @"user_type": "induxsoft_internal"
+    }
+
+    new data
+    {
+        @"success":@true
+        @"data*":res
+    }
+    exception
+    {
+        new data
+        {
+            @"success":@false
+            @"message":last_error()
+        }
+    }
+    
+
+    @http_context<"response/headers/content-type">:"application/json;charset=utf-8"
+    @http_context<"response/output">:"text"
+    @http_context<"response/text">:to.json(data)
+  
+}

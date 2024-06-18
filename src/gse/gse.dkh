@@ -1,0 +1,57 @@
+#include "dkli.dkh"
+#!
+module ":gse"
+{
+    get_payload::
+	{
+		ref post=@@(@http_context,"&request/post")
+
+		if not(isnull(post))
+		{
+			if list.create_from_fields(post)>0
+			{
+				return post
+			}
+		}
+
+		return from.json(field.dstr(@http_context,"request/post_string","null"))
+
+		exception{}
+
+		return @null
+	}
+    get_qname::
+    {
+        ref data=gse.get_payload()
+        ref get=@@(@http_context,"&request/get")
+
+        dbqname=""
+
+        codeblock
+        {
+            host_name = @@(@http_context,"$request/headers/HTTP_HOST")
+            
+            cfg_name = host_name + ".json"
+            cfg_file = path.concat("_config",cfg_name)
+            if file.exists(cfg_file)
+            {
+                dbqname = trim(@@(from.json(file.rtext(cfg_file)),"$qname"))
+                exception{}
+            }
+        }
+
+        if field.exist(get,"app") && field.exist(get,"db")
+        {
+            app=@@(get,"$app")
+            db=@@(get,"$db")
+
+            qname=db+"@"+app
+        }
+        else 
+        {
+            qname=dbqname
+        }
+
+        return qname
+    }
+}
