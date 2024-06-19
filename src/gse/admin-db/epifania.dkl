@@ -1,0 +1,187 @@
+#include "dkli.dkh"
+#!
+module ""
+{
+    #include "functions.dkh"
+    #include "serialize.dkh"
+    #include "dbr.dkh"
+    #include "gse/config.dk"
+    #include "gse/lib.dk"
+    #include "gse/gse.dkh"
+
+    go api_base_service(responseJSONdata:response)
+    {   
+        ref data=gse.get_payload()
+        ref get=@@(@http_context,"&request/get")
+        
+        qname=gse.get_qname()
+        
+        ref database=@null
+        if field.exist(data,"idses")
+        {
+            // ref database=dbr.reconnect(qname,@@(data,"$idses"))
+            token=@@(data,"$idses")
+        }
+        else
+        {
+            ref database=dbr.login(qname,@@(data,"$user"),@@(data,"$pwd"))
+            token=dbr.getSID(database)
+        }
+        
+    
+        switch @@(data,"$cmd")
+        {
+            case "get_result"
+            {
+                switch @@(data,"$qry")
+                {
+                    case "svr_ctatimbrado_perfil"
+                    {
+                        response<"data">:to.jsonNet(from.json('{
+                            "$schema": {
+                                "$type": "fastJSON.DatasetSchema, fastJSON, Version=2.1.0.0, Culture=neutral, PublicKeyToken=6b75a806b86095cd",
+                                "Info": [
+                                    "Table",
+                                    "nic",
+                                    "System.String",
+                                    "Table",
+                                    "id",
+                                    "System.String",
+                                    "Table",
+                                    "saldo",
+                                    "System.Int32"
+                                ],
+                                "Name": "Table"
+                            },
+                            "Table": [
+                                [
+                                    "100938",
+                                    "101BA422867D4C0388E45897987A2466",
+                                    982326714
+                                ]
+                            ]
+                        }
+                        '),@true)
+                        break
+                    }
+                    default
+                    {
+                        response<"data">:to.jsonNet(from.json('{
+ "$schema":
+ {
+  "$type": "fastJSON.DatasetSchema, fastJSON, Version=2.1.0.0, Culture=neutral, PublicKeyToken=6b75a806b86095cd",
+  "Info": [
+   "Table",
+   "pk_cliente",
+   "System.Int32",
+   "Table",
+   "nic",
+   "System.String",
+   "Table",
+   "nombre",
+   "System.String",
+   "Table",
+   "rfc",
+   "System.String",
+   "Table",
+   "nombrecomercial",
+   "System.String",
+   "Table",
+   "pais",
+   "System.String",
+   "Table",
+   "estado",
+   "System.String",
+   "Table",
+   "ciudad",
+   "System.String",
+   "Table",
+   "domicilio_colonia",
+   "System.String",
+   "Table",
+   "domicilio_calle",
+   "System.String",
+   "Table",
+   "domicilio_num_int",
+   "System.String",
+   "Table",
+   "domicilio_num_ext",
+   "System.String",
+   "Table",
+   "domicilio_referencia",
+   "System.String",
+   "Table",
+   "domicilio_cp",
+   "System.String",
+   "Table",
+   "website",
+   "System.String",
+   "Table",
+   "telefonos",
+   "System.String",
+   "Table",
+   "giro",
+   "System.String",
+   "Table",
+   "puntos",
+   "System.Int32",
+   "Table",
+   "idistribuidor",
+   "System.Int32"
+  ],
+  "Name": "Table"
+ },
+ "Table": [
+  [
+   0,
+   "000000",
+   "Mi empresa",
+   "RFC000000",
+   "Nombre empresa",
+   "Mu00E9xico",
+   "Chiapas",
+   "Tuxtla Gutiu00E9rrez",
+   "Daniel Robles Sasso",
+   "Josu00E9 Patrocinio Gonzalez Garrido",
+   "-",
+   "467",
+   "Frente a la unicach libramiento norte",
+   "",
+   "www.induxsoft.net",
+   "9611471627",
+   "Giro",
+   0,
+   null
+  ]
+ ]
+}'),@true)
+                        break
+                    }
+                }
+                
+                break
+            }
+            default
+            {
+                new parameters
+                {
+                    @"token": token
+                    @"userid": @@(data,"$user")
+                    @"qname": qname
+                    @"folderupload": "O6xO0hIoO9mWAuyWm2QT/a4BsWrbtDc7LhHUNn+CU/fnnBlcWMMtzFreRBiIDwJAD/VEs4kBO48UGTwo634a6w=="
+                    @"folderdownload": "O6xO0hIoO9mWAuyWm2QT/a4BsWrbtDc7LhHUNn+CU/fnnBlcWMMtzFreRBiIDwJAD/VEs4kBO48UGTwo634a6w=="
+                    @"serverupload": "https://factudesk.induxsoft.net/services/upload/UpLoad.ashx"
+                    @"serverdownload": "https://factudesk.induxsoft.net/services/upload/DownLoad.ashx"
+                    @"userpk": "0"
+                }
+                response<"data">:to.json(parameters)
+                break
+            }
+        }
+        
+        using response
+        {
+            @"success*":from.json("true")
+        }
+    }
+}

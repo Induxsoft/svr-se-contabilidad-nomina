@@ -54,4 +54,227 @@ module ":gse"
 
         return qname
     }
+    #!
+    atributoElemento::&elemento, name
+    {
+        return @@(@@(elemento,"&attributes"),name)
+    }
+
+    primerElementoHijoPorNombre::&elemento, tagname
+    {
+        if isnull(elemento) { return @null }
+        if isnull(@@(elemento,"&nodes")) { return @null }
+
+        for i=0; i<@count(@@(elemento,"&nodes"))
+        {
+            if @@( @item(@@(elemento,"&nodes"),i),"name")==tagname { return @item(@@(elemento,"&nodes"),i) }
+        }
+
+        return @null
+    }
+    soapGetParameters::&xmlTree,operation
+    {
+        ref body=gse.primerElementoHijoPorNombre(xmlTree,"soap:Body")
+
+        ref params=gse.primerElementoHijoPorNombre(body,operation)
+
+        ref p=record.create()
+
+        for i = 0; i < @count(@@(params,"&nodes"))
+        {
+            ref node=@item(@@(params,"&nodes"),i)
+            ref nd=@item(@@(node,"&nodes"),0)
+            p<@@(node,"$name")>:@@(nd,"$data")
+        }
+        return p
+    }
+    soapGetOperations::&xmlTree
+    {
+        // ["Conexiones"]
+        ref body=gse.primerElementoHijoPorNombre(xmlTree,"soap:Body")
+        ref l=list.create()
+
+        for i = 0; i < @count(@@(body,"&nodes"))
+        {
+            ref nodes=@item(@@(body,"&nodes"),i)
+            do list.add(l,@@(nodes,"$name"))
+        }
+        return l
+    }
+
+    soapEnvelope::operation,xmlns,content
+    {
+        op='<'+operation+'Response xmlns="'+xmlns+'">'
+        op=op + '<'+operation+'Result>'
+        op=op + content
+        op=op + '</'+operation+'Result>'
+        op=op + '</'+operation+'Response>'
+
+        return ftext(gse.soapBody(op))
+
+    }
+    soapBody::content
+    {
+       xml= '<?xml version="1.0" encoding="utf-8"?>
+        <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <soap:Body>
+                #<content>
+            </soap:Body>
+        </soap:Envelope>'
+
+        return ftext(xml)
+    }
+    getUser::&db,ids
+    {
+        new p{@"ids":ids}
+        ref uinfo=dbr.rec(db,"select u.userId, u.userName from tuser u inner join sys_session s on u.sys_pk=s.iuser where s.sys_guid=@ids;",p)
+        if isnull(uinfo){do rise_error(580,"Sesión inválida")}
+
+        return uinfo
+    }
+    createDb::&db,&params
+    {
+        params<"jg">:@jg
+
+        ref jg=dbr.rec(db,"select * from jobsgroup where (name=@jg or sys_guid=@jg)",params)
+        if isnull(jg){do rise_error(500,"No se encontró datos del grupo de trabajo")}
+
+        ref user=gse.getUser(db,@@(params,"$idSesion"))
+        id=uuid()
+        idbd=replace(@bd_prefix,"@uuid",id)
+
+        new serie_db
+        {
+            @"nic":@NIC
+            @"dbname":@@(params,"$Nombre")
+            @"id":idbd
+            @"registro*":now() 
+            @"disponible":0 
+        }
+        do dbr.insert(db,"serie_dbs",serie_db)
+
+        @connections<"app">:@app
+
+        new p
+        {
+            @"serie_db*":serie_db
+            @"connection*":@connections
+        }
+
+        new batch
+        {
+            @"jp_ref":@@(jg,"#sys_pk")
+            @"program":@program
+            @"owner":""
+            @"jstatus":@status_job_solicitado
+            @"params*":p
+        }
+        do batch.create(db,batch)
+    }
+    getStatusdb::&db,&params
+    {
+        sql="Select * from serie_dbs Where nic=@nic and dbname=@nombre"
+
+        if field.exist(params,"id"){sql="Select * from serie_dbs Where id=@id"}
+
+        ref data=dbr.rec(db,sql,params)
+
+        if isnull(data){return 0}
+
+        if @@(data,"#disponible")!=0{return 99}
+
+        if @@(data,"#error")!=0{return 3}
+
+        if @@(data,"$creacion")!=""{return 1}
+
+        return 2
+    }
+    #! deleteDb::&db,&params
+    {
+        ref user=gse.getUser(db,@@(params,"$idSesion"))
+
+        ref data=dbr.rec(db,"select * from serie_dbs where nic=@nic and dbname=@nombre ",params)
+        if isnull(data){do rise_error(500,"No se encontró datos de la db indicada")}
+
+        qname=@app+"@"+@@(data,"$id")
+
+        new serie_db
+        {
+            @"disponible":0
+            @"id":"_"+@@(data,"$id")
+            @"udel":@@(user,"$userId")
+        }
+        do dbr.update(db,"serie_dbs",serie_db,"nic=@nic and dbname=@nombre",params)
+
+    }
+    getConexions::&db,&params
+    {
+        ref data=dbr.list(db,"select * from serie_dbs",@null)
+
+        ref l=list.create()
+
+        xml=""
+        for i = 0; i < @count(data)
+        {
+            ref itm=@item(data,i)
+            status=gse.getStatusdb(db,itm)
+
+            xml=xml+'<Serie_E_DBInfo>
+					<nombre>'+@@(itm,"$dbname")+'</nombre>
+					<id>'+@@(itm,"$id")+'</id>
+					<nic>'+@@(itm,"$nic")+'</nic>
+					<status>'+str(status)+'</status>
+					</Serie_E_DBInfo>'
+
+            new cnns
+            {
+                @"nombre":@@(itm,"$")
+                @"id":@@(itm,"$")
+                @"nic":@@(itm,"$")
+                @"status":status
+            }
+            do list.add(l,cnns)
+        }
+        
+        new data
+        {
+            @"response":xml
+            @"connextions*":l
+        }
+
+        return data
+    }
+    #! listarNIC::&db,&params
+    {
+        ref data=dbr.list(db,"select * from serie_dbs",@null)
+
+        ref l=list.create()
+
+        xml=""
+
+        for i = 0; i < @count(data)
+        {
+            ref itm=@item(data,i)
+
+            xml=xml + '
+                <NIC>
+                        <Codigo>'+@@(itm,"$nic")+'</Codigo>
+                        <Nombre>Mi empresa</Nombre>
+                </NIC>'
+
+            new nic
+            {
+                @"nombre":"Mi empresa"
+                @"nic":@@(itm,"$nic")
+            }
+            do list.add(l,nic)
+        }
+        new data
+        {
+            @"response":xml
+            @"nics*":l
+        }
+
+        return data
+    }
 }

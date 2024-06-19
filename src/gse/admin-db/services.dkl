@@ -1,0 +1,85 @@
+#include "dkli.dkh"
+#!
+module ""
+{
+    #include "functions.dkh"
+    #include "serialize.dkh"
+    #include "dbr.dkh"
+    #include "gse/gse.dkh"
+    #include "gse/config.dk"
+    #include "batch.v12.dkl"
+    
+    xml=field.dstr(@http_context,"request/post_string","null")
+    ref xmlTree=parse.xmlStr(xml)
+    
+    qname=gse.get_qname()
+
+    ref op=gse.soapGetOperations(xmlTree)
+
+    ref db =@null
+    response=""
+
+
+    for i = 0; i <@count(op)
+    {
+        operation=list.str(op,i)
+        ref params=gse.soapGetParameters(xmlTree,operation)
+        if field.exist(params,"nic"){params<"nic">:@NIC}
+
+        if isnull(db)
+        {
+            ref db =dbr.reconnect(qname,@@(params,"$IdSesion"))
+            ref @batchDB=db
+        }
+        
+        t=""
+        switch tolower(operation)
+        {
+            case "conexiones"
+            {
+                ref data=gse.getConexions(db,params)
+                t=@@(data,"$response")
+                break
+            }
+            case "eliminarbasededatos"
+            {
+                do gse.deleteDb(db,params)
+                t='<EliminarBaseDeDatosResponse xmlns="http://tempuri.org/"/>'
+                break
+            }
+            case "crearbasededatos"
+            {
+                do gse.createDb(db,params)
+                t='<CrearBaseDeDatosResponse xmlns="http://tempuri.org/"/>'
+                break
+            }
+            case "statusdb"
+            {
+                status=gse.getStatusdb(db,params)
+                t='<StatusDBResult>'+str(status)+'</StatusDBResult>'
+                break
+            }
+            case "listarnic"
+            {
+                ref data=gse.listarNIC(db,params)
+                t=@@(data,'$response')
+                break
+            }
+        }
+        response=gse.soapEnvelope(operation,"http://tempuri.org/",t)
+    }
+
+    
+    exception
+    {
+
+        error='<faultcode>soap:Server</faultcode>
+			<faultstring>'+last_error()+'</faultstring>
+			<detail/>'
+        response=gse.soapBody(error)
+    }
+
+    @http_context<"response/headers/content-type">:"text/xml;charset=utf-8"
+    @http_context<"response/output">:"text"
+    @http_context<"response/text">:response
+}

@@ -1,0 +1,3 @@
+POST /!!/{app}/{db?}/ > $gse/stp/svc-rpc-stp.dkl
+POST /!!/{app?}/ > $gse/stp/svc-rpc-stp.dkl
+

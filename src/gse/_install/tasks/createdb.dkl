@@ -1,0 +1,48 @@
+#include "dkli.dkh"
+#!
+program ""
+{
+    #include "functions.dkh"
+    #include "serialize.dkh"
+    #include "dbr.dkh"
+    #include "batch.v12.dkl"
+
+    ref db=@@(@batch_context,"&database")
+    if isnull(@batchDB){ref @batchDB=db}
+    token=@@(@batch_context,"$job/id")
+    ref params=@@(@batch_context,"&params")
+
+    ref serie_db=@@(params,"&serie_db")
+    ref connection=@@(params,"&connection")
+
+    do batch.saveLog(token,"Iniciando creación de base de datos")
+
+    do dbr.begin(db)
+        new upd{@"creacion*":now()}
+        do dbr.update(db,"serie_dbs",upd,"id=@id",serie_db)
+        
+        iddb=@@(serie_db,"$id")
+        app=@@(connection,"$app")
+        qname=iddb+"@"+app
+
+        args='dba create database qn='+qname+' "settings=Engine:'+@@(connection,"$Engine")+',Host:'+@@(connection,"$Host")+',Port:'+@@(connection,"$Port")+',UserName:'+@@(connection,"$UserName")+',Password:'+@@(connection,"$Password")+',SslMode:'+@@(connection,"$SslMode")+',DefaultSchema:'+iddb+' "'
+
+        res= exec("dkl",args,@true)
+        if contains(tolower(res),"error"){do rise_error(500,res)}
+
+        new upd{@"disponible":99}
+        do dbr.update(db,"serie_dbs",upd,"id=@id",serie_db)
+
+    do dbr.commit(db)
+
+    do batch.saveLog(token,"Base de datos creado correctamente: "+str(res))
+
+    exception
+    {
+        if dbr.in_transaction(db){do dbr.rollback(db)}
+
+        do batch.saveLog(token,last_error())
+        new upd{@"error":3}
+        do dbr.update(db,"serie_dbs",upd,"id=@id",serie_db)
+    }
+}

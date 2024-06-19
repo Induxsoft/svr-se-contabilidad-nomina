@@ -1,0 +1,23 @@
+#include "ddm.dkh"
+model ""
+{
+    entity "serie_dbs" 
+    {
+        @"sys_pk" int autoincrement primarykey
+        @"nic" string(10)
+        @"dbname" string(250)
+        @"id" string(45) unique 
+        @"registro" datetime
+        @"creacion" datetime
+        @"disponible" bool
+        @"udel" string(150)
+        @"updated" datetime
+        @"error" bool
+
+        index "uniqname" unique
+        {
+            field "nic"
+            field "dbname"
+        }
+    }
+}

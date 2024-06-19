@@ -31,7 +31,7 @@ module ""
         @"verified_mobile":@false
         @"email": ""
         @"mobile": ""
-        @"legacy_epifania_svc": "https://core22.induxsoft.net/epifania/?app=induxsoft&db=epifania_pefiles&uhu=False"
+        @"legacy_epifania_svc": "https://v12se-test.induxsoft.net/!/admin-db/epifania.dkl"//https://core22.induxsoft.net/epifania/?app=induxsoft&db=epifania_pefiles&uhu=False
         @"user_type": "induxsoft_internal"
     }
 
