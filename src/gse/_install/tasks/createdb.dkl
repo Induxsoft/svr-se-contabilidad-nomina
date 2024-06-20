@@ -6,41 +6,194 @@ program ""
     #include "serialize.dkh"
     #include "dbr.dkh"
     #include "batch.v12.dkl"
+    #include "dbr.vars.dkl"
+    #include "dbm.dkl"
+    
+    ref lib_csv = _import_library("devkron.serialize.csv.dll")
+    do _map_function(lib_csv,"devkron.serialize.csv.csvHelper","CsvRead","CsvRead","System.String,System.String","*")
+    do _map_function(lib_csv,"devkron.serialize.csv.csvHelper","CsvWrite","CsvWrite","System.String,*System.Object","void")
+    do _map_function(-1,"System.Threading.Thread","Sleep","sleep","System.Int32","void")
+    do _map_function(@lib_dbr,"induxsoft.Connections.Manager","ResetStorage","reset","void","void")
 
-    ref db=@@(@batch_context,"&database")
+    reconnect::&db,qn
+    {
+        if isnull(db) || not(dbr.is_open(db)) { ref db:dbr.open(qn) }
+        do dbr.rec(db,"select 1 as success;",@null)
+        exception
+        {
+            do clear_exceptions()
+            ref db:dbr.open(qn)
+        }
+    }
+    model_name = "serie_e.ddm"
+    model_file = path.concat("gse/_install/ddm/",model_name)
+    path_initial_data="gse/_install/initial_data/"
+    path_dkts="gse/_install/ddm/tdks/"
+    path_procedure="gse/_install/ddm/procedure"
+    procedures="inibalance.sql,cuentaxrubro.sql,foliogxtipo.sql,folioxtipo.sql,getfoliog.sql,getfoliop.sql,reportupdate.sql"
+
+    ref files_to_import = from.json('["divisa.csv","ctiposcc.csv"]')
+
+    ref db=@@(@batch_context,"&database")//dbr.open("v12demo1@appsdkl")//
     if isnull(@batchDB){ref @batchDB=db}
+
     token=@@(@batch_context,"$job/id")
     ref params=@@(@batch_context,"&params")
+    // ref params=from.json('{"serie_db":{"nic":"000000","dbname":"bd0001","id":"se_f67f56b5b016467596041975a3a31611","registro":"2024-06-19T18:11:33Z","disponible":0},"connection":{"app":"serie-e","qname_org":"v12demo1@appsdkl"}}')
 
     ref serie_db=@@(params,"&serie_db")
-    ref connection=@@(params,"&connection")
+    ref cn=@@(params,"&connection")
+
+    cnns=dbr.vars.get(db,"gse_svr_cnn")
+    ref connection=from.json(cnns)//'{"Engine": "MY_SQL","Host": "192.168.0.99","UserName": "root","Password": "v12D3m01=","Port": 3306,"DefaultSchema": "","SslMode": 0 }'
 
     do batch.saveLog(token,"Iniciando creación de base de datos")
 
-    do dbr.begin(db)
-        new upd{@"creacion*":now()}
-        do dbr.update(db,"serie_dbs",upd,"id=@id",serie_db)
-        
-        iddb=@@(serie_db,"$id")
-        app=@@(connection,"$app")
-        qname=iddb+"@"+app
+    new upd{@"creacion*":now()}
+    do dbr.update(db,"serie_dbs",upd,"id=@id",serie_db)
 
-        args='dba create database qn='+qname+' "settings=Engine:'+@@(connection,"$Engine")+',Host:'+@@(connection,"$Host")+',Port:'+@@(connection,"$Port")+',UserName:'+@@(connection,"$UserName")+',Password:'+@@(connection,"$Password")+',SslMode:'+@@(connection,"$SslMode")+',DefaultSchema:'+iddb+' "'
+    iddb=@@(serie_db,"$id")
+    app=@@(cn,"$app")
+    qname=iddb+"@"+app
 
-        res= exec("dkl",args,@true)
-        if contains(tolower(res),"error"){do rise_error(500,res)}
+    args='dba create database qn='+qname+' "settings=Engine:'+@@(connection,"$Engine")+',Host:'+@@(connection,"$Host")+',Port:'+@@(connection,"$Port")+',UserName:'+@@(connection,"$UserName")+',Password:'+@@(connection,"$Password")+',SslMode:'+@@(connection,"$SslMode")+',DefaultSchema:'+iddb+' "'
 
-        new upd{@"disponible":99}
-        do dbr.update(db,"serie_dbs",upd,"id=@id",serie_db)
-
-    do dbr.commit(db)
+    res=exec("dkl",args,@true)
+    if contains(tolower(res),"error"){do rise_error(500,res)}
 
     do batch.saveLog(token,"Base de datos creado correctamente: "+str(res))
+    //inicia el proceso de crear tablas
+    fext = file.extension(model_file)
+    ref data_model = @null
+
+    if fext == ".json" { ref data_model = from.json(file.rtext(model_file)) }
+    else if fext == ".ddm" { ref data_model = getTableSchema(model_file) }
+    else { do rise_error(1,"El tipo de esquema del modelo no esta soportado.") }
+
+    if not(file.exists(model_file)) { do rise_error(99,"No se encontró el esquema: _install/ddm/" + model_name) }
+
+    module
+    {
+        do reset()
+        exception{}
+    }
+    ref database=dbr.open(qname)
+
+    if not(dbm.existLogTables(database))
+    {
+        do dbm.inferModel(qname)
+        do print("-- ------------------------- --")
+    }
+
+    do batch.saveLog(token,"INSTALANDO MODELO")
+    if not(dbm.installModel(database,model_name,data_model)) { do rise_error(99,"No se instaló el modelo") }
+
+    do reconnect(database,qname)
+
+    if dir.exists(path_initial_data) && list.count(files_to_import) > 0
+    {
+        do print("\nIMPORTANDO DATOS INICIALES")
+
+        for i = 0; i < list.count(files_to_import)
+        {
+            file = path.concat(path_initial_data,trim(list.str(files_to_import,i)))
+            if file.exists(file)
+            {
+                ref CsvData = CsvRead(file,"")
+                table_name = file.justname(file)
+                do dbr.vars.ImportList(database,CsvData,table_name)
+            }
+        }
+    }
+
+    module "insertar dkt"
+    {
+        // rh_grupo_conceptos._rec_tdk,
+        // rh_tipo_nomina._rec_tdk,
+        // rh_concepto_nomina._rec_tdk,
+        // rh_tipo_contrato._rec_tdk,
+        // rh_detalle_grupo_conceptos._rec_tdk,
+        // rh_variable._rec_tdk,
+        // rh_tabla_calculo._rec_tdk,
+        text_files='crubro._rec_tdk,ctipospolizas._rec_tdk,se_repconta._rec_tdk,ut_sat_banco._rec_tdk,ccontable._rec_tdk,ccontable_crubro_._rec_tdk'//ut_sat_cuenta._rec_tdk
+        ref lfiles=split(text_files,",")
+        
+        do batch.saveLog(token,"IMPORTANDO DATOS INICIALES DKT ")
+
+        do dbr.vars.ImportListDkt(database,lfiles,path_dkts)
+    }
+    //creando procedures
+    if dir.exists(path_procedure)
+    {
+        do print("Creando procedimientos almacenados..")
+        do batch.saveLog(token,"Creando procedimientos almacenados..")
+
+        ref lprocedures=split(procedures,",")
+        for i = 0; i < @count(lprocedures)
+        {
+            file=list.str(lprocedures,i)
+            path_proc=path.concat(path_procedure,file)
+
+            if file.exists(path_proc)
+            {
+                procedures=file.rtext(path_proc)
+
+                do dbr.execute(database,procedures,@null)
+            }
+        }
+    }
+    //copiar usuario a la nueva bd
+    do print("Insertando usuarios...")
+    do batch.saveLog(token,"Insertando usuarios...")
+
+    idgroup=dbr.vars.get(db,"grupo_user_contabilidad")
+    new p{@"g":idgroup}
+
+    ref usuarios=dbr.list(db,"SELECT locked,message,notes,pwd,userid,username,pwdmd5 FROM user_usergroup_ ug
+    INNER JOIN tuser t ON ug.users=t.sys_pk
+    WHERE ug.groups=@g",p)
+
+    pkgrupo=dbr.num(database,"select sys_pk from usergroup limit 1",@null)
+
+    for i = 0; i < @count(usuarios)
+    {
+        ref user=@item(usuarios,i)
+        using user
+        {
+            @"sys_guid":uuid()
+            @"sys_timestamp*":now()
+            @"sys_dtcreated*":now()
+            @"sys_recver":0
+        }
+        do dbr.insert(database,"tuser",user)
+        pkuser=dbr.num(database,"select sys_pk from tuser where sys_guid=@sys_guid limit 1",user)
+
+        if pkgrupo>0 && pkuser>0
+        {
+            new g
+            {
+                @"sys_guid":uuid()
+                @"sys_timestamp*":now()
+                @"sys_dtcreated*":now()
+                @"sys_recver":0
+                @"groups":pkgrupo
+                @"users":pkuser
+            }
+
+            do dbr.insert(database,"user_usergroup_",g)
+        }
+        
+        exception{ if not(contains(last_error(), "Duplicate entry")){ do batch.saveLog(token,last_error()) } }
+    }
+
+    //////////////////////
+    new upd{@"disponible":99}
+    do dbr.update(db,"serie_dbs",upd,"id=@id",serie_db)
 
     exception
     {
         if dbr.in_transaction(db){do dbr.rollback(db)}
-
+        do print(last_error())
         do batch.saveLog(token,last_error())
         new upd{@"error":3}
         do dbr.update(db,"serie_dbs",upd,"id=@id",serie_db)

@@ -19,11 +19,12 @@ module ""
     ref db =@null
     response=""
 
-
     for i = 0; i <@count(op)
     {
         operation=list.str(op,i)
         ref params=gse.soapGetParameters(xmlTree,operation)
+        using params{@"qname":qname}
+
         if field.exist(params,"nic"){params<"nic">:@NIC}
 
         if isnull(db)

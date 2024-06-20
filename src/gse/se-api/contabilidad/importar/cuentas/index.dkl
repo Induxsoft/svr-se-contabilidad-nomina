@@ -1,0 +1,62 @@
+#include "dkli.dkh"
+#!
+program "Importar Cuentas"
+{
+	#include "functions.dkh"
+	#include "dbr.dkh"
+	#include "serialize.dkh"
+    #include "website.dkl"
+    #include "linux-fixes.dkh"
+
+	go api_base_service (responseJSONdata:response) 
+	{
+		should_close=@false
+		ref params=@@(@http_context, "&request/get")
+		if isnull(params){do rise_error(99,"Párametros incompletos.")}
+		
+		ref db = openDB(params,@true)
+		should_close=@true
+
+		from=@@(params,"from")
+		ref data=@null
+
+		if from=="file"
+		{
+			ref files=field.obj(@http_context,"request/files")
+			if list.count(files)>0
+			{
+				ref f=list.obj(files,0)
+				pathzip=path.concat(@temp_path,field.str(f,"filename"))
+				do file.copy(field.str(f,"temp_file"),pathzip)
+
+				if file.exists(pathzip)
+				{
+					ref data = getFromZip(pathzip)
+				}
+			}
+		}
+		else if from=="database"
+		{
+			dborigin=@@(params, "dbo")
+			if dborigin=="" || dborigin=="@dbo" { do rise_error(0, "No se ha indicado una base de datos de origen.") }
+
+			new p { @"db":dborigin }
+			ref dbo = openDB(p,@false)
+			
+			ref data = get_data(dbo)
+		}
+
+		do init_import(db, data, params)
+		response<"data*">:@null
+		
+		exception
+		{
+			if should_close { do dbr.close(db) }
+			using response
+			{
+				@"success":@false
+				@"message":last_error()
+			}
+		}
+	}
+}

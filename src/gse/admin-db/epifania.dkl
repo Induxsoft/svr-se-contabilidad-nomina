@@ -8,6 +8,7 @@ module ""
     #include "gse/config.dk"
     #include "gse/lib.dk"
     #include "gse/gse.dkh"
+    #include "dbr.vars.dkl"
 
     go api_base_service(responseJSONdata:response)
     {   
@@ -19,13 +20,14 @@ module ""
         ref database=@null
         if field.exist(data,"idses")
         {
-            // ref database=dbr.reconnect(qname,@@(data,"$idses"))
+            ref database=dbr.reconnect(qname,@@(data,"$idses"))
             token=@@(data,"$idses")
         }
         else
         {
-            ref database=dbr.login(qname,@@(data,"$user"),@@(data,"$pwd"))
-            token=dbr.getSID(database)
+            ref database=dbr.open(qname)
+            ref uinfo=gse.CheckPassword(database,data)
+            token=@@(uinfo,"$ids")
         }
         
     
@@ -37,6 +39,9 @@ module ""
                 {
                     case "svr_ctatimbrado_perfil"
                     {
+                        using params{@"svr_cti":@true}
+
+                        ref emisor=gse.listarNIC(database,params)
                         response<"data">:to.jsonNet(from.json('{
                             "$schema": {
                                 "$type": "fastJSON.DatasetSchema, fastJSON, Version=2.1.0.0, Culture=neutral, PublicKeyToken=6b75a806b86095cd",
@@ -55,9 +60,9 @@ module ""
                             },
                             "Table": [
                                 [
-                                    "100938",
-                                    "101BA422867D4C0388E45897987A2466",
-                                    982326714
+                                    "'+@@(emisor,"$nic")+'",
+                                    "'+@@(emisor,"$id")+'",
+                                    0
                                 ]
                             ]
                         }
@@ -66,6 +71,9 @@ module ""
                     }
                     default
                     {
+                        using params{@"svr_cti":@true}
+
+                        ref emisor=gse.listarNIC(database,params)
                         response<"data">:to.jsonNet(from.json('{
  "$schema":
  {
@@ -134,8 +142,8 @@ module ""
  "Table": [
   [
    0,
-   "000000",
-   "Mi empresa",
+   "'+@@(emisor,"$nic")+'",
+   "'+@@(emisor,"$nombre")+'",
    "RFC000000",
    "Nombre empresa",
    "Mu00E9xico",

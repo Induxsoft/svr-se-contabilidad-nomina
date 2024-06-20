@@ -1,0 +1,16 @@
+#include "ddm.dkh"
+
+model "seriee"
+{
+	//Realmente necesitamos esta entidad abstracta?????
+    abstract "NmModel"
+    {
+        @"sys_pk" int key required autoincrement
+        @"sys_timestamp" datetime required
+        @"sys_recver" int
+        @"sys_deleted" bool
+        @"sys_lock" int
+    }
+	
+	 entity "cb_tipo_asiento_contable" : "EnumModel" {}
+}

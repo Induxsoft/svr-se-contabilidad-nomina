@@ -1,0 +1,40 @@
+#def table(name) "table"
+#def col(name, type, caption) "column"
+#pattern col "'$name':'$type'"
+#pattern col "'$name':'$type' ['@caption']"
+
+table("crubro")
+{
+	columns
+	{
+		sys_pk : int ["sys_pk"]
+		sys_timestamp : datetime ["sys_timestamp"]
+		sys_guid : string ["sys_guid"]
+		sys_dtcreated : datetime ["sys_dtcreated"]
+		sys_user : string ["sys_user"]
+		sys_lastuser : string ["sys_lastuser"]
+		sys_exported : bool ["sys_exported"]
+		sys_dtexported : datetime ["sys_dtexported"]
+		sys_info : string ["sys_info"]
+		codigo : string ["codigo"]
+		color : int ["color"]
+		descripcion : string ["descripcion"]
+		notas : string ["notas"]
+		sys_recver : int ["sys_recver"]
+		sys_deleted : long ["sys_deleted"]
+		sys_lock : int ["sys_lock"]
+	}
+	rows
+	{
+		#def row(sys_pk,sys_timestamp,sys_guid,sys_dtcreated,sys_user,sys_lastuser,sys_exported,sys_dtexported,sys_info,codigo,color,descripcion,notas,sys_recver,sys_deleted,sys_lock) "row"
+		row("29","11/30/2014 07:21:42","BE8A18EDFD4E45FA986C8EB729EE5720","11/30/2014 07:21:42","\0","\0","False","11/30/2014 07:21:56","\0","ACP","0","Activo a Corto Plazo","\0","0","0","0")
+		row("30","11/30/2014 07:21:42","3FE9626FB05B495684EDC8D1477F3E7E","11/30/2014 07:21:42","\0","\0","False","11/30/2014 07:21:56","\0","ALP","0","Activo a Largo Plazo","\0","0","0","0")
+		row("31","11/30/2014 07:21:42","F5967BD4F9BC482B801003486E6FE198","11/30/2014 07:21:42","\0","\0","False","11/30/2014 07:21:56","\0","PCP","0","Pasivo a Corto Plazo","\0","0","0","0")
+		row("32","11/30/2014 07:21:42","5C1C0880F6254B3B89AA70206EE621B5","11/30/2014 07:21:42","\0","\0","False","11/30/2014 07:21:56","\0","PLP","0","Pasivo a Largo Plazo","\0","0","0","0")
+		row("33","11/30/2014 07:21:42","43EE2973B00945FFA804E21702C3629F","11/30/2014 07:21:42","\0","\0","False","11/30/2014 07:21:56","\0","CCO","0","Capital Contable","\0","0","0","0")
+		row("34","11/30/2014 07:21:42","8306EDC468F144F3A7A806EC2EBCD19E","11/30/2014 07:21:42","\0","\0","False","11/30/2014 07:21:56","\0","ING","0","Ingresos","\0","0","0","0")
+		row("35","11/30/2014 07:21:42","9A937FEC79D24BD4A67DDAAC89E4DB09","11/30/2014 07:21:42","\0","\0","False","11/30/2014 07:21:56","\0","CST","0","Costos","\0","0","0","0")
+		row("36","11/30/2014 07:21:42","AEE7686A202444E0847B62CA3383C11C","11/30/2014 07:21:42","\0","\0","False","11/30/2014 07:21:56","\0","GST","0","Gastos","\0","0","0","0")
+		row("37","11/30/2014 07:21:42","64A34762AB524C72AB057994F43D87A5","11/30/2014 07:21:42","\0","\0","False","11/30/2014 07:21:56","\0","MAY","0","Mayor","\0","0","0","0")
+	}
+}

@@ -1,0 +1,45 @@
+#include "dkli.dkh"
+#!
+module "adicion"
+{
+	#include "functions.dkh"
+	#include "dbr.dkh"
+	#include "serialize.dkh"
+	#include "website.dkl"
+
+	go api_base_service(responseJSONdata:response)
+	{
+		ref getData=@@(@http_context,"&request/get")
+
+		ref postData=@@(@http_context,"&request/post")
+		if isnull(postData){ref postData=from.json(@@(@http_context,"request/post_string"))}
+		
+		 ref db=openDB(postData,@false)
+		 
+		 postData<"db*">:db
+
+		 
+		 
+		 res=runscript("list-raya.dkl","nomina",postData)
+		
+		if dbr.is_open(db){do dbr.close(db)}
+
+	 	using response
+		{
+			@"success":@true
+			@"data":res
+		}
+
+	 	exception
+	 	{
+	 		if dbr.is_open(db){do dbr.close(db)}
+	 		using response
+			{
+				@"success":@false
+				@"message":last_error()
+			}
+			 
+	 	}
+	}
+ 	
+}

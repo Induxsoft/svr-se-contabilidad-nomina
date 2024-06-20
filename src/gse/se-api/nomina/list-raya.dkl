@@ -1,0 +1,243 @@
+#include "dkli.dkh"
+
+#def nomina "nomina"
+#def recibo "recibo"
+
+#def percepciones "percepciones"
+#def percepcion "percepcion"
+
+#def deducciones "deducciones"
+#def deduccion "deduccion"
+
+#def obligaciones "obligaciones"
+#def obligacion "obligacion"
+
+#def indicadores "indicadores"
+#def indicador "indicador"
+
+#!
+program
+{
+	#include "functions.dkh"
+	#include "serialize.dkh"
+	#include "dbr.dkh"
+
+	 ref @Percepciones =@null
+     ref @Deducciones =@null
+     ref @OtrosPagos =@null
+     ref @Indicadores =@null
+     ref @Obligaciones=@null
+
+
+	get.objectRecibo::&db,pkdetallenomina
+	{
+		new p{@"pk":pkdetallenomina}
+
+		ref @Percepciones =list.create()
+	     ref @Deducciones =list.create()
+	     ref @OtrosPagos =list.create()
+	     ref @Indicadores =list.create()
+	     ref @Obligaciones=list.create()
+
+         sqlobjects="SELECT c.sat_clave tipoconcepto, c.codigo clave, c.descripcion concepto, IFNULL(c.gravable, FALSE) gravado,dnc.importe, c.sat_elemento, c.tipo
+		FROM rh_detalle_nomina_concepto dnc
+		INNER JOIN rh_concepto_nomina c ON dnc.ref_concepto=c.sys_pk
+		WHERE dnc.ref_detalle_nomina=@pk ;"//AND (c.tipo=0 OR c.tipo=1 OR c.tipo=3)
+
+		ref objects=dbr.list(db,sqlobjects,p)
+         
+
+         for i=0;i<@count(objects)
+         {
+         	ref item=@item(objects,i)
+
+         	switch @@(item,"#tipo")
+            {
+                case 0 //Percepciones y Otros pagos
+                {
+                	if @@(item,"$tipoconcepto")!="" && @@(item,"$sat_elemento")!=""
+                    {
+                    	@totalpercepciones=@totalpercepciones + @@(item,"#importe")
+                    	do list.add(@Percepciones,item)
+
+                        switch @@(item,"#sat_elemento")
+                        {
+                            case 0 //Percepciones
+                            {
+                            	// if @@(item,"#importe") > 0{do list.add(Percepciones,item)}
+                            }
+                            case 2 //Otros pagos
+                            {
+                            	@totalotrospagos=@totalotrospagos + @@(item,"#importe")
+                            	do list.add(@OtrosPagos,item)
+                            }
+                        }
+                    }
+                }
+                case 1 //Deducciones
+                {
+                	if (@@(item,"$tipoconcepto")!="" && @@(item,"$sat_elemento")!="")
+                	{
+                		if @@(item,"#sat_elemento") == 1
+                		{
+	                		@totaldeducciones=@totaldeducciones + @@(item,"#importe")
+	                		do list.add(@Deducciones,item)
+	                		// if @@(item,"#importe") > 0{}
+                		}
+                	}
+                	
+                }
+            	case 2 //Obligaciones
+            	{
+            		@totalobligaciones = @totalobligaciones + @@(item,"#importe")
+            		do list.add(@Obligaciones,item)
+            		// if @@(item,"#importe") > 0{}
+            	}
+                case 3 //Indicadores
+                {
+                	@totalindicadores=@totalindicadores + @@(item,"#importe")
+                	do list.add(@Indicadores,item)
+                	// if @@(item,"#importe") > 0{}
+                }
+                    
+            }
+         }
+	}
+
+	ref nomina=@nomina
+
+	ref db=@@(nomina,"&db")
+
+	sqlrecibos="SELECT e.codigo codigo_empleado, t.nombre nom_tipocontrato, p.descripcion desc_puesto, e.apellido1, e.apellido2, e.nombre nombre_empleado, e.curp, e.rfc, e.nss, 
+	dn.sys_pk pkdetallenomina, dn.sys_timestamp, dn.sys_guid, dn.sys_dtcreated, dn.sys_recver, dn.sys_deleted, dn.sys_lock,
+	dn.ref_nomina, dn.ref_contrato, dn.notas, 
+	c.fechainicio, c.fechavencimiento, c.referencia, SUM(if(cpt.tipo=0,dnc.importe,0)) percepciones, SUM(if(cpt.tipo=1,dnc.importe,0)) deducciones, SUM(if(cpt.tipo=0,dnc.importe,0)-if(cpt.tipo=1,dnc.importe,0)) liquido, SUM(if(cpt.tipo=2,dnc.importe,0)) obligaciones,
+	e.sys_pk empleadopk
+	FROM rh_contrato_empleado c
+	INNER JOIN rh_puesto_org p ON c.ref_puesto=p.sys_pk
+	INNER JOIN rh_empleado_org e ON c.ref_empleado=e.sys_pk
+	INNER JOIN rh_tipo_contrato t ON c.tipo=t.sys_pk
+	INNER JOIN rh_unidad_org u ON p.ref_unidad_org=u.sys_pk
+	INNER JOIN rh_detalle_nomina dn ON c.sys_pk=dn.ref_contrato
+	LEFT JOIN rh_detalle_nomina_concepto dnc ON dnc.ref_detalle_nomina=dn.sys_pk
+	LEFT JOIN rh_concepto_nomina cpt ON dnc.ref_concepto=cpt.sys_pk
+	WHERE dn.ref_nomina=@pknomina
+	GROUP BY e.codigo, t.nombre, p.descripcion, e.apellido1, e.apellido2, e.nombre, e.curp, e.rfc, e.nss, 
+	dn.sys_pk, dn.sys_timestamp, dn.sys_guid, dn.sys_dtcreated, dn.sys_recver, dn.sys_deleted, dn.sys_lock,
+	dn.ref_nomina, dn.ref_contrato, dn.notas,c.fechainicio, c.fechavencimiento, c.referencia
+	ORDER BY e.apellido1, e.apellido2, e.nombre;"
+
+	//query anterior
+	// SELECT rhe.*,r.sys_pk pkdetallenomina,cfdi.cancelado,cfdi.error_al_timbrar, cfdi.sys_pk AS cfdi_sys_pk
+	// FROM rh_detalle_nomina r
+	// INNER JOIN rh_contrato_empleado rc ON r.ref_contrato=rc.sys_pk
+	// INNER JOIN rh_empleado_org rhe ON rc.ref_empleado=rhe.sys_pk
+	// LEFT JOIN rh_cfdi cfdi ON cfdi.ref_detalle_nomina=r.sys_pk
+	// WHERE (ISNULL(cfdi.uuid) OR IFNULL(error_al_timbrar, FALSE)= TRUE OR IFNULL(cancelado, TRUE)= TRUE) AND r.ref_nomina=@pknomina
+	// ORDER BY r.sys_pk;
+
+	new p{@"pknomina":@@(nomina,"nomina/sys_pk")}
+
+	ref dtnomina=dbr.rec(db,"select *,DATE_FORMAT(inicio,'%Y-%m-%d')finicio,DATE_FORMAT(fin,'%Y-%m-%d')ffin,DATE_FORMAT(fpago,'%Y-%m-%d')ffpago from rh_nomina where sys_pk=@pknomina",p)
+
+	ref datatreports=dbr.list(db,"select s.id, s.value  from se_var s where s.id = 'SE_Reports_Encabezado' or s.id ='SE_Reports_Pie' or s.id = 'SE_Reports_Logo';",@null)
+
+	module "reports"
+	{
+		ref encabezado=@item(datatreports,0)
+		ref pie=@item(datatreports,1)
+		ref logo=@item(datatreports,2)
+
+		exception{}
+	}
+	
+
+	ref recibos=dbr.list(db,sqlrecibos,p)
+	
+	#$
+	nomina(fecha_pago="#<@@(dtnomina,'$ffpago')>" fecha_inicial="#<@@(dtnomina,'$finicio')>" fecha_final="#<@@(dtnomina,'$ffin')>" id="#<@@(dtnomina,'$nombre')>" encabezado="#<@@(encabezado,'$value')>" pie="#<@@(pie,'$value')>" logo="#<@@(logo,'$value')>")
+	{
+		#!
+		for i=0;i<@count(recibos)
+		{
+			ref recibo=@item(recibos,i)
+			@totalpercepciones=0
+			@totaldeducciones=0
+			@totalobligaciones=0
+			@totalindicadores=0
+			@totalotrospagos=0
+
+			do get.objectRecibo(db,@@(recibo,"pkdetallenomina"))
+
+			ref percepcions=@Percepciones
+			ref deducciones=@Deducciones
+			ref obligaciones=@Obligaciones
+
+			ref otrospagos=@OtrosPagos 
+	     	ref indicadores= @Indicadores 
+	     	ref obligaciones= @Obligaciones
+
+			#$
+			recibo(id="#<@@(recibo,'$codigo_empleado')>" nombre="#<@@(recibo,'$nombre_empleado')>" apellidos="#<@@(recibo,'$apellido1')+' '+@@(recibo,'$apellido2')>" 
+				puesto="#<@@(recibo,'$desc_puesto')>"
+				curp="#<@@(recibo,'$curp')>"
+				rfc="#<@@(recibo,'$rfc')>"
+				nss="#<@@(recibo,'$nss')>"
+				tipocontrato="#<@@(recibo,'$nom_tipocontrato')>"
+				referencia="#<@@(recibo,'$referencia')>"
+				liquido="#<@@(recibo,'$liquido')>"
+				percepciones="#<@totalpercepciones>"
+				deducciones="#<@totaldeducciones>"
+				obligaciones="#<@totalobligaciones>"
+				indicadores="#<@totalindicadores>")
+			{
+				percepciones(total="#<@totalpercepciones>")
+				{
+					#!
+					for j=0;j<@count(percepcions)
+					{
+						ref dt=@item(percepcions,j)
+						#$
+						percepcion(codigo="#<@@(dt,'$clave')>" concepto="#<@@(dt,'$concepto')>" importe="#<@@(dt,'$importe')>")
+					}
+					#$
+					
+				}
+				deducciones(total="#<@totaldeducciones>")
+				{
+					#!
+					for a=0;a<@count(deducciones)
+					{
+						ref de=@item(deducciones,a)
+						#$
+						deduccion(codigo="#<@@(de,'$clave')>" concepto="#<@@(de,'$concepto')>" importe="#<@@(de,'$importe')>")
+					}
+					#$
+				}
+				obligaciones(total="#<@totalobligaciones>")
+				{
+					#!
+					for b=0;b<@count(obligaciones)
+					{
+						ref ob=@item(obligaciones,b)
+						#$
+						obligacion(codigo="#<@@(ob,'$clave')>" concepto="#<@@(ob,'$concepto')>" importe="#<@@(ob,'$importe')>")
+					}
+					#$
+				}
+				indicadores(total="#<@totalindicadores>")
+				{
+					#!
+					for c=0;c<@count(indicadores)
+					{
+						ref ind=@item(indicadores,c)
+						#$
+						indicador(codigo="#<@@(ind,'$clave')>" concepto="#<@@(ind,'$concepto')>" importe="#<@@(ind,'$importe')>")
+					}
+					#$
+				}
+			}
+		}
+		
+	}
+}

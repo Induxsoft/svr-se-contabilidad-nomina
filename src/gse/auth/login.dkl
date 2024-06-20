@@ -5,22 +5,32 @@ module ""
     #include "functions.dkh"
     #include "serialize.dkh"
     #include "dbr.dkh"
-    
+    #include "gse/config.dk"
     #include "gse/gse.dkh"
 
     ref data=gse.get_payload()
+    ref get=@@(@http_context,"&request/get")
 
     qname=gse.get_qname()
     
-    ref database=dbr.login(qname,@@(data,"$uid"),@@(data,"$pwd"))
-
-    token=dbr.getSID(database)
-    new params
+    if @@(get,"$ids")=="recover"
     {
-        @"ids":token
+        ref database=dbr.open(qname)
+        ref uinfo=gse.CheckPassword(database,data)
+        token=@@(uinfo,"$ids")
     }
-    ref uinfo=dbr.rec(database,"select u.userId, u.userName from tuser u inner join sys_session s on u.sys_pk=s.iuser where s.sys_guid=@ids;",params)
-
+    else 
+    {
+        do dbr.setHashUnicode(@usehashmd5unicode)
+        ref database=dbr.login(qname,@@(data,"$uid"),@@(data,"$pwd"))
+        token=dbr.getSID(database)
+        new params
+        {
+            @"ids":token
+        }
+        ref uinfo=dbr.rec(database,"select u.userId, u.userName from tuser u inner join sys_session s on u.sys_pk=s.iuser where s.sys_guid=@ids;",params)
+    }
+    
     new res
     {
         @"ids":token

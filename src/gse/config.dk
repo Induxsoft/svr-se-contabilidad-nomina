@@ -4,19 +4,12 @@ module ""
 {
    @NIC="000000"
 
-   new @connections
-   {
-        @"Engine":"MY_SQL"
-        @"Host":"192.168.0.99"
-        @"UserName":"root"
-        @"Password":"v12D3m01=" 
-        @"Port":3306
-        @"DefaultSchema":""
-        @"SslMode":0
-   }
     @jg="gse"
     @program="createdb.dkl"
     @status_job_solicitado=0
     @bd_prefix="se_@uuid"
-	@app="serie-e"
+	@app="serie.e"
+     @usehashmd5unicode=@true
 }
+
+

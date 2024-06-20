@@ -1,0 +1,363 @@
+// ---------------------------------------------------------------------------------
+//                              INDUXSOFT CODE MODULE
+//                   This source code is property of Induxsoft
+//                Copyright 2019 Induxsoft Data Services S de RL de CV
+//                
+//   Induxsoft and Devkron are trademarks of Induxsoft Data Services S de RL de CV               
+//                             https://induxsoft.net/
+//                             
+//         Licensed under the Apache License, Version 2.0 (the "License")
+//         YOU MAY NOT USE THIS FILE EXCEPT IN COMPLIANCE WITH THE LICENSE.
+//                       You may obtain a copy of the License at 
+//                    http://www.apache.org/licenses/LICENSE-2.0
+//
+// ---------------------------------------------------------------------------------
+
+#include "ddm.dkh"
+model "name"
+{
+     /* uod.se_var */
+    entity "se_var" : "TableModel"
+    {
+        @"id" string(50) unique required
+        @"value" memo 
+        @"type" string(50) 
+        @"caption" string(150) 
+        @"rem" string(1024) 
+        @"ui_dkl" memo 
+    }
+    
+    /* uod.ctiposcc */
+    entity "ctiposcc" : "EnumModel" {}
+     /* uod.divisa */
+    entity "divisa" : "TableModel"
+    {
+        @"codigo" string(5) unique required
+        @"descripcion" string(30) required
+        @"tcambio" decimal(18,8)
+    }
+    entity "ccontable" : "TableModel"
+    {
+        @"apac" bool
+        @"codigo" string(35) unique required
+        @"departamental" bool
+        @"descripcion" string(350)
+        @"detalle" bool
+        @"D01" decimal(26,8)
+        @"D02" decimal(26,8)
+        @"D03" decimal(26,8)
+        @"D04" decimal(26,8)
+        @"D05" decimal(26,8)
+        @"D06" decimal(26,8)
+        @"D07" decimal(26,8)
+        @"D08" decimal(26,8)
+        @"D09" decimal(26,8)
+        @"D10" decimal(26,8)
+        @"D11" decimal(26,8)
+        @"D12" decimal(26,8)
+        @"DFinal" decimal(26,8)
+        @"H01" decimal(26,8)
+        @"H02" decimal(26,8)
+        @"H03" decimal(26,8)
+        @"H04" decimal(26,8)
+        @"H05" decimal(26,8)
+        @"H06" decimal(26,8)
+        @"H07" decimal(26,8)
+        @"H08" decimal(26,8)
+        @"H09" decimal(26,8)
+        @"H10" decimal(26,8)
+        @"H11" decimal(26,8)
+        @"H12" decimal(26,8)
+        @"HFinal" decimal(26,8)
+        @"p_anual" decimal(26,8)
+        @"P01" decimal(26,8)
+        @"P02" decimal(26,8)
+        @"P03" decimal(26,8)
+        @"P04" decimal(26,8)
+        @"P05" decimal(26,8)
+        @"P06" decimal(26,8)
+        @"P07" decimal(26,8)
+        @"P08" decimal(26,8)
+        @"P09" decimal(26,8)
+        @"P10" decimal(26,8)
+        @"P11" decimal(26,8)
+        @"P12" decimal(26,8)
+        @"S01" decimal(26,8)
+        @"S02" decimal(26,8)
+        @"S03" decimal(26,8)
+        @"S04" decimal(26,8)
+        @"S05" decimal(26,8)
+        @"S06" decimal(26,8)
+        @"S07" decimal(26,8)
+        @"S08" decimal(26,8)
+        @"S09" decimal(26,8)
+        @"S10" decimal(26,8)
+        @"S11" decimal(26,8)
+        @"S12" decimal(26,8)
+        @"SFinal" decimal(26,8)
+        @"SInicial" decimal(26,8)
+        @"tipo" ref:"ctiposcc"
+        @"contrapartida"  ref:"ccontable" 
+        @"icuenta"  ref:"ccontable" 
+        @"idivisa"  ref:"divisa" 
+        @"uf_sat_codigo" int
+    }
+    /* uod.ccontable_crubro_ */
+    entity "ccontable_crubro_" : "TableModel"
+    {
+        @"rubros"  ref:"crubro"  required
+        @"cuentas"  ref:"ccontable" required
+    }
+    /* uod.crubro */
+    entity "crubro" : "TableModel"
+    {
+        @"codigo" string(10) required
+        @"color" int
+        @"descripcion" string(100) required
+        @"notas" memo
+    }
+    /* uod.cdpoliza */
+    entity "cdpoliza" : "TableModel"
+    {
+        @"concepto" string(255)
+        @"debe" decimal(26,8)
+        @"haber" decimal(26,8)
+        @"referencia" string(255)
+        @"tcambio" decimal(26,8)
+        @"icuenta" ref:"ccontable" required
+        @"idepto" ref:"cdepartamento" 
+        @"fk_cpoliza_detalle" ref:"cpoliza" required
+    }
+    /* uod.cdepartamento */
+    entity "cdepartamento" : "TableModel"
+    {
+        @"codigo" string(20) unique required
+        @"descripcion" string(200)
+    }
+    /* uod.cperiodicidades */
+    entity "cperiodicidades" : "EnumModel" {}
+    /* uod.cpoliza */
+    entity "cpoliza" : "TableModel"
+    {
+        @"aplicada" bool
+        @"auditada" bool
+        @"concepto" memo
+        @"debe" decimal(26,8)
+        @"fecha" date required
+        @"haber" decimal(26,8)
+        @"notas" memo
+        @"periodo" int
+        @"referencia" string(35) unique
+        @"tipo" int ref:"ctipospolizas" ["id"] required
+    }
+    
+    /* uod.cb_tipo_asiento_contable */
+    entity "cb_tipo_asiento_contable" : "EnumModel" {}
+
+    /* uod.ctadepto */
+    entity "ctadepto" : "TableModel"
+    {
+        @"D01" decimal(18,8)
+        @"D02" decimal(18,8)
+        @"D03" decimal(18,8)
+        @"D04" decimal(18,8)
+        @"D05" decimal(18,8)
+        @"D06" decimal(18,8)
+        @"D07" decimal(18,8)
+        @"D08" decimal(18,8)
+        @"D09" decimal(18,8)
+        @"D10" decimal(18,8)
+        @"D11" decimal(18,8)
+        @"D12" decimal(18,8)
+        @"DFinal" decimal(18,8)
+        @"H01" decimal(18,8)
+        @"H02" decimal(18,8)
+        @"H03" decimal(18,8)
+        @"H04" decimal(18,8)
+        @"H05" decimal(18,8)
+        @"H06" decimal(18,8)
+        @"H07" decimal(18,8)
+        @"H08" decimal(18,8)
+        @"H09" decimal(18,8)
+        @"H10" decimal(18,8)
+        @"H11" decimal(18,8)
+        @"H12" decimal(18,8)
+        @"HFinal" decimal(18,8)
+        @"P01" decimal(18,8)
+        @"P02" decimal(18,8)
+        @"P03" decimal(18,8)
+        @"P04" decimal(18,8)
+        @"P05" decimal(18,8)
+        @"P06" decimal(18,8)
+        @"P07" decimal(18,8)
+        @"P08" decimal(18,8)
+        @"P09" decimal(18,8)
+        @"P10" decimal(18,8)
+        @"P11" decimal(18,8)
+        @"P12" decimal(18,8)
+        @"S01" decimal(18,8)
+        @"S02" decimal(18,8)
+        @"S03" decimal(18,8)
+        @"S04" decimal(18,8)
+        @"S05" decimal(18,8)
+        @"S06" decimal(18,8)
+        @"S07" decimal(18,8)
+        @"S08" decimal(18,8)
+        @"S09" decimal(18,8)
+        @"S10" decimal(18,8)
+        @"S11" decimal(18,8)
+        @"S12" decimal(18,8)
+        @"SFinal" decimal(18,8)
+        @"SInicial" decimal(18,8)
+        @"icuenta" int ref:"ccontable" ["sys_pk"] required
+        @"fk_cdepartamento_cuentas" int ref:"cdepartamento" ["sys_pk"] required
+    }
+
+    /* uod.ctipospolizas 
+    * Esta entidad contiene 2PK [sys_pk, id]
+    * sys_pk proviene de la entidad abstacta <TableModel> que es usada únicamente por serie e
+    * Devuelve un error al ejecutar el script.sql e intentar crear las relaciones fk en las tablas [cpoliza, foliospolizas]
+    */
+    entity "ctipospolizas" : "TableModel"
+    {
+        @"id" int unique
+        @"const" string(255)
+        @"uf_sat_tipopoliza" int
+    }
+     /* uod.foliospolizas */
+    entity "foliospolizas" : "TableModel"
+    {
+        @"ejercicio" int requerida
+        @"periodo" int required
+        @"fk_tipo" ref:"ctipospolizas" required
+        @"fe" int required
+        @"fet" int required
+        @"fp" int required
+        @"fpt" int required
+        @"fk_poliza"  ref:"cpoliza" unique
+
+        index "ejercicio" unique
+        {
+            field "ejercicio"
+            field "fe"
+        }
+        index "ejercicio_2" unique
+        {
+            field "ejercicio"
+            field "fk_tipo"
+            field "fet"
+        }
+        index "ejercicio_3" unique
+        {
+            field "ejercicio"
+            field "periodo"
+            field "fp"
+        }
+        index "ejercicio_4" unique
+        {
+            field "ejercicio"
+            field "periodo"
+            field "fk_tipo"
+            field "fpt"
+        }
+    }
+     /* uod.sitem */
+    entity "sitem" : "TableModel"
+    {
+        @"description" string(250) 
+        @"itemid" string(32) unique required
+        @"itemparent" ref:"sitem" 
+    }
+    /* uod.usergroup */
+    entity "usergroup" : "TableModel"
+    {
+        @"description" string(80) required
+        @"groupid" string(15) unique required
+        @"notes" memo 
+        @"uf_hidetoolbar" string(1) 
+    }
+     /* uod.profile */
+    entity "profile" : "TableModel"
+    {
+        @"item" ref:"sitem" required
+        @"usergroup" ref:"usergroup"  required
+    }
+    /* uod.se_repconta */
+    entity "se_repconta" : "TableModel"
+    {
+        @"nombre" string(100) 
+        @"contenido" memo required
+        @"anual" bool required
+        @"permiso" string(50) 
+        @"debe" bool required
+        @"haber" bool required
+        @"saldoinicial" bool required
+        @"saldo" bool 
+        @"filtrodepto" bool 
+        @"saldosalineados" bool 
+        @"quitarsigno" bool 
+        @"presupuesto" bool 
+    }
+     /* uod.se_status_tareas */
+    entity "se_status_tareas" : "EnumModel" {}
+    /* uod.se_tareas */
+    entity "se_tareas" : "TableModel"
+    {
+        @"usuario" string(32) required
+        @"descripcion" string(1024) 
+        @"prog_porcentual" decimal(7,2) 
+        @"prog_contador" int 
+        @"status" ref:"se_status_tareas" required
+        @"informacion" string(4086) 
+    }
+    /* uod.ut_sat_banco */
+    entity "ut_sat_banco" : "TableModel"
+    {
+        @"uf_cve" string(50) 
+        @"uf_nombre" string(255) 
+        @"uf_descripcion" string(1000) 
+    }
+    /* uod.ut_sat_cheque */
+    entity "ut_sat_cheque" : "TableModel"
+    {
+        @"uf_num" string(50) 
+        @"uf_banco" string(100) 
+        @"uf_ctaori" string(20) 
+        @"uf_fecha" datetime 
+        @"uf_monto" decimal(26,8) 
+        @"uf_benef" string(100) 
+        @"uf_rfc" string(13) required
+        @"fk_dpoliza" int 
+    }
+    /* uod.ut_sat_comprobante */
+    entity "ut_sat_comprobante" : "TableModel"
+    {
+        @"uf_monto" decimal(26,8) 
+        @"uf_rfc" string(13) 
+        @"uf_uuid" string(100) 
+        @"fk_dpoliza" int 
+    }
+     /* uod.ut_sat_cuenta */
+    entity "ut_sat_cuenta" : "TableModel"
+    {
+        @"uf_codagrup" string(50) 
+        @"uf_numcta" string(50) 
+        @"uf_desc" string(100) 
+        @"uf_subcuentade" int 
+        @"uf_nivel" int 
+        @"uf_naturaleza" int 
+    }
+    /* uod.ut_sat_spei */
+    entity "ut_sat_spei" : "TableModel"
+    {
+        @"uf_ctaori" string(20) 
+        @"uf_bancoori" string(100) 
+        @"uf_monto" decimal(26,8) 
+        @"uf_ctadest" string(20) 
+        @"uf_bancodest" string(100) 
+        @"uf_fecha" datetime 
+        @"uf_benef" string(100) 
+        @"uf_rfc" string(13) required
+        @"fk_dpoliza" int 
+    }
+}

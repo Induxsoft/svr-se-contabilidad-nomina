@@ -1,0 +1,123 @@
+#def table(name) "table"
+#def col(name, type, caption) "column"
+#pattern col "'$name':'$type'"
+#pattern col "'$name':'$type' ['@caption']"
+
+table("ut_sat_banco")
+{
+	columns
+	{
+		Sys_PK : Int ["Sys_PK"]
+		Sys_TimeStamp : DateTime ["Sys_TimeStamp"]
+		Sys_GUID : String ["Sys_GUID"]
+		Sys_DTCreated : DateTime ["Sys_DTCreated"]
+		Sys_User : String ["Sys_User"]
+		Sys_LastUser : String ["Sys_LastUser"]
+		Sys_Exported : Bool ["Sys_Exported"]
+		Sys_DTExported : DateTime ["Sys_DTExported"]
+		Sys_Info : String ["Sys_Info"]
+		Sys_RecVer : Int ["Sys_RecVer"]
+		Sys_Lock : Int ["Sys_Lock"]
+		Sys_Deleted : Bool ["Sys_Deleted"]
+		uf_cve : String ["uf_cve"]
+		uf_nombre : String ["uf_nombre"]
+		uf_descripcion : String ["uf_descripcion"]
+	}
+	rows
+	{
+		#def row(Sys_PK,Sys_TimeStamp,Sys_GUID,Sys_DTCreated,Sys_User,Sys_LastUser,Sys_Exported,Sys_DTExported,Sys_Info,Sys_RecVer,Sys_Lock,Sys_Deleted,uf_cve,uf_nombre,uf_descripcion) "row"
+		row("1","01/01/2016 12:00:00","ec976b2070494f7eaf79cfef087a1df7","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","002","BANAMEX","Banco Nacional de México, S.A., Institución de Banca Múltiple, Grupo Financiero Banamex")
+		row("2","01/01/2016 12:00:00","9b88f3cded7843368a2ebc0c6b20b1cc","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","006","BANCOMEXT","Banco Nacional de Comercio Exterior, Sociedad Nacional de Crédito, Institución de Banca de Desarrollo")
+		row("3","01/01/2016 12:00:00","f3e2242bbe53402b8a0e25d73d52714a","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","009","BANOBRAS","Banco Nacional de Obras y Servicios Públicos, Sociedad Nacional de Crédito, Institución de Banca de Desarrollo")
+		row("4","01/01/2016 12:00:00","c6c7f47b79ee42aba293e285cec6a82b","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","012","BBVA BANCOMER","BBVA Bancomer, S.A., Institución de Banca Múltiple, Grupo Financiero BBVA Bancomer")
+		row("5","01/01/2016 12:00:00","1aabcc399a584699b684b16345d0fe54","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","014","SANTANDER","Banco Santander (México), S.A., Institución de Banca Múltiple, Grupo Financiero Santander")
+		row("6","01/01/2016 12:00:00","4c11e652f84947a681c5bf4aeb1b67bd","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","019","BANJERCITO","Banco Nacional del Ejército, Fuerza Aérea y Armada, Sociedad Nacional de Crédito, Institución de Banca de Desarrollo")
+		row("7","01/01/2016 12:00:00","30c9cc668f7c42b18127ab221218c52a","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","021","HSBC","HSBC México, S.A., institución De Banca Múltiple, Grupo Financiero HSBC")
+		row("8","01/01/2016 12:00:00","0437e56fc07942bda1ba7cc59e6b5862","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","030","BAJIO","Banco del Bajío, S.A., Institución de Banca Múltiple")
+		row("9","01/01/2016 12:00:00","e3d6d012c8b04b589f25a58e03013f73","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","032","IXE","IXE Banco, S.A., Institución de Banca Múltiple, IXE Grupo Financiero")
+		row("10","01/01/2016 12:00:00","a1229bebbb914df39ac9e628dd518cc8","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","036","INBURSA","Banco Inbursa, S.A., Institución de Banca Múltiple, Grupo Financiero Inbursa")
+		row("11","01/01/2016 12:00:00","2896577deec647b2980941d680284b2a","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","037","INTERACCIONES","Banco Interacciones, S.A., Institución de Banca Múltiple")
+		row("12","01/01/2016 12:00:00","35debda0c0434348ac5b52269c87c12e","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","042","MIFEL","Banca Mifel, S.A., Institución de Banca Múltiple, Grupo Financiero Mifel")
+		row("13","01/01/2016 12:00:00","e1446fd77e0b4332ab9c90881826024e","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","044","SCOTIABANK","Scotiabank Inverlat, S.A.")
+		row("14","01/01/2016 12:00:00","8b5ae352177042438aa02b92c9b9ae22","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","058","BANREGIO","Banco Regional de Monterrey, S.A., Institución de Banca Múltiple, Banregio Grupo Financiero")
+		row("15","01/01/2016 12:00:00","f48ae6d2937a46ce948be49a29a40222","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","059","INVEX","Banco Invex, S.A., Institución de Banca Múltiple, Invex Grupo Financiero")
+		row("16","01/01/2016 12:00:00","d897f0d627054afe9e66f9bd62b5c285","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","060","BANSI","Bansi, S.A., Institución de Banca Múltiple")
+		row("17","01/01/2016 12:00:00","3b36e43e8134422386de1466ad2e0a56","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","062","AFIRME","Banca Afirme, S.A., Institución de Banca Múltiple")
+		row("18","01/01/2016 12:00:00","9955979abd9443b2a0816a3682c25726","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","072","BANORTE","Banco Mercantil del Norte, S.A., Institución de Banca Múltiple, Grupo Financiero Banorte")
+		row("19","01/01/2016 12:00:00","1acbc2576a9545c1b1746a3ea2ffb38f","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","102","THE ROYAL BANK","The Royal Bank of Scotland México, S.A., Institución de Banca Múltiple")
+		row("20","01/01/2016 12:00:00","4f40d0c1074e4cb79db6907f76fdfa0a","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","103","AMERICAN EXPRESS","American Express Bank (México), S.A., Institución de Banca Múltiple")
+		row("21","01/01/2016 12:00:00","074748657cea487b92682aa80630b6d2","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","106","BAMSA","Bank of America México, S.A., Institución de Banca Múltiple, Grupo Financiero Bank of America")
+		row("22","01/01/2016 12:00:00","eebc5fddf40c40e8b96578a4961d2722","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","108","TOKYO","Bank of Tokyo-Mitsubishi UFJ (México), S.A.")
+		row("23","01/01/2016 12:00:00","2afbcdb2fd4847c2b85856f4208cd4ce","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","110","JP MORGAN","Banco J.P. Morgan, S.A., Institución de Banca Múltiple, J.P. Morgan Grupo Financiero")
+		row("24","01/01/2016 12:00:00","2b6729b6dea243a3b88302fe83ec0b6a","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","112","BMONEX","Banco Monex, S.A., Institución de Banca Múltiple")
+		row("25","01/01/2016 12:00:00","aeee58cb5acc40b09dd099ad10c8e9ed","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","113","VE POR MAS","Banco Ve Por Mas, S.A. Institución de Banca Múltiple")
+		row("26","01/01/2016 12:00:00","208792e4bad54e589d712ecc4144269b","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","116","ING","ING Bank (México), S.A., Institución de Banca Múltiple, ING Grupo Financiero")
+		row("27","01/01/2016 12:00:00","a667fe3065cc4b97bcae590f330ce9e7","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","124","DEUTSCHE","Deutsche Bank México, S.A., Institución de Banca Múltiple")
+		row("28","01/01/2016 12:00:00","c214bd346ec64d6992a26ecee03f66dd","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","126","CREDIT SUISSE","Banco Credit Suisse (México), S.A. Institución de Banca Múltiple, Grupo Financiero Credit Suisse (México)")
+		row("29","01/01/2016 12:00:00","b7c4810dd7c94a5a8b2c605122cf6cf0","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","127","AZTECA","Banco Azteca, S.A. Institución de Banca Múltiple.")
+		row("30","01/01/2016 12:00:00","48b42954fe684304b9d9c2b5d5dfd777","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","128","AUTOFIN","Banco Autofin México, S.A. Institución de Banca Múltiple")
+		row("31","01/01/2016 12:00:00","2cb29db28fc94b10baaf066fee7c8fc2","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","129","BARCLAYS","Barclays Bank México, S.A., Institución de Banca Múltiple, Grupo Financiero Barclays México")
+		row("32","01/01/2016 12:00:00","21fdac3353194149b5ee61ef0081f767","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","130","COMPARTAMOS","Banco Compartamos, S.A., Institución de Banca Múltiple")
+		row("33","01/01/2016 12:00:00","2a8735f1fd4f4d869fd527106e0dc331","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","131","BANCO FAMSA","Banco Ahorro Famsa, S.A., Institución de Banca Múltiple")
+		row("34","01/01/2016 12:00:00","aa292930065949cb9349f7751fa142ae","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","132","BMULTIVA","Banco Multiva, S.A., Institución de Banca Múltiple, Multivalores Grupo Financiero")
+		row("35","01/01/2016 12:00:00","ad21ed86b3ce46e1b3c447824fc77d28","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","133","ACTINVER","Banco Actinver, S.A. Institución de Banca Múltiple, Grupo Financiero Actinver")
+		row("36","01/01/2016 12:00:00","8e2b4e34e7e148a087882e11728b305d","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","134","WAL-MART","Banco Wal-Mart de México Adelante, S.A., Institución de Banca Múltiple")
+		row("37","01/01/2016 12:00:00","118ed519526a49aea17d56f9e14ddee5","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","135","NAFIN","Nacional Financiera, Sociedad Nacional de Crédito, Institución de Banca de Desarrollo")
+		row("38","01/01/2016 12:00:00","28164580facd4b7ea9a7cd4304af5989","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","136","INTERBANCO","Inter Banco, S.A. Institución de Banca Múltiple")
+		row("39","01/01/2016 12:00:00","77e908a080394d10a4f79a80b2690073","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","137","BANCOPPEL","BanCoppel, S.A., Institución de Banca Múltiple")
+		row("40","01/01/2016 12:00:00","9cacfc98b6ee4179a0eca60415c0b0f9","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","138","ABC CAPITAL","ABC Capital, S.A., Institución de Banca Múltiple")
+		row("41","01/01/2016 12:00:00","2dceed0889a0408092fa248e0a6a4caf","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","139","UBS BANK","UBS Bank México, S.A., Institución de Banca Múltiple, UBS Grupo Financiero")
+		row("42","01/01/2016 12:00:00","5969ffec16244f9aa57358c7585e92b5","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","140","CONSUBANCO","Consubanco, S.A. Institución de Banca Múltiple")
+		row("43","01/01/2016 12:00:00","9b39775153f44b0981b6fc9970dfd5c8","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","141","VOLKSWAGEN","Volkswagen Bank, S.A., Institución de Banca Múltiple")
+		row("44","01/01/2016 12:00:00","8fe90f07ccce4111b4dbf7ea1a862eb4","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","143","CIBANCO","CIBanco, S.A.")
+		row("45","01/01/2016 12:00:00","deda2ff837414c98b68132e536fbba10","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","145","BBASE","Banco Base, S.A., Institución de Banca Múltiple")
+		row("46","01/01/2016 12:00:00","831d5c3255f54f7ca49c5c103c4e447c","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","166","BANSEFI","Banco del Ahorro Nacional y Servicios Financieros, Sociedad Nacional de Crédito, Institución de Banca de Desarrollo")
+		row("47","01/01/2016 12:00:00","d744ed7a4d2c485385fa0c79dbec3b2b","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","168","HIPOTECARIA FEDERAL","Sociedad Hipotecaria Federal, Sociedad Nacional de Crédito, Institución de Banca de Desarrollo")
+		row("48","01/01/2016 12:00:00","ec0a5ca2db6843d289fdf6e59eabf9a3","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","600","MONEXCB","Monex Casa de Bolsa, S.A. de C.V. Monex Grupo Financiero")
+		row("49","01/01/2016 12:00:00","a3ce1bb93bba451fa03e21ae581efa42","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","601","GBM","GBM Grupo Bursátil Mexicano, S.A. de C.V. Casa de Bolsa")
+		row("50","01/01/2016 12:00:00","4c10c4525d324192b165a313c10788bb","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","602","MASARI","Masari Casa de Bolsa, S.A.")
+		row("51","01/01/2016 12:00:00","f7b6849971c0423682216b60059134f0","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","605","VALUE","Value, S.A. de C.V. Casa de Bolsa")
+		row("52","01/01/2016 12:00:00","323802ba3fac4fb2a58ff169a5fbf52e","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","606","ESTRUCTURADORES","Estructuradores del Mercado de Valores Casa de Bolsa, S.A. de C.V.")
+		row("53","01/01/2016 12:00:00","0b52318ba1564d3a841b9381a8f5dc9e","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","607","TIBER","Casa de Cambio Tiber, S.A. de C.V.")
+		row("54","01/01/2016 12:00:00","a1599d964ede4e7fa8915a0305f9c6c4","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","608","VECTOR","Vector Casa de Bolsa, S.A. de C.V.")
+		row("55","01/01/2016 12:00:00","a65b7735c91046b7882904a82d4e59e3","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","610","B&B","B y B, Casa de Cambio, S.A. de C.V.")
+		row("56","01/01/2016 12:00:00","b1ae6a7ec28b453a9b7dad2517e0c8e7","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","614","ACCIVAL","Acciones y Valores Banamex, S.A. de C.V., Casa de Bolsa")
+		row("57","01/01/2016 12:00:00","419421c9e2664f79975baae662d2cfb1","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","615","MERRILL LYNCH","Merrill Lynch México, S.A. de C.V. Casa de Bolsa")
+		row("58","01/01/2016 12:00:00","81c646a043174e48af1420a229cf3075","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","616","FINAMEX","Casa de Bolsa Finamex, S.A. de C.V.")
+		row("59","01/01/2016 12:00:00","bc617ef8e08c4e7f9a73979a38a3ff11","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","617","VALMEX","Valores Mexicanos Casa de Bolsa, S.A. de C.V.")
+		row("60","01/01/2016 12:00:00","9fbc6fc5e4954bed8767fcf1d53205a2","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","618","UNICA","Unica Casa de Cambio, S.A. de C.V.")
+		row("61","01/01/2016 12:00:00","6d2c10879fc9491285a4d43b5c097f38","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","619","MAPFRE","MAPFRE Tepeyac, S.A.")
+		row("62","01/01/2016 12:00:00","7ffae259032c4a51b9a8e9089ace9e05","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","620","PROFUTURO","Profuturo G.N.P., S.A. de C.V., Afore")
+		row("63","01/01/2016 12:00:00","d3f5576cddab49129a8537c3dee5b9ba","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","621","CB ACTINVER","Actinver Casa de Bolsa, S.A. de C.V.")
+		row("64","01/01/2016 12:00:00","3d07178825eb427988cc7102640598dc","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","622","OACTIN","OPERADORA ACTINVER, S.A. DE C.V.")
+		row("65","01/01/2016 12:00:00","ae27b5f03db64e709e6fab182492b0f6","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","623","SKANDIA","Skandia Vida, S.A. de C.V.")
+		row("66","01/01/2016 12:00:00","a63cf00c16a54c8ea90ebb0097305bb3","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","626","CBDEUTSCHE","Deutsche Securities, S.A. de C.V. CASA DE BOLSA")
+		row("67","01/01/2016 12:00:00","f7cc15bc7f414de986259a076a9b6795","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","627","ZURICH","Zurich Compañía de Seguros, S.A.")
+		row("68","01/01/2016 12:00:00","a29af98563a246f192257ffcf8d088ae","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","628","ZURICHVI","Zurich Vida, Compañía de Seguros, S.A.")
+		row("69","01/01/2016 12:00:00","a29fdd1f17274f2fb0cc61f0458eb211","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","629","SU CASITA","Hipotecaria Su Casita, S.A. de C.V. SOFOM ENR")
+		row("70","01/01/2016 12:00:00","158759a0cd4f4ba08f730ece63f6f7ab","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","630","CB INTERCAM","Intercam Casa de Bolsa, S.A. de C.V.")
+		row("71","01/01/2016 12:00:00","6e173e0a7a734e289fa23f92cb60e41a","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","631","CI BOLSA","CI Casa de Bolsa, S.A. de C.V.")
+		row("72","01/01/2016 12:00:00","202a446612984eed8c6634b3872ae758","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","632","BULLTICK CB","Bulltick Casa de Bolsa, S.A., de C.V.")
+		row("73","01/01/2016 12:00:00","803fb3dc168c43418d5c5a26fc73fb21","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","633","STERLING","Sterling Casa de Cambio, S.A. de C.V.")
+		row("74","01/01/2016 12:00:00","3668d567fdb04d1e9c8b5bab6c648a53","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","634","FINCOMUN","Fincomún, Servicios Financieros Comunitarios, S.A. de C.V.")
+		row("75","01/01/2016 12:00:00","6407afbc74254ac3bc1ecf27652239ed","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","636","HDI SEGUROS","HDI Seguros, S.A. de C.V.")
+		row("76","01/01/2016 12:00:00","1afec8d78faf44648e0aee5400c1d57e","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","637","ORDER","Order Express Casa de Cambio, S.A. de C.V")
+		row("77","01/01/2016 12:00:00","a50fe64159cc4a7eafbb7ded68692bec","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","638","AKALA","Akala, S.A. de C.V., Sociedad Financiera Popular")
+		row("78","01/01/2016 12:00:00","f0b6064bfb1d41e89ec5a1d8d1ecc7b9","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","640","CB JPMORGAN","J.P. Morgan Casa de Bolsa, S.A. de C.V. J.P. Morgan Grupo Financiero")
+		row("79","01/01/2016 12:00:00","1086930efb444f57a9e143985009dcab","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","642","REFORMA","Operadora de Recursos Reforma, S.A. de C.V., S.F.P.")
+		row("80","01/01/2016 12:00:00","8c88b3d2018747bb98a7b07f86271799","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","646","STP","Sistema de Transferencias y Pagos STP, S.A. de C.V.SOFOM ENR")
+		row("81","01/01/2016 12:00:00","b9fd2185a19a47fda50cc3620f90c55e","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","647","TELECOMM","Telecomunicaciones de México")
+		row("82","01/01/2016 12:00:00","2aa2706ff2e74d0db8d714a2bb2b661c","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","648","EVERCORE","Evercore Casa de Bolsa, S.A. de C.V.")
+		row("83","01/01/2016 12:00:00","44e6093510eb4c35a8e92286d7d56b83","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","649","SKANDIA","Skandia Operadora de Fondos, S.A. de C.V.")
+		row("84","01/01/2016 12:00:00","1f833dce40b248ab819981d6637d063e","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","651","SEGMTY","Seguros Monterrey New York Life, S.A de C.V")
+		row("85","01/01/2016 12:00:00","06c0f8fdf87841a8b4b6736d5de86225","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","652","ASEA","Solución Asea, S.A. de C.V., Sociedad Financiera Popular")
+		row("86","01/01/2016 12:00:00","f5bcfdb47ab44f66bb9fa0826e57b6c5","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","653","KUSPIT","Kuspit Casa de Bolsa, S.A. de C.V.")
+		row("87","01/01/2016 12:00:00","5d3a5405d7b94758bf1d351c3802d1d7","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","655","SOFIEXPRESS","J.P. SOFIEXPRESS, S.A. de C.V., S.F.P.")
+		row("88","01/01/2016 12:00:00","d538a7bad09a4697af9d4751f6988781","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","656","UNAGRA","UNAGRA, S.A. de C.V., S.F.P.")
+		row("89","01/01/2016 12:00:00","cc0c8cb99eab48d5820cc016603732ea","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","659","OPCIONES EMPRESARIALES DEL NOROESTE","OPCIONES EMPRESARIALES DEL NORESTE, S.A. DE C.V., S.F.P.")
+		row("90","01/01/2016 12:00:00","c1bfe6a42b7249bbb926abb2f5d54ef1","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","901","CLS","Cls Bank International")
+		row("91","01/01/2016 12:00:00","2f444704503d4a8f926b105d854516b3","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","902","INDEVAL","SD. Indeval, S.A. de C.V.")
+		row("92","01/01/2016 12:00:00","f1d3619652ae427b8459cfaac8678ec9","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","670","LIBERTAD","Libertad Servicios Financieros, S.A. De C.V.")
+		row("93","01/01/2016 12:00:00","6d64adf5c0614edb9397b748dc06152b","01/01/2016 12:00:00","\0","\0","False","01/01/2016 12:00:00","\0","\0","\0","\0","999","N/A","")
+	}
+}

@@ -1,0 +1,52 @@
+#include "dkli.dkh"
+#!
+module
+{
+    ref @ziplib = _import_library("System.IO.Compression.FileSystem.dll")
+	do _map_function(@ziplib, "System.IO.Compression.ZipFile", "ExtractToDirectory", "zipToDir","System.String,System.String","void")
+	do _map_function(@ziplib,"System.IO.Compression.ZipFile","CreateFromDirectory","DirTozip","System.String,System.String","void")
+
+    #!
+    openDB::&params,valid
+	{
+        idDB=@@(params,"$db")
+        sessionId=@@(params,"$ids")
+
+        if idDB=="" { do rise_error(99,"No ha especificado una id de base de datos") }
+
+		// qn = @connections+"/"+idDB+"@"+@application
+		qn = idDB+"@"+@application
+		
+        if valid { return dbr.reconnect(qn,sessionId) }
+        return dbr.open(qn)
+	}
+
+    #!
+    api_base_service::
+    {
+        expose responseJSONdata
+
+        new responseJSONdata
+        {
+            @"success":@true
+        }
+        
+        that
+        
+        @http_context<"response/headers/Content-Type">:"application/json;charset=utf-8"
+        @http_context<"response/output">:"text"
+        @http_context<"response/text">: to.json(responseJSONdata)
+    }
+
+    #!
+    descompress_file::ruta,file
+	{
+		do _invoke(@ziplib,"zipToDir",ruta,file)
+	}
+
+    #!
+	compress_file::ruta,file
+	{
+		do _invoke(@ziplib,"DirTozip",ruta,file)
+	}
+}

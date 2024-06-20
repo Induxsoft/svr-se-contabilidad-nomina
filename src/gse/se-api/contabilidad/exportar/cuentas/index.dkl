@@ -1,0 +1,33 @@
+#include "dkli.dkh"
+#!
+program "Exportar Cuentas"
+{
+	#include "functions.dkh"
+	#include "dbr.dkh"
+	#include "serialize.dkh"
+    #include "website.dkl"
+    #include "linux-fixes.dkh"
+	
+	ref params=@@(@http_context, "&request/get")
+	if isnull(params){do rise_error(99,"Párametros incompletos.")}
+
+	ref db = openDB(params,@true)
+
+	ref cuenta = get_data(db)
+
+	if isset(db) && not(isnull(db)) && dbr.is_open(db) { do dbr.close(db) }
+
+    zipfile = saveAsZip(cuenta)
+    do response_file(zipfile)
+
+	exception
+	{
+        //if isset(db) && not(isnull(db)) && dbr.is_open(db) { do dbr.close(db) }
+        go api_base_service(responseJSONdata:response){
+            using response{
+                @"success":@false
+                @"message":last_error()
+            }
+        }
+	}
+}

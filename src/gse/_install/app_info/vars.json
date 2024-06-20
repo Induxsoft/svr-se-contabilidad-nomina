@@ -1,0 +1,39 @@
+[
+    {
+        "id": "gse",
+        "caption": "Conexión fiscal contable",
+        "help": "Configuración gse",
+        "vars": 
+        [
+            {
+                "varname": "gse_svr_cnn",
+                "vardefault": "",
+                "varvalue": "{\r\n        \"Engine\": \"MY_SQL\",\r\n        \"Host\": \"localhost\",\r\n        \"UserName\": \"root\",\r\n        \"Password\": \"your_password\",\r\n        \"Port\": 3306,\r\n        \"DefaultSchema\": \"\",\r\n        \"SslMode\": 0 }",
+                "varcaption": "Configuración  de conexión",
+                "vartype": "memo",
+                "varinput": 
+                {
+                    "control": "memo"
+                }
+            },
+            {
+                "varname": "grupo_user_contabilidad",
+                "vardefault": "1",
+                "varvalue": "1",
+                "varcaption": "Grupo de usuarios contabilidad",
+                "varhelp": "Grupo de usuarios para contabilidad.",
+                "vartype": "int",
+                "varinput": {
+                    "control": "select",
+                    "source":{
+                        "query":"select * from usergroup",
+                        "type":"query",
+                        "values":[],
+                        "keyfield":"sys_pk",
+                        "showfield":"description"
+                    }
+                }
+            }
+        ]
+    }
+]

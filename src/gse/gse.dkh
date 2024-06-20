@@ -152,8 +152,13 @@ module ":gse"
             @"disponible":0 
         }
         do dbr.insert(db,"serie_dbs",serie_db)
+        exception{return }
 
-        @connections<"app">:@app
+        using @connections
+        {
+            @"app":@app
+            @"qname_org":@@(params,"$qname")
+        }
 
         new p
         {
@@ -170,6 +175,8 @@ module ":gse"
             @"params*":p
         }
         do batch.create(db,batch)
+
+
     }
     getStatusdb::&db,&params
     {
@@ -209,7 +216,23 @@ module ":gse"
     }
     getConexions::&db,&params
     {
+        ref payload=gse.get_payload()
+
         ref data=dbr.list(db,"select * from serie_dbs",@null)
+        ref emisor=gse.get_emisor(db,params)
+
+        nic=ifstr(isnull(emisor),@NIC,@@(emisor,"$nic"))
+
+        if @@(payload,"$dbtype")=="contabilidad"
+        {
+            // xml=xml+'<Serie_E_DBInfo>
+			// 		<nombre>mibd</nombre>
+			// 		<id>'+@@(itm,"$id")+'</id>
+			// 		<nic>'+ifstr(trim(nic)!="",nic,@@(itm,"$nic"))+'</nic>
+			// 		<status>'+str(status)+'</status>
+			// 		</Serie_E_DBInfo>'
+        }
+        
 
         ref l=list.create()
 
@@ -222,7 +245,7 @@ module ":gse"
             xml=xml+'<Serie_E_DBInfo>
 					<nombre>'+@@(itm,"$dbname")+'</nombre>
 					<id>'+@@(itm,"$id")+'</id>
-					<nic>'+@@(itm,"$nic")+'</nic>
+					<nic>'+ifstr(trim(nic)!="",nic,@@(itm,"$nic"))+'</nic>
 					<status>'+str(status)+'</status>
 					</Serie_E_DBInfo>'
 
@@ -244,37 +267,85 @@ module ":gse"
 
         return data
     }
+    get_emisor::&db,&params
+    {
+        ref emisor=dbr.rec(db,"select * from mxcfdi_emisor e where ifnull(e.predet,0)=1",@null)
+        if isnull(emisor){ref emisor=dbr.rec(db,"select * from mxcfdi_emisor e orde by sys_pk desc limit 1",@null)}
+
+        exception{ref emisor=@null}
+
+        return emisor
+    }
     #! listarNIC::&db,&params
     {
-        ref data=dbr.list(db,"select * from serie_dbs",@null)
-
-        ref l=list.create()
-
-        xml=""
-
-        for i = 0; i < @count(data)
+        ref emisor=gse.get_emisor(db,params)
+        if isnull(emisor)
         {
-            ref itm=@item(data,i)
-
-            xml=xml + '
-                <NIC>
-                        <Codigo>'+@@(itm,"$nic")+'</Codigo>
-                        <Nombre>Mi empresa</Nombre>
-                </NIC>'
-
-            new nic
+            nic=@NIC
+            nombre=dbr.vars.get(db,"FXCA100")
+            if trim(nombre)==""{nombre="Mi empresa"}
+            new emisor
             {
-                @"nombre":"Mi empresa"
-                @"nic":@@(itm,"$nic")
+                @"nic":@NIC
+                @"id":@NIC
+                @"nombre":nombre
             }
-            do list.add(l,nic)
         }
+        else 
+        {
+            nic=@@(emisor,"$nic")
+            nombre=dbr.vars.get(db,"FXCA100")
+            if trim(nombre)==""{nombre="Mi empresa"}
+            emisor<"nombre">:nombre
+        }
+
+        if @@(params,"#svr_cti")
+        {
+            return emisor
+        }
+        else 
+        {
+            xml='
+            <NIC>
+                    <Codigo>'+nic+'</Codigo>
+                    <Nombre>'+nombre+'</Nombre>
+            </NIC>'
+        }
+        
+
+
         new data
         {
             @"response":xml
-            @"nics*":l
         }
 
         return data
+    }
+
+    CheckPassword::&database,&data
+    {
+        if field.exist(data,"user") && trim(@@(data,"$uid"))==""{data<"uid">:@@(data,"$user")}
+
+        if @usehashmd5unicode
+        {
+            data<"pwdmd5u">:md5e(@@(data,"$pwd"),"unicode")
+            user=dbr.num(database,"select sys_pk from tuser where lower(userid)=@uid and lower(pwd)=@pwdmd5u",data)
+        }
+        else 
+        {
+            data<"pwdmd5">:md5(@@(data,"$pwd"))
+            user=dbr.num(database,"select sys_pk from tuser where lower(userid)=@uid and lower(pwdmd5)=@pwdmd5",data)   
+        }
+        if user<1{do rise_error(500,"Usuario o contraseña incorrecta.")}
+
+        data<"user">:user
+
+        ref uinfo=dbr.rec(database,"select s.sys_guid ids,u.userId, u.userName 
+        from tuser u 
+        inner join sys_session s on u.sys_pk=s.iuser
+        AND IFNULL(s.sys_deleted,0)=0
+        AND s.iuser=@user",data)
+
+        return uinfo
     }
 }

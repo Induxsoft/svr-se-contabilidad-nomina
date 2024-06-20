@@ -1,0 +1,43 @@
+#include "dkli.dkh"
+#!
+module "adicion"
+{
+	#include "functions.dkh"
+	#include "dbr.dkh"
+	#include "serialize.dkh"
+	#include "website.dkl"
+
+	go api_base_service(responseJSONdata:response)
+	{
+		ref getData=@@(@http_context,"&request/get")
+		ref postData=from.json(@@(@http_context,"request/post_string"))
+		
+		 ref db=openDB(getData,@true)
+		 ref datos=@@(postData,"&datos")
+
+		 if dbr.num(db,"SELECT ifnull(cc.Detalle,0) FROM ccontable cc WHERE cc.sys_pk=@padre",datos)
+		 {
+		 	do rise_error(99,"No es una cuenta acumulativa.")
+		 }
+		 
+		
+	 	 if dbr.is_open(db){do dbr.close(db)}
+
+	 	using response
+		{
+			@"success":@true
+			@"data":@null
+		}
+
+	 	exception
+	 	{
+	 		using response
+			{
+				@"success":@false
+				@"message":last_error()
+			}
+			 if dbr.is_open(db){do dbr.close(db)}
+	 	}
+	}
+ 	
+}

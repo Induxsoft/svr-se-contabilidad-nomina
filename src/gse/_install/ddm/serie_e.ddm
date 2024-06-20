@@ -1,0 +1,11 @@
+#include "ddm.dkh"
+model "name"
+{
+    #include "induxsoft.abstracts.ddm"
+
+    #include "induxsoft.sys_tables.ddm"
+    #include "induxsoft.se.ddm"
+    // #include "induxsoft.se.nomina.ddm"
+    #include "induxsoft.se.contabilidad.ddm"
+
+}
