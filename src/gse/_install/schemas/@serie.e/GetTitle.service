@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="GetTitle" rem="regresa el valor del titulo en la base de datos de la tabla se_var" parameters="" cardinality="one" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">Select value from se_var where id = 'SE_Reports_Encabezado';
+</sql>
+</queryDef>

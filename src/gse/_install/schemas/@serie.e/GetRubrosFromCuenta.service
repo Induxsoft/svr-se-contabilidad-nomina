@@ -1,0 +1,5 @@
+﻿<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="GetRubrosFromCuenta" rem="" columns="Descripcion:String" parameters="sys_pk:Int" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">Select crub.Descripcion from ccontable cc inner join ccontable_crubro_ cr on cc.Sys_PK = cr.Cuentas inner join crubro crub on cr.Rubros = crub.Sys_PK where cc.Sys_PK = @sys_pk;
+</sql>
+</queryDef>

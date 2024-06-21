@@ -1,0 +1,4 @@
+﻿<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="UpdateInitialBalance" rem="Afecta los saldos iniciales de las cuentas." parameters="pk:Int" cardinality="void" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">Call UpdateInitialBalance(@pk);</sql>
+</queryDef>

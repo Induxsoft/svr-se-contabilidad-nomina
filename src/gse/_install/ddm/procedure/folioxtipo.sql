@@ -1,3 +1,4 @@
+DROP PROCEDURE IF EXISTS `sp_GetFolioPXTipo`;
 CREATE PROCEDURE `sp_GetFolioPXTipo`(IN Periodo INT, IN Tipo INT)
 BEGIN
 SELECT 

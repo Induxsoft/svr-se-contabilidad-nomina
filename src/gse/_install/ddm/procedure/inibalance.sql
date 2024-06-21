@@ -1,5 +1,6 @@
 
 
+DROP PROCEDURE IF EXISTS `UpdateInitialBalance`;
 CREATE PROCEDURE `UpdateInitialBalance`(in pk int)
 BEGIN
 DECLARE cr_stack_depth_handler INTEGER;

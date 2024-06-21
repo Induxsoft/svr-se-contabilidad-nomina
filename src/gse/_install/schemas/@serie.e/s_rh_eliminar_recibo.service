@@ -1,0 +1,2 @@
+﻿<?xml version="1.0"?>
+<netService xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="s_rh_eliminar_recibo" rem="" permission="" assembly="178b046ac38c408d8b623caf04ebee22" namespace="induxsoft.SE.RH.BackEnd.DeleteData" class="Actions" method="EliminarReciboEmpleado" parameters="pk:Int" return="Int" description="" xmlns="http://dev.induxsoft.net/xsd/netservice.xsd" />

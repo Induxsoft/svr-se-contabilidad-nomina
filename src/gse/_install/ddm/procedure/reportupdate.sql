@@ -1,3 +1,4 @@
+DROP PROCEDURE IF EXISTS `SE_Reports_UpdateInserData`;
 CREATE PROCEDURE `SE_Reports_UpdateInserData`(
 		IN idVar longtext,
        	IN idVarEncabezado longtext,

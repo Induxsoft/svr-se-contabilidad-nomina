@@ -1,0 +1,5 @@
+﻿<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="GetDivisaFromCuenta" rem="Retorna la descripcion de la Divisa dada la sys_pk de la cuenta contable" columns="sys_pk:Int,Descripcion:String" parameters="sys_pk:Int" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">Select d.sys_pk, d.Descripcion from ccontable cc inner join divisa d on cc.IDivisa = d.Sys_pk where cc.sys_pk = @sys_pk;
+</sql>
+</queryDef>

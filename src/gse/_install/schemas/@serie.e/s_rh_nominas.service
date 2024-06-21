@@ -1,0 +1,13 @@
+﻿<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="s_rh_nominas" rem="" columns="sys_pk:Int,sys_timestamp:DateTime,sys_guid:String,sys_dtcreated:DateTime,sys_recver:Int,sys_deleted:Bool,sys_lock:Int,inicio:DateTime,fin:DateTime,ref_tipo:Int,fpago:DateTime,notas:String,dias:Decimal,nombre:String,fproceso:DateTime,fcancelada:DateTime,status:Int,variables:String,error_log:String,sat_entidad:String,tipo_nomina:String,sat_tiponomina:String,status_nomina:String,percepciones:Decimal,deducciones:Decimal,liquido:Decimal,obligaciones:Decimal" parameters="" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">select n.sys_pk, n.sys_timestamp, n.sys_guid, n.sys_dtcreated, n.sys_recver, n.sys_deleted, n.sys_lock, n.inicio, n.fin, n.ref_tipo, n.fpago, n.notas,n.dias,n.nombre,n.fproceso,n.fcancelada,n.status,n.variables, n.error_log,n.sat_entidad, tn.nombre tipo_nomina,tn.sat_tiponomina, s.const status_nomina,
+sum(if(c.tipo=0,dnc.importe,0)) percepciones,
+sum(if(c.tipo=1,dnc.importe,0)) deducciones,
+sum(if(c.tipo=0,dnc.importe,0)-if(c.tipo=1,dnc.importe,0)) liquido,
+sum(if(c.tipo=2,dnc.importe,0)) obligaciones
+ from rh_nomina n inner join rh_tipo_nomina tn on n.ref_tipo=tn.sys_pk inner join rh_status_nomina s on n.status=s.id left join rh_detalle_nomina dn on dn.ref_nomina=n.sys_pk left join rh_detalle_nomina_concepto dnc on dnc.ref_detalle_nomina=dn.sys_pk left join rh_concepto_nomina c on dnc.ref_concepto=c.sys_pk 
+group by n.sys_pk, n.sys_timestamp, n.sys_guid, n.sys_dtcreated, n.sys_recver, n.sys_deleted, n.sys_lock, n.inicio, n.fin, n.ref_tipo, n.fpago, n.notas,n.dias,n.nombre,n.fproceso,n.fcancelada,n.status,n.variables, n.error_log,n.sat_entidad, tn.nombre,tn.sat_tiponomina, s.const
+order by inicio desc;
+
+</sql>
+</queryDef>

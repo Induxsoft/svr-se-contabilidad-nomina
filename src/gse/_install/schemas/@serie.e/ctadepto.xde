@@ -1,0 +1,168 @@
+﻿<?xml version="1.0"?>
+<lxmd xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://dev.induxsoft.net/xsd/xde.xsd">
+  <entity name="ctadepto" readonly="false">
+    <entity_description />
+    <field name="D02" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="D03" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="D04" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="D05" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="D06" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="D07" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="D08" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="D09" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="D10" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="D11" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="D12" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="DFinal" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="H01" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="H02" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="H03" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="H04" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="H05" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="H06" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="H07" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="H08" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="H09" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="H10" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="H11" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="H12" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="HFinal" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="P01" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="P02" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="P03" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="P04" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="P05" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="P06" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="P07" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="P08" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0" tablefield="P08">
+      <field_description />
+    </field>
+    <field name="P09" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="P10" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="P11" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="P12" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="S01" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="S02" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="S03" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="S04" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="S05" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="S06" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="S07" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="S08" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="S09" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="S10" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="S11" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="S12" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="SFinal" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="SInicial" required="false" unique="false" type="Decimal" precision="18" scale="8" size="0">
+      <field_description />
+    </field>
+    <field name="ICuenta" required="true" unique="false" type="ccontable" precision="0" scale="0" implementation="entityField" size="0">
+      <field_description />
+    </field>
+    <field name="FK_CDepartamento_Cuentas" required="true" unique="false" type="cdepartamento" precision="0" scale="0" implementation="entityField" size="0" tablefield="FK_CDepartamento_Cuentas">
+      <field_description />
+    </field>
+    <field name="D01" required="false" unique="false" type="Decimal" precision="18" scale="8" size="50" tablefield="D01">
+      <field_description />
+    </field>
+  </entity>
+</lxmd>

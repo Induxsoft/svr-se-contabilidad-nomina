@@ -4,6 +4,8 @@ module "test"
 {
 	#include "functions.dkh"
 	#include "serialize.dkh"
+	#include "gse/gse.dkh"
+	#include "gse/config.dk"
 	#include "dbr.dkh"
 
 	name_dll="induxsoft.ReXBack.ServicesProvider.dll"
@@ -44,6 +46,31 @@ module "test"
 	do copyRecord(@@(@http_context,"&request/get"),p)
 	do copyRecord(@@(@http_context,"&request/post"),p)
 	
+	//Detectes si cmd=Connect y el app=serie.e y de ser as´´ií, que valides uid y pwd contra v12 y si es correcta, actualices la contraseña del usuario en la bd serie 
+	if tolower(@@(p,"$cmd"))=="connect" && @@(p,"$app")==@app
+	{
+		ref params=record.copy(p,"user,pwd")
+		params<"onlyuser">:@true
+
+		qname=gse.get_qname()
+		ref database=dbr.open(qname)
+		ref uinfo=gse.CheckPassword(database,params)
+
+		qname=@@(p,"$acc")+"@"+@app
+		ref db=dbr.open(qname)
+
+		ref duser=gse.CheckPassword(db,params)
+
+		new tuser
+		{
+			@"pwd":@@(uinfo,"$pwd")
+			@"pwdmd5":@@(uinfo,"$pwdmd5")
+			@"sys_timestamp*":now()
+		}
+		do dbr.update(db,"tuser",tuser,"sys_pk=@sys_pk",duser)
+		do dbr.close(database)
+		do dbr.close(db)
+	}
 	res=service(url,p)
 
 	exception

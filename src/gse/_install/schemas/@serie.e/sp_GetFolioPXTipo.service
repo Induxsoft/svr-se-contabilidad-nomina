@@ -1,0 +1,4 @@
+﻿<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="sp_GetFolioPXTipo" rem="Regresa el último Folio del Periodo por Tipo de póliza" parameters="Periodo:Int,Tipo:Int" cardinality="one" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">call sp_GetFolioPXTipo(@Periodo,@Tipo);</sql>
+</queryDef>

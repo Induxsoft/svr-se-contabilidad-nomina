@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ListaContraPartida" rem="Regresa la Contrapartida de la Cuenta Contable (sys_pk)" columns="Codigo:String,Descripcion:String,Espacio:Decimal,Espacio2:String,TipoCambio:Decimal,Debe:Decimal,Haber:Decimal" parameters="ContrPartidaSys_PK:Int" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">Select Codigo, Descripcion, 0.00 Espacio, null as 'Espacio2', 1.00 TipoCambio,0.00 Debe, 0.00 Haber from ccontable where sys_pk=@ContrPartidaSys_PK;
+
+
+
+
+
+
+
+
+
+
+</sql>
+</queryDef>

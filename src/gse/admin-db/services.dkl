@@ -66,6 +66,18 @@ module ""
                 t=@@(data,'$response')
                 break
             }
+            case "agregarperfilcomousuario"
+            {
+                do gse.CreateUser(db,params)
+                t=""
+                break
+            }
+            case "quitarperfilcomousuario"
+            {
+                do gse.quitarUser(db,params)
+                t=""
+                break
+            }
         }
         response=gse.soapEnvelope(operation,"http://tempuri.org/",t)
     }

@@ -1,0 +1,4 @@
+﻿<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ListaCuentasSAT" rem="" columns="Sys_PK:Int,uf_CodAgrup:String,uf_Desc:String" parameters="" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">Select Sys_PK, uf_CodAgrup, uf_Desc from ut_sat_cuenta;</sql>
+</queryDef>

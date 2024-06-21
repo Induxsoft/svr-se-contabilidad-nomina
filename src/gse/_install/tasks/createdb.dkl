@@ -25,21 +25,22 @@ program ""
             ref db:dbr.open(qn)
         }
     }
+
     model_name = "serie_e.ddm"
     model_file = path.concat("gse/_install/ddm/",model_name)
     path_initial_data="gse/_install/initial_data/"
     path_dkts="gse/_install/ddm/tdks/"
     path_procedure="gse/_install/ddm/procedure"
-    procedures="inibalance.sql,cuentaxrubro.sql,foliogxtipo.sql,folioxtipo.sql,getfoliog.sql,getfoliop.sql,reportupdate.sql"
+    procedures="inibalance.sql,cuentaxrubro.sql,foliogxtipo.sql,folioxtipo.sql,getfoliog.sql,getfoliop.sql,reportupdate.sql,vistas_contabilidad.sql"
 
     ref files_to_import = from.json('["divisa.csv","ctiposcc.csv"]')
 
-    ref db=@@(@batch_context,"&database")//dbr.open("v12demo1@appsdkl")//
+    ref db=@@(@batch_context,"&database")//dbr.open("v12demo1@appsdkl")
     if isnull(@batchDB){ref @batchDB=db}
 
     token=@@(@batch_context,"$job/id")
     ref params=@@(@batch_context,"&params")
-    // ref params=from.json('{"serie_db":{"nic":"000000","dbname":"bd0001","id":"se_f67f56b5b016467596041975a3a31611","registro":"2024-06-19T18:11:33Z","disponible":0},"connection":{"app":"serie-e","qname_org":"v12demo1@appsdkl"}}')
+    // ref params=from.json('{"serie_db":{"nic":"000000","dbname":"bd0001","id":"se_f67f56b5b016467596041975a3a31614","registro":"2024-06-19T18:11:33Z","disponible":0},"connection":{"app":"serie-e","qname_org":"v12demo1@appsdkl"}}')
 
     ref serie_db=@@(params,"&serie_db")
     ref cn=@@(params,"&connection")
@@ -125,8 +126,8 @@ program ""
     //creando procedures
     if dir.exists(path_procedure)
     {
-        do print("Creando procedimientos almacenados..")
-        do batch.saveLog(token,"Creando procedimientos almacenados..")
+        do print("Creando procedimientos almacenados y vistas..")
+        do batch.saveLog(token,"Creando procedimientos almacenados y vistas..")
 
         ref lprocedures=split(procedures,",")
         for i = 0; i < @count(lprocedures)

@@ -1,3 +1,4 @@
+DROP PROCEDURE IF EXISTS `sp_GetFolioGXTipo`;
 CREATE PROCEDURE `sp_GetFolioGXTipo`(IN Ejercicio INT, IN Tipo INT)
 BEGIN
 SELECT 

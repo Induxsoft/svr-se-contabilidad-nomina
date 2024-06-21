@@ -1,3 +1,4 @@
+DROP PROCEDURE IF EXISTS `spCuentaXRubro`;
 CREATE PROCEDURE `spCuentaXRubro`(IN _Mes int, IN _Rubro INT)
 BEGIN
 IF _Rubro is not null THEN

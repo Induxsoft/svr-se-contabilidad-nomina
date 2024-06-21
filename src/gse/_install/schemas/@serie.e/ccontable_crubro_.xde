@@ -1,0 +1,12 @@
+﻿<?xml version="1.0"?>
+<lxmd xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://dev.induxsoft.net/xsd/xde.xsd">
+  <entity name="ccontable_crubro_" readonly="false">
+    <entity_description />
+    <field name="Cuentas" required="true" unique="false" type="ccontable" precision="0" scale="0" implementation="entityField" size="0" tablefield="Cuentas">
+      <field_description />
+    </field>
+    <field name="Rubros" required="true" unique="false" type="crubro" precision="0" scale="0" implementation="entityField" size="0" tablefield="Rubros">
+      <field_description />
+    </field>
+  </entity>
+</lxmd>

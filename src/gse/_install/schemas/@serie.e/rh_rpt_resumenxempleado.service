@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="rh_rpt_resumenxempleado" rem="" columns="codigo:String,nombre:String,codigo_concepto:String,descripcion_concepto:String,total:Decimal" parameters="finicio:Date,ffinal:Date,tiponomina:Int,grupoconceptos:Int" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">select e.codigo, concat(e.apellido1,' ', e.apellido2,' ',e.nombre) nombre, c.codigo codigo_concepto, c.descripcion descripcion_concepto, sum(importe) total
+ from rh_detalle_nomina_concepto dnc inner join rh_concepto_nomina c on dnc.ref_concepto=c.sys_pk inner join rh_detalle_nomina dn on dnc.ref_detalle_nomina=dn.sys_pk
+inner join rh_contrato_empleado con on con.sys_pk=dn.ref_contrato inner join rh_nomina n on dn.ref_nomina=n.sys_pk inner join rh_empleado_org e on con.ref_empleado=e.sys_pk
+inner join rh_detalle_grupo_conceptos dgrupo on dgrupo.ref_concepto=c.sys_pk
+where date(n.inicio) &gt;= date(@finicio) and date(n.inicio)&lt;= date(@ffinal) 
+and if(isnull(@tiponomina),true, n.ref_tipo=@tiponomina)
+and if(isnull(@grupoconceptos),true,dgrupo.ref_grupo=@grupoconceptos)
+group by e.codigo, e.apellido1, e.apellido2,e.nombre, c.codigo, c.descripcion order by e.apellido1, e.apellido2,e.nombre;
+
+
+</sql>
+</queryDef>

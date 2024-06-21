@@ -1,0 +1,22 @@
+﻿<?xml version="1.0"?>
+<lxmd xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://dev.induxsoft.net/xsd/xde.xsd">
+  <entity name="rh_unidad_org" readonly="false">
+    <entity_description>Unidad organizacional, se regiere a un departamento, área, zona u otro nombre dado.</entity_description>
+    <field name="codigo" required="true" unique="true" type="String" precision="0" scale="0" size="32">
+      <field_description />
+    </field>
+    <field name="descripcion" required="true" unique="false" type="String" precision="0" scale="0" size="150">
+      <field_description />
+    </field>
+    <field name="superior" required="false" unique="false" type="rh_unidad_org" precision="0" scale="0" implementation="entityField" size="0" tablefield="superior">
+      <field_description>Unidad organizacional de la que depende, si es NULL se asume que no tiene ninguna dependencia</field_description>
+    </field>
+    <field name="notas" required="false" unique="false" type="String" precision="0" scale="0" size="4096">
+      <field_description />
+    </field>
+    <field name="link" required="false" unique="false" type="String" precision="0" scale="0" size="1024">
+      <field_description />
+    </field>
+    <index name="idx_E48952863D1A40378057E9E892B210B3" fields="codigo" unique="true" />
+  </entity>
+</lxmd>

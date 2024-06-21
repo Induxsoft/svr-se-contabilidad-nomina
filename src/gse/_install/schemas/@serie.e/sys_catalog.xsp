@@ -1,0 +1,7 @@
+﻿<?xml version="1.0"?>
+<servicePack xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="sys_catalog_Services" xmlns="http://dev.induxsoft.net/xsd/servicepack.xsd">
+  <service type="entityRequest" visibility="public" permission="" alias="requestsys_catalog" />
+  <service type="insertRequest" visibility="public" permission="" alias="insertsys_catalog" />
+  <service type="updateRequest" visibility="public" permission="" alias="updatesys_catalog" />
+  <service type="deleteRequest" visibility="public" permission="" alias="deletesys_catalog" />
+</servicePack>

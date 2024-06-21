@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ListaCuentasAsocRubro" rem="regresa las cuentas asociadas al rubro" columns="sys_pk:Int,codigo:String,descripcion:String,icuenta:Int,descripcionRubro:String,rubropk:Int" parameters="pk:Int" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">Select cc.sys_pk, cc.codigo, cc.descripcion, cc.icuenta, crub.descripcion as descripcionRubro from ccontable cc inner join ccontable_crubro_ cr on cc.Sys_PK = cr.Cuentas inner join crubro crub on cr.Rubros = crub.Sys_PK where crub.sys_pk=@pk group by cc.codigo;
+
+
+</sql>
+</queryDef>

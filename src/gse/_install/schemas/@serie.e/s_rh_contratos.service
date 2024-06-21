@@ -1,0 +1,26 @@
+﻿<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="s_rh_contratos" rem="" columns="codigo_empleado:String,nom_tipocontrato:String,desc_puesto:String,apellido1:String,apellido2:String,nombre_empleado:String,curp:String,rfc:String,nss:String,sys_pk:Int,sys_timestamp:DateTime,sys_guid:String,sys_dtcreated:DateTime,sys_user:String,sys_lastuser:String,sys_exported:Bool,sys_dtexported:DateTime,sys_info:String,sys_recver:Int,sys_deleted:Bool,sys_lock:Int,status:Int,sueldomensualbruto:Decimal,sdi:Decimal,fdi:Decimal,fechabaja:DateTime,notabaja:String,fechainicio:DateTime,tipo:Int,diasppinformativo:Decimal,ref_empleado:Int,ref_puesto:Int,notas:String,idarchivo:String,fechavencimiento:DateTime,sat_banco:String,CLABE:String,referencia:String,ffirma:DateTime,horasvariables:Bool,activo:Bool,promediohorasdia:Decimal,pagoxhora:Bool,sueldoxunidaddepago:Decimal,diasxsemana:Decimal,septimodia:Bool,sat_tipojornada:String,sat_sindicalizado:Bool,sbc:Decimal" parameters="p_activo:Bool,p_unidad:Int,p_puesto:Int,p_categoria:Int,p_empleado:Int,p_text:String" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">select e.codigo codigo_empleado, t.nombre nom_tipocontrato, p.descripcion desc_puesto, e.apellido1, e.apellido2, e.nombre nombre_empleado, e.curp, e.rfc, e.nss, c.* from rh_contrato_empleado c inner join rh_puesto_org p on c.ref_puesto=p.sys_pk inner join rh_empleado_org e on c.ref_empleado=e.sys_pk inner join rh_tipo_contrato t on c.tipo=t.sys_pk inner join rh_unidad_org u on p.ref_unidad_org=u.sys_pk where 
+if(isnull(@p_activo),true, c.activo=@p_activo) and  
+if(isnull(@p_unidad),true, u.sys_pk=@p_unidad) and 
+if(isnull(@p_puesto),true, p.sys_pk=@p_puesto) and
+if(isnull(@p_categoria),true, e.ref_categoria=@p_categoria) and
+if(isnull(@p_empleado),true, e.sys_pk=@p_empleado) and
+if(isnull(@p_text),true,
+	e.nombre like concat('%',@p_text,'%') or 
+	e.apellido1 like concat('%',@p_text,'%') or
+	e.apellido2 like concat('%',@p_text,'%') or
+	e.codigo like concat('%',@p_text,'%') or
+	e.rfc like concat('%',@p_text,'%') or
+	e.curp like concat('%',@p_text,'%') or
+	e.nss like concat('%',@p_text,'%') or
+	c.referencia like concat('%',@p_text,'%'))
+order by e.apellido1, e.apellido2, e.nombre;
+
+
+
+
+
+
+</sql>
+</queryDef>

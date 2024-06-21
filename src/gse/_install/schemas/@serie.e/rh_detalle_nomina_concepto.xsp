@@ -1,0 +1,7 @@
+﻿<?xml version="1.0"?>
+<servicePack xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="rh_detalle_nomina_concepto_Services" xmlns="http://dev.induxsoft.net/xsd/servicepack.xsd">
+  <service type="entityRequest" visibility="public" permission="" alias="requestrh_detalle_nomina_concepto" />
+  <service type="insertRequest" visibility="public" permission="" alias="insertrh_detalle_nomina_concepto" />
+  <service type="updateRequest" visibility="public" permission="" alias="updaterh_detalle_nomina_concepto" />
+  <service type="deleteRequest" visibility="public" permission="" alias="deleterh_detalle_nomina_concepto" />
+</servicePack>

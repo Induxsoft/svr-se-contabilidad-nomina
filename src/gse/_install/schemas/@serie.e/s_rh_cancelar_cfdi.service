@@ -1,0 +1,2 @@
+﻿<?xml version="1.0"?>
+<netService xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="s_rh_cancelar_cfdi" rem="" permission="" assembly="1ad365d569b04fbebc73ea0bdd9096d7" namespace="induxsoft.SE.RH.BackEnd" class="Nomina" method="CancelarRecibos" parameters="uuids:String" return="Bool" description="" xmlns="http://dev.induxsoft.net/xsd/netservice.xsd" />

@@ -1,0 +1,28 @@
+#include "dkli.dkh"
+#set "meta-xml-declaration" "<!DOCTYPE html>\r\n"
+#!
+module "index"
+{
+    #include "functions.dkh"
+    #include "serialize.dkh"
+
+    #$
+    html(lang="en")
+    {
+        head
+        {
+            meta(charset="UTF-8")
+            meta(name="viewport" content="width=device-width, initial-scale=1.0")
+            title{$"index"}
+        }
+    
+        body
+        {
+            p{"Configuración"}
+            div
+            {
+                h5{"Mas queso..."}
+            }
+        }
+    }
+}

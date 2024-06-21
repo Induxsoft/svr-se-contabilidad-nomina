@@ -340,12 +340,70 @@ module ":gse"
 
         data<"user">:user
 
-        ref uinfo=dbr.rec(database,"select s.sys_guid ids,u.userId, u.userName 
-        from tuser u 
-        inner join sys_session s on u.sys_pk=s.iuser
-        AND IFNULL(s.sys_deleted,0)=0
-        AND s.iuser=@user",data)
+        if @@(data,"#onlyuser")
+        {
+            ref uinfo=dbr.rec(database,"select * from tuser where sys_pk=@user",data)
+        }
+        else 
+        {
+            ref uinfo=dbr.rec(database,"select u.sys_pk,s.sys_guid ids,u.userId, u.userName,u.pwd,u.pwdmd5 
+            from tuser u 
+            inner join sys_session s on u.sys_pk=s.iuser
+            AND IFNULL(s.sys_deleted,0)=0
+            AND s.iuser=@user",data)
+        }
+        
 
         return uinfo
+    }
+    CreateUser::&db,&params
+    {
+        ref user=dbr.rec(db,"select locked,message,notes,pwd,userid,username,pwdmd5 from tuser t where userid=@idperfil",params)
+        if isnull(user){do rise_error(500,"No existe el usuario en la base de datos origen")}
+
+        ref serie=dbr.rec(db,"select * from serie_dbs s where s.dbname=@bd",params)
+
+        qname=@@(serie,"$id")+"@"+@app
+
+        ref database=dbr.open(qname)
+
+        using user
+        {
+            @"sys_guid":uuid()
+            @"sys_timestamp*":now()
+            @"sys_dtcreated*":now()
+            @"sys_recver":0
+        }
+        do dbr.insert(database,"tuser",user)
+
+        pkgrupo=dbr.num(database,"select sys_pk from usergroup where groupid=@grupo limit 1",params)
+
+        pkuser=dbr.num(database,"select sys_pk from tuser where sys_guid=@sys_guid limit 1",user)
+
+        if pkgrupo>0 && pkuser>0
+        {
+            new g
+            {
+                @"sys_guid":uuid()
+                @"sys_timestamp*":now()
+                @"sys_dtcreated*":now()
+                @"sys_recver":0
+                @"groups":pkgrupo
+                @"users":pkuser
+            }
+
+            do dbr.insert(database,"user_usergroup_",g)
+        }
+    }
+    quitarUser::&db,&params
+    {
+        ref serie=dbr.rec(db,"select * from serie_dbs s where s.dbname=@bd",params)
+
+        qname=@@(serie,"$id")+"@"+@app
+
+        ref database=dbr.open(qname)
+        ref user=dbr.rec(database,"select * from tuser where userid=@idperfil",params)
+        do dbr.delete(database,"user_usergroup_","users=@sys_pk",user)
+        do dbr.delete(database,"tuser","userid=@idperfil",params)
     }
 }

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<enum xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="rh_status_contrato" xmlns="http://dev.induxsoft.net/xsd/enum.xsd">
+  <Item value="0" text="Borrador" />
+  <Item value="1" text="Activo" />
+  <Item value="2" text="Rescindido" />
+  <Item value="3" text="Completado" />
+  <Item value="4" text="Cancelado" />
+</enum>

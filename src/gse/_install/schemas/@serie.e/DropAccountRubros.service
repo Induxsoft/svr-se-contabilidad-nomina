@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="DropAccountRubros" rem="Eliminal los rubros ligados a las cuentas para que estas puedan ser eliminadas apropiadamente" parameters="pk:Int" cardinality="void" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">delete from ccontable_crubro_ where cuentas = @pK;
+</sql>
+</queryDef>

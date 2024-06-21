@@ -1,0 +1,12 @@
+﻿<?xml version="1.0"?>
+<lxmd xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://dev.induxsoft.net/xsd/xde.xsd">
+  <entity name="rh_concepto_puesto" readonly="false">
+    <entity_description>Conceptos adicionales del puesto independientemente del tipo de contrato</entity_description>
+    <field name="ref_puesto" required="true" unique="false" type="rh_puesto_org" precision="0" scale="0" implementation="entityField" size="0">
+      <field_description />
+    </field>
+    <field name="ref_concepto" required="true" unique="false" type="rh_concepto_nomina" precision="0" scale="0" implementation="entityField" size="0">
+      <field_description />
+    </field>
+  </entity>
+</lxmd>

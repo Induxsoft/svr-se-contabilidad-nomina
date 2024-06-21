@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Reportes" rem="regresa la lista de reportes con sus contenidos en la base de datos" columns="sys_pk:Int,nombre:String,contenido:String,anual:Bool,permiso:String,debe:Bool,haber:Bool,saldoinicial:Bool,saldo:Bool,filtrodepto:Bool,saldosalineados:Bool,quitarsigno:Bool,presupuesto:Bool" parameters="" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
+  <sql engine="MY_SQL">Select sys_pk, nombre, contenido, anual, permiso, debe, haber , saldoinicial, saldo , filtrodepto, saldosalineados, quitarsigno, presupuesto from se_repconta;
+
+</sql>
+</queryDef>
