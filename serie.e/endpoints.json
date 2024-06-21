@@ -1,0 +1,13 @@
+{
+	"login":		"http(s)://@host/!/auth/login.dkl",
+	"connect":		"http(s)://@host/!/auth/login.dkl?ids=recover",
+	"contabilidad": "http(s)://@host/!!/serie.e/@database/?uhu=True",
+	"nomina":		"http(s)://@host/!!/serie.e/@database/?uhu=True",
+	"se.admindb":"http(s)://@host/!/admin-db/services.dkl?dbtype=@dbtype",
+	"se.export.cc":"http(s)://@host/!/se-api/contabilidad/exportar/cuentas/?db=@database&ids=@ids",
+	"se.import.cc":"http(s)://@host/!/se-api/contabilidad/importar/cuentas/?db=@database&dbo=@dbo&from=@from&ids=@ids&saldo=@saldo&duply=@duply&delcc=@delcc&delrb=@delrb&deldp=@deldp&delpl=@delpl",
+	"se.delete.crdp":"http(s)://@host/!/se-api/contabilidad/eliminar/cuentas-rubros-departamentos/?db=@database&ids=@ids&delcc=@delcc&delrb=@delrb&deldp=@deldp&delpl=@delpl",
+	"se.valid-act.cc":"http(s)://@host/!/se-api/contabilidad/cuentas/validacion/@action/?db=@database&ids=@ids",
+	"se.list.raya":"https://serie-e.api.induxsoft.net/nomina/",
+	"rmtconfig":"http(s)://@host/!/se-api/rmtconfig/rmtconfig.dkl?dbtype=@dbtype&ids=@ids"
+}
