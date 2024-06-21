@@ -1,2 +1,0 @@
-﻿<?xml version="1.0"?>
-<netService xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="TrabajoTerminado" rem="Retorna la tabla de aquella tareas que han sido finalizadas" permission="" assembly="566adbde637f4bb3bd888ce1787268d0" namespace="induxsoft.FactuBot.ServicesNET" class="ServicesNET" method="TrabajoTerminado" parameters="numPagina:Int,numFilas:Int" return="DataTable" description="" xmlns="http://dev.induxsoft.net/xsd/netservice.xsd" />

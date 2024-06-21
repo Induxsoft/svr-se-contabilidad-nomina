@@ -20,6 +20,36 @@ module ":gse"
 
 		return @null
 	}
+    current_url::h
+	{
+		host=@@(@http_context,"request/headers/HTTP_HOST")
+		protocol=ifstr(parse.bool(@@(@http_context,"request/headers/HTTPS")),"https","http")
+		path=replace(field.dstr(@http_context,"request/headers/request_uri","/"),"\\","/")
+		
+		path=list.str(split(path,"?"),0)
+
+        if h{return protocol+"://"+host}
+
+		return protocol+"://"+path.concat(host,path)
+	}
+    get_qname_host::
+    {
+        dbqname=""
+
+        codeblock
+        {
+            host_name = @@(@http_context,"$request/headers/HTTP_HOST")
+            
+            cfg_name = host_name + ".json"
+            cfg_file = path.concat("_config",cfg_name)
+            if file.exists(cfg_file)
+            {
+                dbqname = trim(@@(from.json(file.rtext(cfg_file)),"$qname"))
+                exception{}
+            }
+        }
+        return dbqname
+    }
     get_qname::
     {
         ref data=gse.get_payload()
@@ -214,8 +244,39 @@ module ":gse"
         do dbr.update(db,"serie_dbs",serie_db,"nic=@nic and dbname=@nombre",params)
 
     }
+    createCnns::&params
+    {
+        qname=@@(params,"$qname")
+        qnmd5=md5(qname)
+        qn=qnmd5+"@"+@app
+
+        if not(dba.cnnexists(qn))
+        {
+            ref data=dba.getconnection(qname)
+            if isnull(data){do rise_error(500,"No se encontró datos de la conexión")}
+            
+            do dba.createconnection(qn,data,@false,"") 
+
+            module
+            {
+                do reset()
+                exception{}
+            }
+        }
+
+        new cnns
+        {
+            @"qname_org":qname
+            @"qname":qn
+            @"qnmd5":qnmd5
+            @"namebd":@name_bd_v12
+            @"status":99
+        }
+        return cnns
+    }
     getConexions::&db,&params
     {
+        ref get=@@(@http_context,"&request/get")
         ref payload=gse.get_payload()
 
         ref data=dbr.list(db,"select * from serie_dbs",@null)
@@ -223,42 +284,45 @@ module ":gse"
 
         nic=ifstr(isnull(emisor),@NIC,@@(emisor,"$nic"))
 
-        if @@(payload,"$dbtype")=="contabilidad"
-        {
-            // xml=xml+'<Serie_E_DBInfo>
-			// 		<nombre>mibd</nombre>
-			// 		<id>'+@@(itm,"$id")+'</id>
-			// 		<nic>'+ifstr(trim(nic)!="",nic,@@(itm,"$nic"))+'</nic>
-			// 		<status>'+str(status)+'</status>
-			// 		</Serie_E_DBInfo>'
-        }
-        
-
         ref l=list.create()
 
         xml=""
-        for i = 0; i < @count(data)
+
+        if @@(get,"$dbtype")=="nomina"
         {
-            ref itm=@item(data,i)
-            status=gse.getStatusdb(db,itm)
-
+            ref cnns=gse.createCnns(params)
             xml=xml+'<Serie_E_DBInfo>
-					<nombre>'+@@(itm,"$dbname")+'</nombre>
-					<id>'+@@(itm,"$id")+'</id>
-					<nic>'+ifstr(trim(nic)!="",nic,@@(itm,"$nic"))+'</nic>
-					<status>'+str(status)+'</status>
+					<nombre>'+@@(cnns,"$namebd")+'</nombre>
+					<id>'+@@(cnns,"$qnmd5")+'</id>
+					<nic>'+nic+'</nic>
+					<status>'+@@(cnns,"$status")+'</status>
 					</Serie_E_DBInfo>'
-
-            new cnns
-            {
-                @"nombre":@@(itm,"$")
-                @"id":@@(itm,"$")
-                @"nic":@@(itm,"$")
-                @"status":status
-            }
-            do list.add(l,cnns)
         }
-        
+        else 
+        {
+            for i = 0; i < @count(data)
+            {
+                ref itm=@item(data,i)
+                status=gse.getStatusdb(db,itm)
+
+                xml=xml+'<Serie_E_DBInfo>
+                        <nombre>'+@@(itm,"$dbname")+'</nombre>
+                        <id>'+@@(itm,"$id")+'</id>
+                        <nic>'+ifstr(trim(nic)!="",nic,@@(itm,"$nic"))+'</nic>
+                        <status>'+str(status)+'</status>
+                        </Serie_E_DBInfo>'
+
+                new cnns
+                {
+                    @"nombre":@@(itm,"$")
+                    @"id":@@(itm,"$")
+                    @"nic":@@(itm,"$")
+                    @"status":status
+                }
+                do list.add(l,cnns)
+            }
+        }
+
         new data
         {
             @"response":xml

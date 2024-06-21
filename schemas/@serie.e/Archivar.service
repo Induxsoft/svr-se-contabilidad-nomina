@@ -1,2 +1,0 @@
-﻿<?xml version="1.0"?>
-<netService xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Archivar" rem="archiva el ejercicio" permission="" assembly="a00d2f5886e142f9a252cfb8d0a07a17" namespace="induxsoft.SE.ERP.ServiciosEjercicios" class="ServicioEjercicio" method="Archivar" parameters="QnameDestino:String,NuevaLeyenda:String" return="Bool" description="" xmlns="http://dev.induxsoft.net/xsd/netservice.xsd" />

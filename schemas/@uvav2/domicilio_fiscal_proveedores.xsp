@@ -1,7 +1,0 @@
-﻿<?xml version="1.0"?>
-<servicePack xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="domicilio_fiscal_proveedores_Services" xmlns="http://dev.induxsoft.net/xsd/servicepack.xsd">
-  <service type="entityRequest" visibility="public" permission="" alias="requestdomicilio_fiscal_proveedores" />
-  <service type="insertRequest" visibility="public" permission="" alias="insertdomicilio_fiscal_proveedores" />
-  <service type="updateRequest" visibility="public" permission="" alias="updatedomicilio_fiscal_proveedores" />
-  <service type="deleteRequest" visibility="public" permission="" alias="deletedomicilio_fiscal_proveedores" />
-</servicePack>

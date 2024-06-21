@@ -1,6 +1,0 @@
-﻿<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="s_se_varvalue" rem="" columns="value:String,type:String" parameters="id:String" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">select value,type from se_var where id=@id;
-
-</sql>
-</queryDef>

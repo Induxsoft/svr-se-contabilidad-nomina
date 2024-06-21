@@ -1,4 +1,0 @@
-﻿<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ObtenerComp" rem="Sirve para obtener el complemento" parameters="p_pk:Int" columns="uf_nscomplemento:Sting, uf_complemento:Sting" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">select uf_nscomplemento, uf_complemento from comprobante where sys_pk=@p_pk;</sql>
-</queryDef>

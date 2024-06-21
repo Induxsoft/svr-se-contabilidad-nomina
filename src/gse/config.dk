@@ -2,14 +2,15 @@
 #!
 module ""
 {
-   @NIC="000000"
+     @NIC="000000"
 
-    @jg="gse"
-    @program="createdb.dkl"
-    @status_job_solicitado=0
-    @bd_prefix="se_@uuid"
+     @jg="gse"
+     @program="createdb.dkl"
+     @status_job_solicitado=0
+     @bd_prefix="se_@uuid"
 	@app="serie.e"
      @usehashmd5unicode=@true
+     @name_bd_v12="Nomina v12"
 }
 
 

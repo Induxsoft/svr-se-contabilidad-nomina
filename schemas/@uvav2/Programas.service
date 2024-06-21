@@ -1,2 +1,0 @@
-﻿<?xml version="1.0"?>
-<netService xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Programas" rem="Retorna los progrmas tomados de la tabla &quot;FB_Programa&quot;" permission="" assembly="566adbde637f4bb3bd888ce1787268d0" namespace="induxsoft.FactuBot.ServicesNET" class="ServicesNET" method="Programas" parameters="recibir:Int" return="DataTable" description="" xmlns="http://dev.induxsoft.net/xsd/netservice.xsd" />

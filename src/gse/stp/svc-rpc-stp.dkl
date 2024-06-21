@@ -47,17 +47,18 @@ module "test"
 	do copyRecord(@@(@http_context,"&request/post"),p)
 	
 	//Detectes si cmd=Connect y el app=serie.e y de ser as´´ií, que valides uid y pwd contra v12 y si es correcta, actualices la contraseña del usuario en la bd serie 
+	ref data_res=@null
 	if tolower(@@(p,"$cmd"))=="connect" && @@(p,"$app")==@app
 	{
 		ref params=record.copy(p,"user,pwd")
 		params<"onlyuser">:@true
 
-		qname=gse.get_qname()
+		qname=gse.get_qname_host()
 		ref database=dbr.open(qname)
 		ref uinfo=gse.CheckPassword(database,params)
 
-		qname=@@(p,"$acc")+"@"+@app
-		ref db=dbr.open(qname)
+		qname_se=@@(p,"$acc")+"@"+@app
+		ref db=dbr.open(qname_se)
 
 		ref duser=gse.CheckPassword(db,params)
 
@@ -68,14 +69,46 @@ module "test"
 			@"sys_timestamp*":now()
 		}
 		do dbr.update(db,"tuser",tuser,"sys_pk=@sys_pk",duser)
+
+		if md5(qname)==@@(p,"$acc")
+		{
+			do field.remove(params,"onlyuser")
+			ref uinfo=gse.CheckPassword(db,params)
+
+			new dt
+			{
+				@"token":@@(uinfo,"$ids")
+				@"userid":field.str(uinfo,"userId")
+				@"name":field.str(uinfo,"userName")
+				@"qname":qname_se
+				@"folderupload": "O6xO0hIoO9mWAuyWm2QT/a4BsWrbtDc7LhHUNn+CU/fnnBlcWMMtzFreRBiIDwJAD/VEs4kBO48UGTwo634a6w=="
+				@"folderdownload": "O6xO0hIoO9mWAuyWm2QT/a4BsWrbtDc7LhHUNn+CU/fnnBlcWMMtzFreRBiIDwJAD/VEs4kBO48UGTwo634a6w=="
+				@"serverupload": "https://factudesk.induxsoft.net/services/upload/UpLoad.ashx"
+				@"serverdownload": "https://factudesk.induxsoft.net/services/upload/DownLoad.ashx"
+				@"userpk": str(@@(uinfo,"#sys_pk"))
+			}
+			new data_res
+			{
+				@"data":to.json(dt)
+				@"success*":from.json("true")
+			}
+		}
 		do dbr.close(database)
 		do dbr.close(db)
 	}
-	res=service(url,p)
-
+	
+	if not(isnull(data_res)){res=to.json(data_res)}
+	else{res=service(url,p)}
+	
 	exception
 	{
-		res=last_error()
+		new dt{@"message":last_error()}
+		new data_res
+		{
+			@"data":to.json(dt)
+			@"success":@false
+		}
+		res=to.json(data_res)
 	}
 
 	@http_context<"response/headers/Content-Type">:"application/json;charset=utf-8"

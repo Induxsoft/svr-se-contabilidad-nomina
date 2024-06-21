@@ -30,6 +30,8 @@ module ""
         }
         ref uinfo=dbr.rec(database,"select u.userId, u.userName from tuser u inner join sys_session s on u.sys_pk=s.iuser where s.sys_guid=@ids;",params)
     }
+
+    current_url=gse.current_url(@true)
     
     new res
     {
@@ -41,7 +43,7 @@ module ""
         @"verified_mobile":@false
         @"email": ""
         @"mobile": ""
-        @"legacy_epifania_svc": "https://v12se-test.induxsoft.net/!/admin-db/epifania.dkl"//https://core22.induxsoft.net/epifania/?app=induxsoft&db=epifania_pefiles&uhu=False
+        @"legacy_epifania_svc": current_url+"/!/admin-db/epifania.dkl"//https://core22.induxsoft.net/epifania/?app=induxsoft&db=epifania_pefiles&uhu=False
         @"user_type": "induxsoft_internal"
     }
 

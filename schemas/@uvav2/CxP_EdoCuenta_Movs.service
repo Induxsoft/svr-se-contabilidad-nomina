@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="CxP_EdoCuenta_Movs" rem="" columns="UUID:String,Fecha:Datetime,Cargo:Decimal,Abono:Decimal,Divisa:String,TipoCambio:Decimal,Importe:Decimal,TipoDoc:String" parameters="rfc_emisor:String,rfc_receptor:String" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">select * from (
-select c.emision as Fecha, c.uuid as UUID, if (c.tipo=0, c.total,0) Cargo, if (tipo=1, c.total,0) Abono, c.divisa as Divisa, c.TipoCambio, c.tipo as TipoDoc from ts_cfdi c where ((c.MetodoPago='PPD' and c.tipo=0) or (tipo=1 and UsoCFDI='G02')) and rfc_emisor=@rfc_receptor and cancelacion is null 
-union all 
-Select c.emision, p.idpago uuid, 0 cargos, sum(p.ImpPagado) abonos, p.MonedaDR, ifnull(p.TipoCambioDR,1), c.tipo as TipoDoc from ts_rel_pago p inner join ts_cfdi c on p.idpago=c.uuid where c.rfc_emisor=@rfc_receptor group by c.emision, p.idpago,p.MonedaDR,p.TipoCambioDR, TipoDoc) x order by Fecha;</sql>
-</queryDef>

@@ -1,2 +1,0 @@
-﻿<?xml version="1.0"?>
-<netService xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="GetDBname" rem="regresa el nombre de la base de datos de nomina por el qname" permission="" assembly="a00d2f5886e142f9a252cfb8d0a07a17" namespace="induxsoft.SE.ERP.ServiciosEjercicios" class="ServicioEjercicio" method="GetDBname" parameters="Qname:String" return="String" description="" xmlns="http://dev.induxsoft.net/xsd/netservice.xsd" />

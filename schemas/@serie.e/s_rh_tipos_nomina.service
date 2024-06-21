@@ -1,6 +1,0 @@
-﻿<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="s_rh_tipos_nomina" rem="" columns="sys_pk:Int,sys_timestamp:DateTime,sys_guid:String,sys_dtcreated:DateTime,sys_user:String,sys_lastuser:String,sys_exported:Bool,sys_dtexported:DateTime,sys_info:String,sys_recver:Int,sys_deleted:Bool,sys_lock:Int,nombre:String,dias:Decimal,sat_tiponomina:String,sat_periodicidad:String,ref_grupo_conceptos:Int,sel_manual_empleados:Bool" parameters="text:String" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">Select t.* from rh_tipo_nomina t where if (isnull(@text),true, t.nombre like concat('%',@text,'%')) order by nombre;
-
-</sql>
-</queryDef>

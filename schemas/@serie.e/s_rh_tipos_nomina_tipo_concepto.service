@@ -1,4 +1,0 @@
-﻿<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="s_rh_tipos_nomina_tipo_concepto" rem="" columns="sys_pk:Int,sys_timestamp:DateTime,sys_guid:String,sys_dtcreated:DateTime,sys_user:String,sys_lastuser:String,sys_exported:Bool,sys_dtexported:DateTime,sys_info:String,sys_recver:Int,sys_deleted:Bool,sys_lock:Int,ref_tipo_contrato:Int,ref_tipo_nomina:Int,tiponomina:String" parameters="pk_tipo:Int" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">select n.*,t.nombre tiponomina from rh_tipo_contrato_nominas_extra n inner join rh_tipo_nomina t on n.ref_tipo_nomina=t.sys_pk where n.ref_tipo_contrato=@pk_tipo order by t.nombre;</sql>
-</queryDef>

@@ -1,4 +1,0 @@
-﻿<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="GetNaturaleza" rem="Regresa si es de tipo acumulativa o de detalle Ccontable" parameters="Sys_PK:Int" cardinality="one" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">Select Detalle from ccontable where Sys_PK=@Sys_PK;</sql>
-</queryDef>

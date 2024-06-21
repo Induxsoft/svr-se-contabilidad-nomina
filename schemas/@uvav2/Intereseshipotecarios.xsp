@@ -1,7 +1,0 @@
-﻿<?xml version="1.0"?>
-<servicePack xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Intereseshipotecarios_Services" xmlns="http://dev.induxsoft.net/xsd/servicepack.xsd">
-  <service type="entityRequest" visibility="public" permission="" alias="requestIntereseshipotecarios" />
-  <service type="insertRequest" visibility="public" permission="" alias="insertIntereseshipotecarios" />
-  <service type="updateRequest" visibility="public" permission="" alias="updateIntereseshipotecarios" />
-  <service type="deleteRequest" visibility="public" permission="" alias="deleteIntereseshipotecarios" />
-</servicePack>

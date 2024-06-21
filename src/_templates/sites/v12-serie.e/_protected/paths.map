@@ -1,0 +1,2 @@
+*	: /!/se-api/* > $gse/se-api/*
+POST: /!/* > $gse/*

@@ -1,5 +1,0 @@
-﻿<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="listarImpuestosRequeridos" rem="" columns="sys_pk:Int,TipoPagoRetenido:Int,BaseImpuestoRetenido:Int,ImpuestoRetenido:Int,MontoRetenido:Int" parameters="p_SysPkRetencion:Int" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">CALL sp_listarDetalleImpuestoRetenciones(@p_SysPkRetencion);
-</sql>
-</queryDef>

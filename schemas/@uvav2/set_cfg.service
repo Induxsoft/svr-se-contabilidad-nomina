@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="set_cfg" rem="Actualiza (o agrega) un valor de configuración" columns="" parameters="p_varname:String, p_varvalue:String,p_title:String,p_pwd:Bool" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">
-  INSERT INTO configuraciones (sys_timestamp,sys_guid,sys_dtcreated,sys_recver,varname,varvalue, title,pwd) VALUES (now(),replace(uuid(),'-',''),now(),0,@p_varname,@p_varvalue,@p_title,@p_pwd)
-    ON DUPLICATE KEY UPDATE varvalue=@p_title;
-</sql>
-</queryDef>

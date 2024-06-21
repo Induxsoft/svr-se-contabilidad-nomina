@@ -1,7 +1,0 @@
-﻿<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="searchClienteByRFCOrCode" rem="Devuelve la clave primaria del cliente si existe un cliente con el rfc o el código que se manda como parámetros" columns="sys_pk:Long,codigo:String,rfc:String" parameters="p_rfc:String,p_code:String" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">CALL sp_searchClienteByRFCOrCode(@p_rfc, @p_code);
-
-
-</sql>
-</queryDef>

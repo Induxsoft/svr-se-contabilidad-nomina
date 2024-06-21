@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="obtenerRegimenFiscal" rem="" columns="codigosat:String,regimen:String" parameters="" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">select codigosat,regimen from regimen_fiscal limit 1;
-</sql>
-</queryDef>

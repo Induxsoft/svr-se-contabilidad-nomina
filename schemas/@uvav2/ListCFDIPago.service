@@ -1,6 +1,0 @@
-﻿<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ListCFDIPago" rem="Lista los CFDIS de un comprobante de pago" columns="sys_pk:Int,UUID:String,Serie:String,Folio:String,ImpSaldoAnt:Decimal,ImpPagado:Decimal,ImpSaldoInsoluto:Decimal,NumParcialidad:Int" parameters="PKComprobante:Int" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">call ListCFDIPago(@PKComprobante);
-
-</sql>
-</queryDef>

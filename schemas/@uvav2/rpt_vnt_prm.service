@@ -1,7 +1,0 @@
-﻿<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="rpt_vnt_prm" rem="" columns="rfcR:String,nombRec:String,subTotal:Decimal,iva:Decimal,ieps:Decimal,isrRet:Decimal,ivaRet:Decimal,total:Decimal,ops:Long,ppo:Decimal" parameters="finicial:Int,ffinal:Int,rfc:String" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">Select distinct rfc_receptor as rfcR, nombre_receptor as nombRec, sum(subtotal) as subTotal, sum(descuentos) as Descuentos, sum(iva)as iva, sum(ieps) as ieps, sum(isr_retenido) as isrRet , sum(iva_retenido) as ivaRet, sum(total) as total, count(rfc_receptor) as ops, sum(total) / count(rfc_receptor) as ppo
-	from ts_cfdi
-	Where tipo = 0 AND cancelacion is null AND (year(certificacion)*10000 + month(certificacion)*100 + day(certificacion) &gt;= @finicial) and year(certificacion)*10000 + month(certificacion)*100 + day(certificacion) &lt;= @ffinal and rfc_receptor &lt;&gt; @rfc
-	Group by rfc_receptor;</sql>
-</queryDef>

@@ -1,8 +1,0 @@
-﻿<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SE_Reports_CallProc" rem="" parameters="Param1:String,Param2:String,Param3:String" cardinality="void" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">call SE_Reports_UpdateInserData('SE_Reports_Pie', 'SE_Reports_Encabezado', 'SE_Reports_Logo',@Param1,@Param2, @Param3);
-
-
-
-</sql>
-</queryDef>

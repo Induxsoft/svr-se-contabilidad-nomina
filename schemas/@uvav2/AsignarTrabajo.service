@@ -1,2 +1,0 @@
-﻿<?xml version="1.0"?>
-<netService xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="AsignarTrabajo" rem="Se invoca cuando el usuario sube un archo" permission="" assembly="566adbde637f4bb3bd888ce1787268d0" namespace="induxsoft.FactuBot.ServicesNET" class="ServicesNET" method="AsignarTrabajo" parameters="idArchivo:String,notas:String,programa:String,iniciarAhora:Bool" return="String" description="" xmlns="http://dev.induxsoft.net/xsd/netservice.xsd" />

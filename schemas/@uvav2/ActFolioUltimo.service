@@ -1,5 +1,0 @@
-﻿<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ActFolioUltimo" rem="" parameters="p_Folio:Int,PKBlock:Int" cardinality="void" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">call ActFolioUltimo(@p_Folio, @PKBlock);
-</sql>
-</queryDef>

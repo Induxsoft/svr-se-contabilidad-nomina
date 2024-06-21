@@ -1,5 +1,0 @@
-﻿<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="fkfield_seleccionarCliente" rem="Obtiene los datos de un cliente especifico, desarrollado para ser utilizado en un FK_Field." columns="sys_pk:Int,codigo:String,nombrefiscal:String" parameters="p_cliente:Int" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">CALL fkfield_seleccionarCliente(@p_cliente);
-</sql>
-</queryDef>

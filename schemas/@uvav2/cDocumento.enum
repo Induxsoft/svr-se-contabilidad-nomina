@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<enum xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="cDocumento" xmlns="http://dev.induxsoft.net/xsd/enum.xsd">
-  <Item value="1" text="Factura" />
-  <Item value="2" text="Nota_de_Credito" />
-  <Item value="3" text="Recibo_de_Honorarios" />
-  <Item value="4" text="Recibo_de_Arrendamiento" />
-  <Item value="5" text="Retenciones" />
-  <Item value="6" text="Pago" />
-</enum>

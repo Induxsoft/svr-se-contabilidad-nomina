@@ -1,2 +1,0 @@
-﻿<?xml version="1.0"?>
-<netService xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="EliminarPoliza" rem="Elimina la poliza de y sus detalles. Regresa true si fue existoso." permission="" assembly="0b24801641f646d4870fddd078395141" namespace="induxsoft.SE.ERP.ServiciosContabilidad" class="ServicioPoliza" method="EliminarPoliza" parameters="Key:String,Encoded:Bool" return="Bool" description="" xmlns="http://dev.induxsoft.net/xsd/netservice.xsd" />

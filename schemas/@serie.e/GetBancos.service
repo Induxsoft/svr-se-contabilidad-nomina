@@ -1,4 +1,0 @@
-﻿<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="GetBancos" rem="Regresa una tabla que contiene las claves y nombres de los Blancos del catálogo de Bancos del SAT." columns="Clave:Int,Banco:String" parameters="" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">Select uf_cve Clave, uf_nombre Banco from ut_sat_Banco;</sql>
-</queryDef>

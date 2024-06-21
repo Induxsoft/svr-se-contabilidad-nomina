@@ -1,8 +1,0 @@
-﻿<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ListaSubCuentaContable" rem="Regresa la Cuenta Contable Con Sys_PK del ICuenta de otra Cuenta" columns="Codigo:String,Descripcion:String,Saldo Inicial:Decimal,Rubro:String,Debe:Decimal,Haber:Decimal,Saldo:Decimal,sys_pk:Int,iCuenta:Int" parameters="Mes:Int,Rubro:Int" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">Call spCuentasXRubro(@Mes,@Rubro);
-
-
-
-</sql>
-</queryDef>

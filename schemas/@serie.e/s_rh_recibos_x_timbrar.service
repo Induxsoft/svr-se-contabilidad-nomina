@@ -1,5 +1,0 @@
-﻿<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="s_rh_recibos_x_timbrar" rem="" columns="sys_pk:Int,cancelado:Bool,error_al_timbrar:Bool" parameters="pknomina:Int" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">select r.sys_pk,cfdi.cancelado,cfdi.error_al_timbrar, cfdi.sys_pk as cfdi_sys_pk from rh_detalle_nomina r left join rh_cfdi cfdi on cfdi.ref_detalle_nomina=r.sys_pk where (isnull(cfdi.uuid) or ifnull(error_al_timbrar,false)=true or ifnull(cancelado,true)=true) and r.ref_nomina=@pknomina order by cfdi.sys_pk;
-</sql>
-</queryDef>

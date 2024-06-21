@@ -1,4 +1,0 @@
-﻿<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SE_Reports_datos" rem="" columns="id:String,value:String" parameters="" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">select s.id, s.value  from se_var s where s.id = 'SE_Reports_Encabezado' or s.id ='SE_Reports_Pie' or s.id = 'SE_Reports_Logo';</sql>
-</queryDef>

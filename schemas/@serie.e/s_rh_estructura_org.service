@@ -1,9 +1,0 @@
-﻿<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="s_rh_estructura_org" rem="" columns="sys_pk:Int,sys_guid:String,sys_dtcreated:DateTime,sys_timestamp:DateTime,sys_lock:Int,sys_deleted:Short,sys_recver:Int,codigo:String,descripcion:String,padre:Int,tipo_padre:String,tipo:String,unidad:Int" parameters="" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">(select sys_pk, sys_guid,sys_dtcreated, sys_timestamp, sys_lock, sys_deleted, sys_recver, codigo, descripcion, superior padre,'unidad' tipo_padre, 'unidad' tipo, superior unidad from rh_unidad_org order by superior,codigo)
-
-union all
-
-(select sys_pk, sys_guid,sys_dtcreated, sys_timestamp, sys_lock, sys_deleted, sys_recver, codigo, descripcion, ifnull(ref_jefe, ref_unidad_org) padre, if (isnull(ref_jefe),'unidad','puesto') tipo_padre, 'puesto' tipo, ref_unidad_org unidad from rh_puesto_org order by ref_unidad_org,ref_jefe, codigo);
-</sql>
-</queryDef>

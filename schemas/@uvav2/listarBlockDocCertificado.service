@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="listarBlockDocCertificado" rem="Obtiene el listado de documentos asignados al certificado" columns="sys_pk:Int,documento:String,certificado:String,serie:String,fultimo:Int,activo:String,plantilla:String,logo:String" parameters="" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">select b.sys_pk, c.const as documento, coalesce(f.nocertificado,'Ninguno') certificado, b.serie, b.fultimo, if(coalesce(b.activo,false),'SI','NO') as activo, IFNULL(b.uf_ri,'') AS plantilla, IFNULL(b.uf_logo,'') AS logo from ((blockdocumentos as b inner join cdocumento as c on c.id=b.idocumento) left join cfdinfo as f on f.sys_pk=b.icfdinfo and ifnull(f.sys_deleted, 0) = 0) WHERE ifnull(b.sys_deleted, 0) = 0 order by c.const, b.serie;
-</sql>
-</queryDef>

@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Auxiliar" rem="contiene los datos necesarios para el reporte auxiliar de cuentas" columns="sys_guid:String,sys_pk:Int,tipo:String,referencia:String,fecha:DateTime,concepto:String,conceptop:String,debe:Decimal,haber:Decimal,sys_pk1:Int" parameters="periodo:Int,cuenta:Int" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">SELECT p.sys_guid, dp.sys_pk,Replace(ct.Const,'c','') tipo, p.referencia, p.fecha, p.concepto, dp.concepto conceptop, (dp.debe * TCambio) debe, (dp.haber * TCambio) haber, p.sys_pk FROM cpoliza p INNER JOIN cdpoliza dp ON p.sys_pk = dp.FK_Cpoliza_Detalle INNER JOIN ctipospolizas ct ON p.tipo = ct.ID WHERE dp.ICuenta = @cuenta AND p.Periodo = @periodo;
-
-
-
-
-</sql>
-</queryDef>

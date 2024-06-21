@@ -1,5 +1,0 @@
-﻿<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ws_listConceptos" rem="" columns="sys_pk:Int,codigo:String,descripcion:String,unidad:String,precio:Decimal,porcentaje_iva:Decimal,porcentaje_ieps:Decimal" parameters="pfiltro:String" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">call listConceptos(@pfiltro);
-</sql>
-</queryDef>

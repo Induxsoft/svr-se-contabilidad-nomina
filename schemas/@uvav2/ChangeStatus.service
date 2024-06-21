@@ -1,5 +1,0 @@
-﻿<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ChangeStatus" rem="" parameters="p_doc:Int,p_status:Int" cardinality="void" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">call sp_ActuDocumento(@p_doc, @p_status);
-</sql>
-</queryDef>

@@ -1,7 +1,0 @@
-﻿<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="s_rh_fk_puesto_org" rem="" columns="sys_pk:Int,sys_timestamp:DateTime,sys_guid:String,sys_dtcreated:DateTime,sys_user:String,sys_lastuser:String,sys_exported:Bool,sys_dtexported:DateTime,sys_info:String,sys_recver:Int,sys_deleted:Bool,sys_lock:Int,codigo:String,descripcion:String,sat_tipojornada:String,sat_periodicidadpago:String,sat_riesgopuesto:String,perfil:String,responsabilidades:String,funciones:String,beneficios:String,salariomensualbruto:Decimal,divisa:String,ref_jefe:Int,ref_unidad_org:Int,notas:String,escolaridad:Int,plazas_previstas:Int,link:String,smbofrecidos:Decimal,unidadorg:String" parameters="text:String,unidad:Int" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">select rh_puesto_org.*,rh_unidad_org.descripcion unidadorg from rh_puesto_org  left join rh_unidad_org on rh_puesto_org.ref_unidad_org=rh_unidad_org.sys_pk where (rh_puesto_org.codigo like concat('%',@text,'%') or rh_puesto_org.descripcion like concat('%',@text,'%')) and  if (ifnull(@unidad,0)&gt;0, rh_puesto_org.ref_unidad_org=ifnull(@unidad,0),true) order by rh_puesto_org.ref_jefe, rh_puesto_org.descripcion; 
-
-
-</sql>
-</queryDef>

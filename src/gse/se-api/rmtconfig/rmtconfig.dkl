@@ -21,7 +21,7 @@ module "index"
             p{"Configuración"}
             div
             {
-                h5{"Mas queso..."}
+                h5{"..."}
             }
         }
     }

@@ -1,2 +1,0 @@
-﻿<?xml version="1.0"?>
-<netService xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Utilidades_RelCtaDepartamentos" rem="" permission="" assembly="8f227714a3394981b60aae7463ba2460" namespace="induxsoft.SE.ERP.Backend.Contabilidad" class="Utilidades" method="ReclCtaDepartamentos" parameters="pk_contable:Int,pk_departamentos:String" return="Bool" description="" xmlns="http://dev.induxsoft.net/xsd/netservice.xsd" />

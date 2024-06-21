@@ -1,5 +1,0 @@
-﻿<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="getCFDIPAGOS" rem="Obtiene los comprobantes de pagos timbrados por filtros de fechas y estatus." columns="sys_pk:Int,uuid:String,Receptor:String,emision:DateTime,Fecha_Cancelacion:DateTime,codigo:String,status_admin:Int,const:String,referencia:String,FormaDePago:String,FechaPago:DateTime,NumOperacion:String,imp_Pagado:Decimal" parameters="p_FechaInicial:DateTime,p_FechaFinal:DateTime,p_estatus:Int" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">call sp_getCFDIPAGOS(@p_FechaInicial,@p_FechaFinal,@p_estatus)
-</sql>
-</queryDef>

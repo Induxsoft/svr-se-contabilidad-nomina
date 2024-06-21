@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<enum xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="TipoPago" xmlns="http://dev.induxsoft.net/xsd/enum.xsd">
-  <Item value="1" text="Pago Definitivo" />
-  <Item value="2" text="Pago Provisional" />
-</enum>

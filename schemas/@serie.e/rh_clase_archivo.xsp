@@ -1,7 +1,0 @@
-﻿<?xml version="1.0"?>
-<servicePack xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="rh_clase_archivo_Services" xmlns="http://dev.induxsoft.net/xsd/servicepack.xsd">
-  <service type="entityRequest" visibility="public" permission="" alias="requestrh_clase_archivo" />
-  <service type="insertRequest" visibility="public" permission="" alias="insertrh_clase_archivo" />
-  <service type="updateRequest" visibility="public" permission="" alias="updaterh_clase_archivo" />
-  <service type="deleteRequest" visibility="public" permission="" alias="deleterh_clase_archivo" />
-</servicePack>

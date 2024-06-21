@@ -1,4 +1,0 @@
-﻿<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="EstablecerAddenda" rem="Sirve para establecer los valores de la addenda" parameters="p_pk:Int, ns:Sting, xml:Sting" columns="" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">update comprobante set uf_addenda=@xml, uf_nsaddenda=@ns where sys_pk=@p_pk;</sql>
-</queryDef>

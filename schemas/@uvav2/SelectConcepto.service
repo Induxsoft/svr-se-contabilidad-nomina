@@ -1,5 +1,0 @@
-﻿<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SelectConcepto" rem="" columns="sys_pk:Int,sys_recver:Int,codigo:String,descripcion:String,porcentaje_iva:Decimal,precio:Decimal,unidad:String" parameters="p_PKConcepto:Int" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">call sp_SelectConcepto(@p_PKConcepto);
-</sql>
-</queryDef>

@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="getImpLocalXPK" rem="Obtiene los impuesto locales que se hayan definido para el comprobante" columns="Retenciones:Decimal,Traslados:Decimal" parameters="PK_Comprobante:Long" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">select IFNULL((select SUM(Importe) FROM implocales where Traslado = 0 AND FKComprobante = @PK_Comprobante),0) AS Retenciones, 
-IFNULL((select SUM(Importe) FROM implocales where Traslado = 1 AND FKComprobante = @PK_Comprobante),0) AS Traslados; 
-</sql>
-</queryDef>

@@ -1,5 +1,0 @@
-﻿<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="getRegimenF" rem="" columns="sys_pk:Int,codigosat:String,regimen:String" parameters="" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">select sys_pk, codigosat, regimen from  regimen_fiscal ;
-</sql>
-</queryDef>

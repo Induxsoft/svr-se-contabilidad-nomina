@@ -1,7 +1,0 @@
-﻿<?xml version="1.0"?>
-<servicePack xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="regimen_fiscal_Services" xmlns="http://dev.induxsoft.net/xsd/servicepack.xsd">
-  <service type="entityRequest" visibility="public" permission="" alias="requestregimen_fiscal" />
-  <service type="insertRequest" visibility="public" permission="" alias="insertregimen_fiscal" />
-  <service type="updateRequest" visibility="public" permission="" alias="updateregimen_fiscal" />
-  <service type="deleteRequest" visibility="public" permission="" alias="deleteregimen_fiscal" />
-</servicePack>

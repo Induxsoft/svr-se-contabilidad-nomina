@@ -1,9 +1,0 @@
-﻿<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="s_rh_detalle_nomina_x_contrato" rem="" columns="codigo_concepto:String,descripcion_concepto:String,percepcion:Decimal,deduccion:Decimal,obligacion:Decimal,indicador:Decimal,sys_pk:Int,sys_timestamp:DateTime,sys_guid:String,sys_dtcreated:DateTime,sys_user:String,sys_lastuser:String,sys_exported:Bool,sys_dtexported:DateTime,sys_info:String,sys_recver:Int,sys_deleted:Bool,sys_lock:Int,ref_detalle_nomina:Int,ref_concepto:Int,leyenda:String,importe:Decimal" parameters="p_detalle_nomina:Int" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">select c.codigo codigo_concepto, c.descripcion descripcion_concepto, 
-	if(c.tipo=0,dnc.importe,0) percepcion,
-	if(c.tipo=1,dnc.importe,0) deduccion,
-	if(c.tipo=2,dnc.importe,0) obligacion,
-	if(c.tipo=3,dnc.importe,0) indicador,
- dnc.* from rh_detalle_nomina_concepto dnc inner join rh_concepto_nomina c on dnc.ref_concepto=c.sys_pk where dnc.ref_detalle_nomina=@p_detalle_nomina;</sql>
-</queryDef>

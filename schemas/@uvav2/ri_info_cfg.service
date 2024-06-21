@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ri_info_cfg" rem="Proporciona información de las plantillas de representación impresa configuradas" columns="tipo:String,id:String,value:String,logo:String" parameters="" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">
-  select concat('_',cd.const) tipo,d.serie id,d.uf_ri value, d.uf_logo logo from blockdocumentos d inner join cdocumento cd on d.idocumento=cd.id where activo=1
-	union all
-	select 'recibidos' tipo, varname id, varvalue value,'' logo from configuraciones where varname='fx_ri_cfdi_3.2' or varname='fx_ri_cfdi_3.3' or varname='fx_ri_cr_1.0' or varname='fx_ri_cfdi_3.3_p';
-</sql>
-</queryDef>

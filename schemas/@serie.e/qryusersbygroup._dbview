@@ -1,1 +1,0 @@
-CREATE OR REPLACE VIEW qryusersbygroup AS select tuser.userid AS UserID,tuser.username AS UserName,tuser.pwd AS PWD,tuser.message AS Message,tuser.locked AS Locked,tuser.notes AS Notes,usergroup.groupid AS GroupID from (tuser join (usergroup join user_usergroup_ on((usergroup.sys_pk = user_usergroup_.groups))) on((tuser.sys_pk = user_usergroup_.users)))

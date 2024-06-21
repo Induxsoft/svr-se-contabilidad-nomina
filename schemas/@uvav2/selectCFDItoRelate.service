@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="selectCFDItoRelate" rem="servicio que provvee de datos al FKField de CFDIRelacionados que se encuentra en el formulario de facturas en el modulo &quot;factudesk&quot;" columns="PKComprobante:Int,uuid:String,rfc_receptor:String,nombre_receptor:String,emision:DateTime,FolioInterno:String" parameters="p_param:String" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">call sp_selectCFDItoRelate(@p_param);
-</sql>
-</queryDef>

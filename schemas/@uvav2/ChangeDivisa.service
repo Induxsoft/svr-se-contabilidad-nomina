@@ -1,4 +1,0 @@
-<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ChangeDivisa" rem="Procesa el cambio de divisa al documento indicado." parameters="p_PkDoc:Int,p_PkDivNueva:Int,p_TipoCambioNuevo:Decimal" cardinality="void" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">CALL sp_CambioDivisa(@p_PkDoc,@p_PkDivNueva,@p_TipoCambioNuevo);</sql>
-</queryDef>

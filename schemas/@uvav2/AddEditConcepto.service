@@ -1,4 +1,0 @@
-﻿<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="AddEditConcepto" rem="" columns="success:Long,info:String,pk:Long" parameters="PKCONCEPTO:Int,RecordVersion:Int,p_Codigo:String,p_Descripcion:String,p_Iva:Decimal,p_Precio:Decimal,p_Unidad:String,p_Notas:String" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">call sp_AddEditConcepto(@PKCONCEPTO,@RecordVersion,@p_Codigo,@p_Descripcion,@p_Iva,@p_Precio,@p_Unidad,@p_Notas);</sql>
-</queryDef>

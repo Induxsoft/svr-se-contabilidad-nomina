@@ -1,6 +1,0 @@
-﻿<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="s_rh_recibos_timbrados" rem="" columns="sys_pk:Int,uuid:String,ftimbrado:DateTime,referencia:String" parameters="pknomina:Int" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">select r.sys_pk, cfdi.uuid, cfdi.ftimbrado, cfdi.referencia from rh_detalle_nomina r inner join rh_cfdi cfdi on cfdi.ref_detalle_nomina=r.sys_pk and not (isnull(cfdi.uuid) or ifnull(error_al_timbrar,false)=true or ifnull(cancelado,false)=true) where r.ref_nomina=@pknomina;
-
-</sql>
-</queryDef>

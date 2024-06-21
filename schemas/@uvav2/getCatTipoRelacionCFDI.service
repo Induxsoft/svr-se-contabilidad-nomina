@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="getCatTipoRelacionCFDI" rem="obtiene el cátalogo de tipos de ralciones que se pueden aplicar entre cfdi al momento de emitir un comprobante" columns="clave:String,descripcion:String" parameters="" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">select clave,descripcion from catalogocfdi.tiporelacion;
-</sql>
-</queryDef>

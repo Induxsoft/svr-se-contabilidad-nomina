@@ -1,4 +1,0 @@
-<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="CxC" rem="" columns="rfc_receptor:String, nombre_receptor:String,MetodoPago:String,Ventas:Decimal,NCredito:Decimal,Pagos:Decimal,Saldo:Decimal" parameters="rfc_emisor:String, rfc_receptor:String" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">Select idDocumento as RFC, nombre_receptor as Nombre , MetodoPago,sum(if (tipo=0,total,0)) as Ventas,sum(if(tipo=1,total,0)) as NCredito, IFNULL(sum(ImpPagado),0) as Pagos,  sum(total) - ifnull(SUM(ImpPagado),0) as Saldo  from ts_cfdi left join ts_rel_pago on ts_cfdi.uuid=ts_rel_pago.IdDocumento where ((MetodoPago='PPD' and Tipo=0) or (UsoCFDI='G02' and tipo=1)) and not rfc_receptor=@rfc_emisor and not MetodoPago='PUE' and cancelacion is null group by rfc_receptor, nombre_receptor, MetodoPago;</sql>
-</queryDef>

@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<enum xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="sys_task_state" xmlns="http://dev.induxsoft.net/xsd/enum.xsd">
-  <Item value="0" text="EnEspera" />
-  <Item value="1" text="EnEjecucion" />
-  <Item value="2" text="Cancelado" />
-  <Item value="3" text="TerminadoPorError" />
-  <Item value="99" text="TerminadoConExito" />
-</enum>

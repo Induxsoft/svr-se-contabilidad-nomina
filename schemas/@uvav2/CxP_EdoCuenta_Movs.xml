@@ -1,4 +1,0 @@
-<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="CxP_EdoCuenta_Movs" rem="" columns="UUID:String,Fecha:Datetime,Cargo:Decimal,Abono:Decimal,Divisa:String,TipoCambio:Decimal,Importe:Decimal,TipoDoc:String" parameters="rfc_emisor:String" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">Select uuid as UUID, sys_dtcreated as Fecha,total as Cargo, IFNULL((ImpPagado),0) AS Abono, divisa as Divisa, TipoCambio, ifnull(ImpSaldoInsoluto,0) as Importe, ifnull(TipoRelacionCFDIPrevios,0) as TipoDoc from ts_cfdi left join ts_rel_pago on ts_cfdi.uuid=ts_rel_pago.IdDocumento where ((MetodoPago='PPD' and Tipo=0) or (UsoCFDI='G02' and(TipoRelacionCFDIPrevios='01' or TipoRelacionCFDIPrevios='02') and tipo=1))  and not rfc_receptor=@rfc_emisor group by rfc_receptor, nombre_receptor, MetodoPago;</sql>
-</queryDef>

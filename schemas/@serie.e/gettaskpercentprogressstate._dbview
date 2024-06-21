@@ -1,1 +1,0 @@
-CREATE OR REPLACE VIEW gettaskpercentprogressstate AS select sys_batch_task_log.batch_log AS batch_log,sum(sys_batch_task_log.task_progress) AS pp from sys_batch_task_log group by sys_batch_task_log.batch_log

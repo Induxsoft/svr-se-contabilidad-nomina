@@ -1,6 +1,0 @@
-﻿<?xml version="1.0"?>
-<queryDef xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="GetCodigoCuentaBySys_PK" rem="Regresa el codigo de la cuenta por la Sys_PK" parameters="Sys_PK:Int" cardinality="one" permission="" xmlns="http://dev.induxsoft.net/xsd/querydef.xsd">
-  <sql engine="MY_SQL">Select Codigo from ccontable where Sys_PK=@Sys_PK;
-
-</sql>
-</queryDef>
