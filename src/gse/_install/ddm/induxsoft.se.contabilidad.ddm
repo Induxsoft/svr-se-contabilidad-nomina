@@ -33,7 +33,7 @@ model "name"
     entity "divisa" : "TableModel"
     {
         @"codigo" string(5) unique required
-        @"descripcion" string(30) required
+        @"descripcion" string(30) unique required
         @"tcambio" decimal(18,8)
     }
     entity "ccontable" : "TableModel"
