@@ -30,7 +30,14 @@ module ""
         }
         ref uinfo=dbr.rec(database,"select u.userId, u.userName from tuser u inner join sys_session s on u.sys_pk=s.iuser where s.sys_guid=@ids;",params)
     }
+    str_params=""
+    if field.exist(get,"app") && field.exist(get,"db")
+    {
+        app=@@(get,"$app")
+        db=@@(get,"$db")
 
+        str_params="&app="+app+"&db="+db
+    }
     current_url=gse.current_url(@true)
     
     new res
@@ -43,7 +50,7 @@ module ""
         @"verified_mobile":@false
         @"email": ""
         @"mobile": ""
-        @"legacy_epifania_svc": current_url+"/!/admin-db/epifania.dkl"//https://core22.induxsoft.net/epifania/?app=induxsoft&db=epifania_pefiles&uhu=False
+        @"legacy_epifania_svc": current_url+"/!/admin-db/epifania.dkl?ids="+token+str_params  //https://core22.induxsoft.net/epifania/?app=induxsoft&db=epifania_pefiles&uhu=False
         @"user_type": "induxsoft_internal"
     }
 

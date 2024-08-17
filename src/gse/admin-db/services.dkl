@@ -9,7 +9,6 @@ module ""
     #include "gse/config.dk"
     #include "batch.v12.dkl"
     
-    
     xml=field.dstr(@http_context,"request/post_string","null")
     ref xmlTree=parse.xmlStr(xml)
     
