@@ -4,9 +4,10 @@ module "test"
 {
 	#include "functions.dkh"
 	#include "serialize.dkh"
+	#include "dbr.dkh"
 	#include "gse/gse.dkh"
 	#include "gse/config.dk"
-	#include "dbr.dkh"
+	
 
 	name_dll="induxsoft.ReXBack.ServicesProvider.dll"
 	ref @lib_service=_import_library(name_dll)
@@ -38,8 +39,6 @@ module "test"
 		}
 	}
 
-	
-
 	url=current_url()
 	
 	new p {}
@@ -48,12 +47,17 @@ module "test"
 	
 	//Detectes si cmd=Connect y el app=serie.e y de ser as´´ií, que valides uid y pwd contra v12 y si es correcta, actualices la contraseña del usuario en la bd serie 
 	ref data_res=@null
+
+	do gse.resetConnection()
+
 	if tolower(@@(p,"$cmd"))=="connect" && @@(p,"$app")==@app
 	{
 		ref params=record.copy(p,"user,pwd")
 		params<"onlyuser">:@true
 
-		qname=gse.get_qname_host()
+		if @@(p,"#gen_qn"){qname=gse.get_qname()}
+		else{qname=gse.get_qname_host()}
+		
 		ref database=dbr.open(qname)
 		ref uinfo=gse.CheckPassword(database,params)
 

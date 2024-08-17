@@ -8,7 +8,7 @@ module ""
     #include "gse/gse.dkh"
     #include "gse/config.dk"
     #include "batch.v12.dkl"
-    do _map_function(@lib_dbr,"induxsoft.Connections.Manager","ResetStorage","reset","void","void")
+    
     
     xml=field.dstr(@http_context,"request/post_string","null")
     ref xmlTree=parse.xmlStr(xml)

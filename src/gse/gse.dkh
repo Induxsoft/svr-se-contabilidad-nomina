@@ -2,6 +2,7 @@
 #!
 module ":gse"
 {
+    do _map_function(@lib_dbr,"induxsoft.Connections.Manager","ResetStorage","reset","void","void")
     get_payload::
 	{
 		ref post=@@(@http_context,"&request/post")
@@ -244,6 +245,21 @@ module ":gse"
         do dbr.update(db,"serie_dbs",serie_db,"nic=@nic and dbname=@nombre",params)
 
     }
+    exist_appgroup::app
+    {
+        ref l=dba.apps("*")
+        for i=0;i<@count(l)
+        {
+            if tolower(trim(list.str(l,i)))==tolower(trim(app)) { return @true }
+        }
+
+        return @false
+    }
+    resetConnection::
+    {
+        do reset()
+        exception{}
+    }
     createCnns::&params
     {
         qname=@@(params,"$qname")
@@ -255,13 +271,13 @@ module ":gse"
             ref data=dba.getconnection(qname)
             if isnull(data){do rise_error(500,"No se encontró datos de la conexión")}
             
+            if not(exist_appgroup(@app)){do dba.addapp(@app)}
+
+            do resetConnection()
+
             do dba.createconnection(qn,data,@false,"") 
 
-            module
-            {
-                do reset()
-                exception{}
-            }
+            do resetConnection()
         }
 
         new cnns
