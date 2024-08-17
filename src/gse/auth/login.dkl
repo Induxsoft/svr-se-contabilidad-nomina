@@ -50,7 +50,7 @@ module ""
         @"verified_mobile":@false
         @"email": ""
         @"mobile": ""
-        @"legacy_epifania_svc": current_url+"/!/admin-db/epifania.dkl?ids="+token+str_params  //https://core22.induxsoft.net/epifania/?app=induxsoft&db=epifania_pefiles&uhu=False
+        @"legacy_epifania_svc": current_url+"/!/admin-db/epifania.dkl?idses="+token+str_params  //https://core22.induxsoft.net/epifania/?app=induxsoft&db=epifania_pefiles&uhu=False
         @"user_type": "induxsoft_internal"
     }
 
