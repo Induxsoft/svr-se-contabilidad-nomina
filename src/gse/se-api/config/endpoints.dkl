@@ -1,0 +1,61 @@
+#include "dkli.dkh"
+#!
+module ""
+{
+    #include "functions.dkh"
+	#include "dbr.dkh"
+	#include "serialize.dkh"
+	#include "website.dkl"
+    #include "gse/gse.dkh"
+
+    go api_base_service(responseJSONdata:response)
+    {
+        ref getData=@@(@http_context,"&request/get")
+        getData<"onlyuser">:@true
+
+        host_name = @@(@http_context,"$request/headers/HTTP_HOST")
+        protocol=ifstr(parse.bool(@@(@http_context,"request/headers/HTTPS")),"https","http")
+        
+        qname=gse.get_qname()
+        
+        ref db=dbr.open(qname)
+
+        ref user=gse.CheckPassword(db,getData)
+
+        http_host=protocol+"://"+host_name
+
+        new endpoints
+        {
+            @"rmtconfig":       http_host + "/!/se-api/rmtconfig/rmtconfig.dkl?dbtype=@dbtype&ids=@ids"
+            @"login":		    http_host + "/!/auth/login.dkl"
+            @"connect":		    http_host + "/!/auth/login.dkl?ids=recover"
+            @"contabilidad":    http_host + "/!!/serie.e/@database/?uhu=True"
+            @"nomina":		    http_host + "/!!/serie.e/@database/?uhu=True"
+            @"se.valid-act.cc": http_host + "/!/se-api/contabilidad/cuentas/validacion/@action/?db=@database&ids=@ids"
+            @"se.admindb":      http_host + "/!/admin-db/services.dkl?dbtype=@dbtype"
+            @"se.export.cc":    http_host + "/!/se-api/contabilidad/exportar/cuentas/?db=@database&ids=@ids"
+            @"se.import.cc":    http_host + "/!/se-api/contabilidad/importar/cuentas/?db=@database&dbo=@dbo&from=@from&ids=@ids&saldo=@saldo&duply=@duply&delcc=@delcc&delrb=@delrb&deldp=@deldp&delpl=@delpl"
+            @"se.delete.crdp":  http_host + "/!/se-api/contabilidad/eliminar/cuentas-rubros-departamentos/?db=@database&ids=@ids&delcc=@delcc&delrb=@delrb&deldp=@deldp&delpl=@delpl"
+            @"se.validrfc.nm":  http_host + "/nomina/empleados/rfc-validacion/?db=@database&ids=@ids"
+	        @"se.list.raya":    http_host + "/nomina/"
+        }
+        
+        if dbr.is_open(db){do dbr.close(db)}
+        
+        using response
+        {
+            @"endpoints*":endpoints
+        }
+
+        exception
+	 	{
+	 		if isset("db"){if dbr.is_open(db){do dbr.close(db)}}
+            
+	 		using response
+			{
+				@"success":@false
+				@"message":last_error()
+			}
+	 	}
+    }
+}
