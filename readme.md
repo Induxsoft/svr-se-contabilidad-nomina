@@ -39,7 +39,17 @@ una mejor experiencia con distintos sistemas operativos y entornos de desarrollo
 #### 1. Copiar archivos fuente
  - Copiar todo el contenido de la carpeta **src** de este repositorio, a la carpeta física donde se encuentran los binarios de **DevKron**.
 
-#### 2. Crear un sitio en /carpeta_de_devkron/web/.
+#### 2. Configurar Conexión de base de datos
+
+Guía: https://docs.induxsoft.net/es/productos/v12/devops/despliegue-instalacion.md
+
+a la sección **Creación o conexión a la base de datos** dentro de la guía y sigue las instrucciones detalladas.
+
+* Asegúrate de configurar correctamente el archivo **connections.xml**, el cual permite que el proveedor de servicios acceda a la base de datos.
+Este archivo se encuentra en la ruta:
+/carpeta_física_devkron/connections.xml
+
+#### 3. Crear un sitio en /carpeta_de_devkron/web/.
 Creación del sitio Web
 Para crear el sitio Web a través del cual se accederá al sistema V12 use la herramienta 'createsite'.
 
@@ -53,26 +63,13 @@ Para crear el sitio Web a través del cual se accederá al sistema V12 use la he
 ./dkl connectv12 "db=miconexion@grupoapps" "host=sudominio-o-host.com"
 ```
 
-#### 3. Configurar Conexión de base de datos
-
-Guía: https://docs.induxsoft.net/es/productos/v12/devops/despliegue-instalacion.md
-
-a la sección **Creación o conexión a la base de datos** dentro de la guía y sigue las instrucciones detalladas.
-
-* Asegúrate de configurar correctamente el archivo **connections.xml**, el cual permite que el proveedor de servicios acceda a la base de datos.
-Este archivo se encuentra en la ruta:
-/carpeta_física_devkron/connections.xml
-
+## Nota general
 ```
+- Es importante tener presente que cualquier modificación en los archivos paths.cfg o server.devkron debe realizarse con pleno conocimiento de lo que se está cambiando, ya que estos archivos definen rutas y configuraciones críticas del servicio.
+
 - Puede cambiar la ubicación de los archivos de esquema(schema) en el archivo paths.cfg.
 
 - (opcional) Configurar el archivo server.devkron (en este archivo se define la ubicación de los componentes del servicio de cada aplicación por defecto viene indicándole que se encuentran en /carpeta_física_devkron)
 
-```
-
-## Nota general
-```
-Es importante tener presente que cualquier modificación en los archivos paths.cfg o server.devkron debe realizarse con pleno conocimiento de lo que se está cambiando, ya que estos archivos definen rutas y configuraciones críticas del servicio.
-
-* Vaciar la caché de los DNS en Windows: ipconfig /flushdns
+- Vaciar la caché de los DNS en Windows: ipconfig /flushdns
 ```

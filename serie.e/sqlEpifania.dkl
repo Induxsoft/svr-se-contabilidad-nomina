@@ -1,0 +1,20 @@
+#include "dkli.dkh"
+#!
+module ""
+{
+    @sql_GetInfoPerfil="select u.userid uid, u.username uname, u.pwd,u.pwdmd5 
+        from epifania_pefiles.sys_session s 
+        inner join epifania_pefiles.tuser u 
+        on s.iuser=u.sys_pk where ifnull(s.sys_deleted,0)=0 and (s.sys_guid=@IdSesion or u.userid=@idperfil) limit 1;"
+
+    @sql_GetInfoUser="select u.userid uid, u.username uname, u.pwd, u.pwdmd5,u.locked,u.message,u.notes,u.userid,u.username from epifania_pefiles.ws_perfil p inner join epifania_pefiles.tuser u on p.sys_guid =u.userid
+        where (p.correo=@id or p.movil=@id or p.sys_guid=@id);"
+
+    @sql_GetListNicByPerfil="select distinct ps.id_cuenta nic, c.nombre cliente
+            from epifania.ts_perfil_servicio ps inner join epifania.cliente c on ps.id_cuenta=c.codigo inner join epifania_pefiles.ws_perfil p on ps.id_perfil=p.sys_guid 
+            where fk_ts_servicio=2  and (p.correo=@uid or p.movil=@uid or ps.id_perfil=@uid) order by ps.id_cuenta;"
+
+    @sql_existdb="select count(*) from epifania.serie_dbs where (dbname=@nombre or id=@id_db)"
+
+    @sql_list_serie_dbs="Select * from epifania.serie_dbs where nic=@nic"
+}
