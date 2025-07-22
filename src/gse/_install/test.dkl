@@ -1,0 +1,13 @@
+#include "dkli.dkh"
+#!
+program ""
+{
+    #include "functions.dkh"
+    #include "serialize.dkh"
+
+    file=""
+
+    ref data=parse.xmlStr(file.rtext(file))
+
+    do print(to.json(data))
+}

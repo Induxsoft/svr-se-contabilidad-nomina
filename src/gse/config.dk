@@ -2,7 +2,7 @@
 #!
 module ""
 {
-     @NIC="000000"
+     @NIC=""//solo para v12
 
      @jg="gse"
      @program="createdb.dkl"
@@ -11,6 +11,25 @@ module ""
 	@app="serie.e"
      @usehashmd5unicode=@true
      @name_bd_v12="Nomina v12"
+     @name_bd_conta_v12="Contabilidad v12"
+
+     @_QNAME="epifania@Induxsoft"
+     @_PREFIXBD_CNNS="Connections@Induxsoft/"
+     @IS_V12=@true
+     @_settings_var_gloval=@true //para v12
+     @path_log="_log"
+     
+     //esto aplica si la var @_settings_var_gloval =false
+     new @_settings
+     {
+          @"Engine": "MY_SQL"
+          @"Host": "localhost"
+          @"UserName": "root"
+          @"Password":""
+          @"Port": 3306
+          @"DefaultSchema": ""
+          @"SSLMode": 0
+     }
 }
 
 

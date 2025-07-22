@@ -5,10 +5,31 @@ program ""
     #include "functions.dkh"
     #include "serialize.dkh"
     #include "dbr.dkh"
+    #include "ddm.json.dkl"
+    #include "ddm.mysql.dkl"
     #include "batch.v12.dkl"
     #include "dbr.vars.dkl"
     #include "dbm.dkl"
+    #include "linux-fixes.dkh"
     
+    GetVars::&db,var
+    {
+        r=dbr.vars.get(db,var)
+        exception{r=""}
+
+        return r
+    }
+    // Comprobar si existe un nombre de grupo de aplicación en el repositorio de conexiones
+    exist_appgroup::app
+    {
+        ref l=dba.apps("*")
+        for i=0;i<@count(l)
+        {
+            if tolower(trim(list.str(l,i)))==tolower(trim(app)) { return @true }
+        }
+
+        return @false
+    }
     ref lib_csv = _import_library("devkron.serialize.csv.dll")
     do _map_function(lib_csv,"devkron.serialize.csv.csvHelper","CsvRead","CsvRead","System.String,System.String","*")
     do _map_function(lib_csv,"devkron.serialize.csv.csvHelper","CsvWrite","CsvWrite","System.String,*System.Object","void")
@@ -33,33 +54,81 @@ program ""
     path_procedure="gse/_install/ddm/procedure"
     procedures="inibalance.sql,cuentaxrubro.sql,foliogxtipo.sql,folioxtipo.sql,getfoliog.sql,getfoliop.sql,reportupdate.sql,vistas_contabilidad.sql"
 
-    ref files_to_import = from.json('["divisa.csv","ctiposcc.csv"]')
+    ref files_to_import = from.json('[
+        "divisa.csv",
+        "ctiposcc.csv",
+        "cb_tipo_asiento_contable.csv",
+        "rh_edo_civil.csv",
+        "rh_nvl_escolaridad.csv",
+        "rh_sat_elemento.csv",
+        "rh_status_contrato.csv",
+        "rh_status_nomina.csv",
+        "rh_tipo_concepto.csv",
+        "rh_tipo_vivienda.csv",
+        "se_status_tareas.csv",
+        "sys_batch_schedule.csv",
+        "sys_batch_state.csv",
+        "sys_task_state.csv",
+    ]')
 
     ref db=@@(@batch_context,"&database")//dbr.open("v12demo1@appsdkl")
     if isnull(@batchDB){ref @batchDB=db}
 
     token=@@(@batch_context,"$job/id")
-    ref params=@@(@batch_context,"&params")
-    // ref params=from.json('{"serie_db":{"nic":"000000","dbname":"bd0001","id":"se_f67f56b5b016467596041975a3a31614","registro":"2024-06-19T18:11:33Z","disponible":0},"connection":{"app":"serie-e","qname_org":"v12demo1@appsdkl"}}')
 
+    ref params=@@(@batch_context,"&params")
     ref serie_db=@@(params,"&serie_db")
     ref cn=@@(params,"&connection")
-
-    cnns=dbr.vars.get(db,"gse_svr_cnn")
-    ref connection=from.json(cnns)//'{"Engine": "MY_SQL","Host": "192.168.0.99","UserName": "root","Password": "v12D3m01=","Port": 3306,"DefaultSchema": "","SslMode": 0 }'
-
-    do batch.saveLog(token,"Iniciando creación de base de datos")
-
-    new upd{@"creacion*":now()}
-    do dbr.update(db,"serie_dbs",upd,"id=@id",serie_db)
+    ref connection=@@(params,"&settings")
 
     iddb=@@(serie_db,"$id")
     app=@@(cn,"$app")
-    qname=iddb+"@"+app
 
-    args='dba create database qn='+qname+' "settings=Engine:'+@@(connection,"$Engine")+',Host:'+@@(connection,"$Host")+',Port:'+@@(connection,"$Port")+',UserName:'+@@(connection,"$UserName")+',Password:'+@@(connection,"$Password")+',SslMode:'+@@(connection,"$SslMode")+',DefaultSchema:'+iddb+' "'
 
-    res=exec("dkl",args,@true)
+    if isnull(connection)
+    {
+        cnns=GetVars(db,"gse_svr_cnn")
+        if trim(cnns)!=""
+        {
+            ref connection=from.json(cnns)
+        }
+    }
+    
+    do batch.saveLog(token,"Iniciando creación de base de datos: "+iddb)
+
+    if isnull(connection){do rise_error(99,"El objeto settings es nulo ")}
+    
+    new upd{@"creacion*":now()}
+    do dbr.update(db,"serie_dbs",upd,"id=@id",serie_db)
+    
+    if trim(@@(cn,"$_qname"))!=""{qname=trim(@@(cn,"$_qname"))}
+    else{qname=iddb+"@"+app}
+
+    // args='dba create database qn='+qname+' "settings=Engine:'+@@(connection,"$Engine")+',Host:'+@@(connection,"$Host")+',Port:'+@@(connection,"$Port")+',UserName:'+@@(connection,"$UserName")+',Password:'+@@(connection,"$Password")+',SSLMode:'+@@(connection,"$SSLMode")+',DefaultSchema:'+iddb+' "'
+    res=""
+    // res=exec("dkl",args,@true)
+    //crear base de datos
+    ref spl=split(qname,"@")
+    appg=list.str(spl,@count(spl)-1) // Grupo de aplicación
+
+    if not(exist_appgroup(appg)) 
+    { 
+        do dba.addapp(appg)
+    }
+
+    using connection
+    {
+        @"DefaultSchema":iddb
+    }
+
+    ref connection=from.json(to.json(connection))
+    do dba.createdb(qname,connection) 
+    //crear conexion
+    if not(dba.cnnexists(qname))
+    {
+        do dba.createconnection(qname,connection,@false,"") 
+    }
+
     if contains(tolower(res),"error"){do rise_error(500,res)}
 
     do batch.saveLog(token,"Base de datos creado correctamente: "+str(res))
@@ -94,7 +163,7 @@ program ""
     if dir.exists(path_initial_data) && list.count(files_to_import) > 0
     {
         do print("\nIMPORTANDO DATOS INICIALES")
-
+        do batch.saveLog(token,"IMPORTANDO DATOS INICIALES")
         for i = 0; i < list.count(files_to_import)
         {
             file = path.concat(path_initial_data,trim(list.str(files_to_import,i)))
@@ -116,7 +185,7 @@ program ""
         // rh_detalle_grupo_conceptos._rec_tdk,
         // rh_variable._rec_tdk,
         // rh_tabla_calculo._rec_tdk,
-        text_files='crubro._rec_tdk,ctipospolizas._rec_tdk,se_repconta._rec_tdk,ut_sat_banco._rec_tdk,ccontable._rec_tdk,ccontable_crubro_._rec_tdk'//ut_sat_cuenta._rec_tdk
+        text_files='crubro._rec_tdk,ctipospolizas._rec_tdk,se_repconta._rec_tdk,ut_sat_banco._rec_tdk,ccontable._rec_tdk,ccontable_crubro_._rec_tdk,rh_grupo_conceptos._rec_tdk,rh_tipo_nomina._rec_tdk,rh_concepto_nomina._rec_tdk,rh_tipo_contrato._rec_tdk,rh_detalle_grupo_conceptos._rec_tdk,rh_variable._rec_tdk,rh_tabla_calculo._rec_tdk,rh_tipo_contrato_nominas_extra._rec_tdk,ut_sat_cuenta._rec_tdk'
         ref lfiles=split(text_files,",")
         
         do batch.saveLog(token,"IMPORTANDO DATOS INICIALES DKT ")
@@ -147,18 +216,35 @@ program ""
     do print("Insertando usuarios...")
     do batch.saveLog(token,"Insertando usuarios...")
 
-    idgroup=dbr.vars.get(db,"grupo_user_contabilidad")
-    new p{@"g":idgroup}
 
-    ref usuarios=dbr.list(db,"SELECT locked,message,notes,pwd,userid,username,pwdmd5 FROM user_usergroup_ ug
-    INNER JOIN tuser t ON ug.users=t.sys_pk
-    WHERE ug.groups=@g",p)
+    ref current_user=@@(cn,"&current_user")
+
+    if isnull(current_user)
+    {
+        idgroup=GetVars(db,"grupo_user_contabilidad")
+        new p{@"g":idgroup}
+
+        ref usuarios=dbr.list(db,"SELECT locked,message,notes,pwd,userid,username,pwdmd5 FROM user_usergroup_ ug
+        INNER JOIN tuser t ON ug.users=t.sys_pk
+        WHERE ug.groups=@g",p)
+    }
+    else 
+    {
+        ref current_user=record.copy(from.json(to.json(current_user)),"locked,message,notes,pwd,userid,username,pwdmd5")
+        ref usuarios=list.create()
+        do list.add(usuarios,current_user)
+    }
 
     pkgrupo=dbr.num(database,"select sys_pk from usergroup limit 1",@null)
 
     for i = 0; i < @count(usuarios)
     {
         ref user=@item(usuarios,i)
+        if trim(@@(user,"$uid"))!=""
+        {
+            if trim(@@(user,"$userid"))==""{using user{@"userid":@@(user,"$uid")}}
+            do field.remove(user,"uid")
+        }
         using user
         {
             @"sys_guid":uuid()
@@ -193,9 +279,16 @@ program ""
 
     exception
     {
+        error=last_error()
+        if trim(@@(cn,"$path_log"))!="" && dir.exists(trim(@@(cn,"$path_log")))
+        {
+            path_file=path.concat(trim(@@(cn,"$path_log")),uuid()+"_serie_e.log")
+            do file.wtext(path_file,error)
+            exception{}
+        }
         if dbr.in_transaction(db){do dbr.rollback(db)}
-        do print(last_error())
-        do batch.saveLog(token,last_error())
+        do print(error)
+        do batch.saveLog(token,error)
         new upd{@"error":3}
         do dbr.update(db,"serie_dbs",upd,"id=@id",serie_db)
     }

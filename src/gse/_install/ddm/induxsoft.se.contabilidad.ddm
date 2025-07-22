@@ -23,7 +23,7 @@ model "name"
         @"value" memo 
         @"type" string(50) 
         @"caption" string(150) 
-        @"rem" string(1024) 
+        @"rem" memo 
         @"ui_dkl" memo 
     }
     
@@ -304,7 +304,7 @@ model "name"
     entity "se_tareas" : "TableModel"
     {
         @"usuario" string(32) required
-        @"descripcion" string(1024) 
+        @"descripcion" memo 
         @"prog_porcentual" decimal(7,2) 
         @"prog_contador" int 
         @"status" ref:"se_status_tareas" required

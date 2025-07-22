@@ -8,6 +8,7 @@ module ""
     #include "gse/gse.dkh"
     #include "gse/config.dk"
     #include "batch.v12.dkl"
+    #include "dbr.vars.dkl"
     
     xml=field.dstr(@http_context,"request/post_string","null")
     ref xmlTree=parse.xmlStr(xml)
@@ -17,16 +18,30 @@ module ""
     ref op=gse.soapGetOperations(xmlTree)
 
     ref db =@null
-    response=""
+    if trim(qname)==trim(@_QNAME)
+    {
+        ref db =dbr.open(qname)
+        ref @batchDB=db
+    }
 
+    response=""
+    
     for i = 0; i <@count(op)
     {
         operation=list.str(op,i)
         ref params=gse.soapGetParameters(xmlTree,operation)
         using params{@"qname":qname}
+        
+        if not(field.exist(params,"nic")){params<"nic">:@NIC}
 
-        if field.exist(params,"nic"){params<"nic">:@NIC}
-
+        if not(@IS_V12) && field.exist(params,"IdSesion")
+        {
+            ref user_current=gse.GetInfoPerfil(db,params)
+            if isnull(user_current){do rise_error(500,"El Id de sesión presentado no es válido")}
+            
+            params<"userCurrent*">:user_current
+        }
+        
         if isnull(db)
         {
             ref db =dbr.reconnect(qname,@@(params,"$IdSesion"))

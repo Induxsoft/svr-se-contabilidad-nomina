@@ -1,0 +1,6 @@
+"id","const"
+0,"EnEspera" 
+1,"EnEjecucion" 
+2,"Cancelado" 
+3,"TerminadoPorError" 
+99,"TerminadoConExito" 

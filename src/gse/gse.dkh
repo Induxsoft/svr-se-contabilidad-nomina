@@ -3,6 +3,9 @@
 module ":gse"
 {
     do _map_function(@lib_dbr,"induxsoft.Connections.Manager","ResetStorage","reset","void","void")
+    //descomentar esto, si los servicios son de induxsoft y no de v12
+    // #include "sqlEpifania.dkl"
+
     get_payload::
 	{
 		ref post=@@(@http_context,"&request/post")
@@ -49,6 +52,7 @@ module ":gse"
                 exception{}
             }
         }
+        if isset("@_QNAME") && trim(dbqname)==""
         {
             if trim(@_QNAME)!=""{return @_QNAME}
         }
@@ -85,6 +89,11 @@ module ":gse"
             qname=dbqname
         }
 
+        if isset("@_QNAME") && trim(dbqname)==""
+        {
+            if trim(@_QNAME)!=""{return @_QNAME}
+        }
+        
         return qname
     }
     #!
@@ -172,32 +181,61 @@ module ":gse"
         ref jg=dbr.rec(db,"select * from jobsgroup where (name=@jg or sys_guid=@jg)",params)
         if isnull(jg){do rise_error(500,"No se encontró datos del grupo de trabajo")}
 
-        ref user=gse.getUser(db,@@(params,"$idSesion"))
         id=uuid()
+
+        ref dt_user=@null
+        if @IS_V12{ref user=gse.getUser(db,@@(params,"$idSesion"))}
+        else
+        {
+            ref user=gse.GetInfoPerfil(db,params)
+            if isnull(user){do rise_error(580,"Sesión inválida *_*")}
+
+            new p{@"id":@@(user,"$uid")}
+            ref dt_user=GetInfoUser(db,p)
+
+            params<"id_db">:id
+            if not(isset("@sql_existdb")){do rise_error(500,"No ha definido: @sql_existdb")}
+
+            existdb=dbr.num(db,@sql_existdb,params)
+
+            if existdb > 0{return}
+        }
+        
         idbd=replace(@bd_prefix,"@uuid",id)
 
-        new serie_db
+        module "insertar db"
         {
-            @"nic":@NIC
-            @"dbname":@@(params,"$Nombre")
-            @"id":idbd
-            @"registro*":now() 
-            @"disponible":0 
+            new serie_db
+            {
+                @"nic":ifstr(@@(params,"$nic")!="",@@(params,"$nic"),@NIC)
+                @"dbname":@@(params,"$nombre")
+                @"id":idbd
+                @"registro*":now() 
+                @"disponible":0 
+            }
+            do dbr.insert(db,"serie_dbs",serie_db)
+
+            exception{return }
         }
-        do dbr.insert(db,"serie_dbs",serie_db)
-        exception{return }
 
         using @connections
         {
             @"app":@app
             @"qname_org":@@(params,"$qname")
+            @"path_log":@path_log
+            @"current_user*":dt_user
         }
-
+        if not(@IS_V12)
+        {
+            using @connections{@"_qname":@_PREFIXBD_CNNS+idbd+"@"+@app}
+        }
         new p
         {
             @"serie_db*":serie_db
             @"connection*":@connections
         }
+        
+        if not(@_settings_var_gloval){p<"settings*">:@_settings}
 
         new batch
         {
@@ -208,9 +246,8 @@ module ":gse"
             @"params*":p
         }
         do batch.create(db,batch)
-
-
     }
+    //0=No existe registro, 1=En aprovisionamiento, 2=No disponible (para eliminación) 3=Error de creación, marcada para eliminación, 99=Disponible
     getStatusdb::&db,&params
     {
         sql="Select * from serie_dbs Where nic=@nic and dbname=@nombre"
@@ -281,23 +318,63 @@ module ":gse"
 
             do resetConnection()
         }
-
+        name_bd=ifstr(trim(@@(params,"$namebd"))!="",trim(@@(params,"$namebd")),@name_bd_v12)
         new cnns
         {
             @"qname_org":qname
             @"qname":qn
             @"qnmd5":qnmd5
-            @"namebd":@name_bd_v12
+            @"namebd":name_bd
             @"status":99
         }
         return cnns
     }
+    XmlSerieStr::&cnns,nic
+    {
+        if not(field.exist(cnns,"status")){cnns<"status">:gse.getStatusdb(db,itm)}
+
+        return '<Serie_E_DBInfo>
+					    <nombre>'+@@(cnns,"$namebd")+'</nombre>
+					    <id>'+@@(cnns,"$qnmd5")+'</id>
+					    <nic>'+nic+'</nic>
+					    <status>'+@@(cnns,"$status")+'</status>
+					</Serie_E_DBInfo>'
+    }
+    #! GetDnInfo::&db,nic,&data,&l
+    {
+        xml=""
+        for i = 0; i < @count(data)
+        {
+            ref itm=@item(data,i)
+            itm<"qnmd5">:@@(itm,"$id")
+            status=gse.getStatusdb(db,itm)
+
+            xml=xml+XmlSerieStr(itm,ifstr(trim(nic)!="",nic,@@(itm,"$nic")))
+
+            new cnns
+            {
+                @"nombre":@@(itm,"$dbname")
+                @"id":@@(itm,"$id")
+                @"nic":@@(itm,"$nic")
+                @"status":status
+            }
+            do list.add(l,cnns)
+        }
+        
+        return xml
+    }
+
     getConexions::&db,&params
     {
         ref get=@@(@http_context,"&request/get")
         ref payload=gse.get_payload()
 
-        ref data=dbr.list(db,"select * from serie_dbs",@null)
+        ref listaNics=@null
+        if not(@IS_V12)
+        {
+            ref listaNics=GetListNicByPerfil(db,@@(params,"&userCurrent"))
+        }
+        
         ref emisor=gse.get_emisor(db,params)
 
         nic=ifstr(isnull(emisor),@NIC,@@(emisor,"$nic"))
@@ -309,35 +386,39 @@ module ":gse"
         if @@(get,"$dbtype")=="nomina"
         {
             ref cnns=gse.createCnns(params)
-            xml=xml+'<Serie_E_DBInfo>
-					<nombre>'+@@(cnns,"$namebd")+'</nombre>
-					<id>'+@@(cnns,"$qnmd5")+'</id>
-					<nic>'+nic+'</nic>
-					<status>'+@@(cnns,"$status")+'</status>
-					</Serie_E_DBInfo>'
+            xml=xml+ XmlSerieStr(cnns,nic)
         }
         else 
         {
-            for i = 0; i < @count(data)
+            if isnull(listaNics)
             {
-                ref itm=@item(data,i)
-                status=gse.getStatusdb(db,itm)
-
-                xml=xml+'<Serie_E_DBInfo>
-                        <nombre>'+@@(itm,"$dbname")+'</nombre>
-                        <id>'+@@(itm,"$id")+'</id>
-                        <nic>'+ifstr(trim(nic)!="",nic,@@(itm,"$nic"))+'</nic>
-                        <status>'+str(status)+'</status>
-                        </Serie_E_DBInfo>'
-
-                new cnns
+                if @IS_V12
                 {
-                    @"nombre":@@(itm,"$")
-                    @"id":@@(itm,"$")
-                    @"nic":@@(itm,"$")
-                    @"status":status
+                    ref data=dbr.list(db,"select * from serie_dbs",@null)
+                    xml=GetDnInfo(db,nic,data,l)
+                    if not(field.exist(params,"qname")){do rise_error(500,"No ha definido un qname")}
+                    
+                    params<"namebd">:ifstr(@@(get,"$dbtype")=="contabilidad",@name_bd_conta_v12,@name_bd_v12)
+
+                    ref cnns=gse.createCnns(params)
+                    xml=xml + XmlSerieStr(cnns,nic)
                 }
-                do list.add(l,cnns)
+            }
+            else 
+            {
+                //esto solo para epifania induxsoft
+                if not(isset("@sql_list_serie_dbs")){do rise_error(500,"No ha definido la consulta @sql_list_serie_dbs")}
+
+                for i = 0; i < @count(listaNics)
+                {
+                    ref dtnic=@item(listaNics,i)
+                    ref data=dbr.list(db,@sql_list_serie_dbs,dtnic)
+                    if @count(data)>0
+                    {
+                        r=GetDnInfo(db,nic,data,l)
+                        xml=xml + r
+                    }
+                }
             }
         }
 
@@ -358,13 +439,55 @@ module ":gse"
 
         return emisor
     }
+    GetInfoPerfil::&db,&params
+    {
+        if not(isset("@sql_GetInfoPerfil")){do rise_error(500,"No ha definido la consulta: @sql_GetInfoPerfil")}
+
+        return dbr.rec(db,ftext(@sql_GetInfoPerfil),params)
+    }
+    GetInfoUser::&db,&p
+    {
+        if not(isset("@sql_GetInfoUser")){do rise_error(500,"No ha definido la consulta: @sql_GetInfoUser")}
+
+        return dbr.rec(db,ftext(@sql_GetInfoUser),p)
+    }
+    #! GetListNicByPerfil::&db,&userCurrent
+    {
+        if not(isset("@sql_GetListNicByPerfil")){do rise_error(500,"No ha definido la consulta: @sql_GetListNicByPerfil")}
+
+        return dbr.list(db,ftext(@sql_GetListNicByPerfil),userCurrent)
+    }
     #! listarNIC::&db,&params
     {
+        if not(@IS_V12)
+        {
+            xml=""
+
+            ref listaNics=GetListNicByPerfil(db,@@(params,"&userCurrent"))
+
+            for i = 0; i < @count(listaNics)
+            {
+                ref nic=@item(listaNics,i)
+                xml=xml + '
+                <NIC>
+                        <Codigo>'+@@(nic,"$nic")+'</Codigo>
+                        <Nombre>'+@@(nic,"$cliente")+'</Nombre>
+                </NIC>'
+            }
+
+            new data
+            {
+                @"response":xml
+            }
+            return data
+        }
+        nombre=""
         ref emisor=gse.get_emisor(db,params)
         if isnull(emisor)
         {
             nic=@NIC
             nombre=dbr.vars.get(db,"FXCA100")
+            exception{}
             if trim(nombre)==""{nombre="Mi empresa"}
             new emisor
             {
@@ -377,6 +500,7 @@ module ":gse"
         {
             nic=@@(emisor,"$nic")
             nombre=dbr.vars.get(db,"FXCA100")
+            exception{}
             if trim(nombre)==""{nombre="Mi empresa"}
             emisor<"nombre">:nombre
         }
@@ -394,7 +518,6 @@ module ":gse"
             </NIC>'
         }
         
-
 
         new data
         {
@@ -440,12 +563,25 @@ module ":gse"
     }
     CreateUser::&db,&params
     {
-        ref user=dbr.rec(db,"select locked,message,notes,pwd,userid,username,pwdmd5 from tuser t where userid=@idperfil",params)
-        if isnull(user){do rise_error(500,"No existe el usuario en la base de datos origen")}
+        if @IS_V12
+        {
+            ref user=dbr.rec(db,"select locked,message,notes,pwd,userid,username,pwdmd5 from tuser t where userid=@idperfil",params)
+            if isnull(user){do rise_error(500,"No existe el usuario en la base de datos origen")}
 
-        ref serie=dbr.rec(db,"select * from serie_dbs s where s.dbname=@bd",params)
+            ref serie=dbr.rec(db,"select * from serie_dbs s where s.dbname=@bd",params)
+            qname=@@(serie,"$id")+"@"+@app
+        }
+        else 
+        {
+            new p{@"id":@@(params,"$idperfil")}
+            ref user=GetInfoUser(db,p)
+            if isnull(user){do rise_error(500,"No se pudo identificar al perfil: "+@@(params,"$idperfil"))}
 
-        qname=@@(serie,"$id")+"@"+@app
+            ref serie=dbr.rec(db,"select * from serie_dbs s where s.nic=@nic and s.dbname=@bd limit 1",params)
+            qname=@_PREFIXBD_CNNS+@@(serie,"$id")+"@"+@app
+
+            ref user=record.copy(user,"locked,message,notes,pwd,userid,username,pwdmd5")
+        }
 
         ref database=dbr.open(qname)
 
@@ -479,10 +615,22 @@ module ":gse"
     }
     quitarUser::&db,&params
     {
-        ref serie=dbr.rec(db,"select * from serie_dbs s where s.dbname=@bd",params)
+        if @IS_V12
+        {
+            ref serie=dbr.rec(db,"select * from serie_dbs s where s.dbname=@bd",params)
+            qname=@@(serie,"$id")+"@"+@app
+        }
+        else 
+        {
+            new p{@"id":@@(params,"$idperfil")}
+            ref user=GetInfoUser(db,p)
+            if isnull(user){do rise_error(500,"No se pudo identificar al perfil: "+@@(params,"$idperfil"))}
 
-        qname=@@(serie,"$id")+"@"+@app
+            ref serie=dbr.rec(db,"select * from serie_dbs s where s.nic=@nic and s.dbname=@bd limit 1",params)
+            qname=@_PREFIXBD_CNNS+@@(serie,"$id")+"@"+@app
 
+            ref user=record.copy(user,"locked,message,notes,pwd,userid,username,pwdmd5")
+        }
         ref database=dbr.open(qname)
         ref user=dbr.rec(database,"select * from tuser where userid=@idperfil",params)
         do dbr.delete(database,"user_usergroup_","users=@sys_pk",user)

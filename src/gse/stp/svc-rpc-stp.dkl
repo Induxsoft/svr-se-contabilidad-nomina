@@ -49,8 +49,8 @@ module "test"
 	ref data_res=@null
 
 	do gse.resetConnection()
-
-	if tolower(@@(p,"$cmd"))=="connect" && @@(p,"$app")==@app
+	//esntrará al if si el servicio se esta usando en v12 , la variebale @IS_V12 debe estar en true
+	if tolower(@@(p,"$cmd"))=="connect" && @@(p,"$app")==@app && @IS_V12
 	{
 		ref params=record.copy(p,"user,pwd")
 		params<"onlyuser">:@true
@@ -115,7 +115,7 @@ module "test"
 		res=to.json(data_res)
 	}
 
-	@http_context<"response/headers/Content-Type">:"application/json;charset=utf-8"
+	@http_context<"response/headers/Content-Type">:"text/plain;charset=utf-8"
     @http_context<"response/output">:"text"
     @http_context<"response/text">:res
 }

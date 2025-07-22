@@ -1,0 +1,92 @@
+#include "dkli.dkh"
+#!
+module ""
+{
+    #include "functions.dkh"
+    #include "serialize.dkh"
+    #include "website.dkl"
+    #include "svc-soap.dkh"
+    
+    //mapeo binario
+    ref @import = _import_library("induxsoft.SE.Import.WS.dll")
+    do _map_function(@import,"induxsoft.SE.Import.WS.index","ListTemplates","ListTemplates","System.String,System.String,System.String,System.String","*")
+    do _map_function(@import,"induxsoft.SE.Import.WS.index","ListTemplatesSerialize","ListTemplatesSerialize","System.String,System.String,System.String,System.String","$")
+    do _map_function(@import,"induxsoft.SE.Import.WS.index","GetCatalog","GetCatalog","System.String,System.String,System.String,System.String,System.String,System.String","*")
+    do _map_function(@import,"induxsoft.SE.Import.WS.index","GetPreview","GetPreview","System.String,System.String,System.String,System.String,System.String","*")
+    do _map_function(@import,"induxsoft.SE.Import.WS.index","Import","Import","System.String,System.String,System.String,System.String,System.String,*System.Data.DataTable","$")
+    do _map_function(@import,"induxsoft.SE.Import.WS.index","GetInfo","GetInfo","System.String,System.Int32","$")
+    do _map_function(@import,"induxsoft.SE.Import.WS.index","Serialize","Serialize","induxsoft.SE.Import.infoTemplate","$")
+    do _map_function(@import,"induxsoft.SE.Import.WS.index","ConvertXmlToDataTable","ConvertXmlToDataTable","System.String","*")
+    ref import=_new(@import,"induxsoft.SE.Import.WS.index")
+
+    //utilidades
+    // do _map_function(-1, "System.Collections.Generic.List`1[induxsoft.SE.Import.infoTemplate]", "ToArray", "ToArray","void","*")
+    do _map_function(-1,"System.Convert","FromBase64String","FromBase64String","System.String","*")
+    do _map_function(-1,"System.Convert","ToBase64String","ToBase64String","*System.Byte[]","$")
+
+    xml=field.dstr(@http_context,"request/post_string","")
+    if trim(xml)==""{do rise_error(500,"Parámetros incompletos")}
+
+    ref xmlTree=parse.xmlStr(xml)
+
+    ref op=soap.GetOperations(xmlTree)
+
+    response=""
+    
+    for i = 0; i <@count(op)
+    {
+        operation=list.str(op,i)
+        ref params=soap.GetParameters(xmlTree,operation)
+        
+        t=""
+        switch tolower(operation)
+        {
+            case "listtemplates"
+            {
+                t=_invoke(import,"ListTemplatesSerialize",@@(params,"$connectionId"),@@(params,"$appId"),@@(params,"$sessionId"),@@(params,"$module"))
+                t=replace(t,'<?xml version="1.0" encoding="utf-16"?>',"")
+                break
+            }
+            case "getcatalog"
+            {
+                ref tble=_invoke(import,"GetCatalog",@@(params,"$connectionId"),@@(params,"$appId"),@@(params,"$sessionId"),@@(params,"$module"),@@(params,"$templateId"),@@(params,"$catalogId"))
+                t=to.json(tble)
+            }
+            case "getpreview"
+            {
+                ref table=_invoke(import,"GetPreview",@@(params,"$connectionId"),@@(params,"$appId"),@@(params,"$sessionId"),@@(params,"$module"),@@(params,"$templateId"))
+                t=to.json(table)
+                break
+            }
+            case "import"
+            {
+                ref _body=soap.primerElementoHijoPorNombre(xmlTree,"soap:Body")
+                ref _import=soap.primerElementoHijoPorNombre(_body,"Import")
+                ref _data=soap.primerElementoHijoPorNombre(_import,"data")
+
+                _xml=to.xml(_data)
+                ref table=_invoke(import,"ConvertXmlToDataTable",_xml)
+              
+                t=_invoke(import,"Import",@@(params,"$connectionId"),@@(params,"$appId"),@@(params,"$sessionId"),@@(params,"$module"),@@(params,"$templateId"),table)
+                break
+            }
+            case "getinfo"
+            {
+                t=_invoke(import,"GetInfo",@@(params,"$id"),@@(params,"#offeset"))
+                break
+            }
+        }
+        response=soap.Envelope(operation,"http://tempuri.org/",t)
+    }
+
+    
+    exception
+    {
+        error=soap.DefaultError(last_error())
+        response=soap.Body(error)
+    }
+
+    @http_context<"response/headers/content-type">:"text/xml;charset=utf-8"
+    @http_context<"response/output">:"text"
+    @http_context<"response/text">:response
+}
