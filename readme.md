@@ -63,6 +63,8 @@ Para crear el sitio Web a través del cual se accederá al sistema V12 use la he
 ./dkl connectv12 "db=miconexion@grupoapps" "host=sudominio-o-host.com"
 ```
 
+
+
 ## Nota general
 ```
 - Es importante tener presente que cualquier modificación en los archivos paths.cfg o server.devkron debe realizarse con pleno conocimiento de lo que se está cambiando, ya que estos archivos definen rutas y configuraciones críticas del servicio.
@@ -73,3 +75,12 @@ Para crear el sitio Web a través del cual se accederá al sistema V12 use la he
 
 - Vaciar la caché de los DNS en Windows: ipconfig /flushdns
 ```
+
+## Manual del usuario
+
+El manual de usuario está disponible aquí: <https://docs.induxsoft.net/es/productos/v12/users/gse/>
+
+## Código fuente
+
+Todo el código está disponible en la carpeta [src](https://github.com/Induxsoft/svr-se-contabilidad-nomina/tree/main/src) 
+
